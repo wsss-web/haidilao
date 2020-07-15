@@ -5,18 +5,17 @@ import {
   HashRouter,
   // hashHistory
 } from "react-router-dom";
-import Like from '../views/like.js'
-// import Life from '../views/life.js'
-import main from '../views/main.js'
-import Friends from '../views/friend.js'
-import My from '../views/my.js'
+import Classify from '../views/fenlei/classify.js'
+import Home from '../views/home/main.js'
+import Charts from '../views/cart/chart.js'
+import My from '../views/my/my.js'
 export default function Bar() {
   return (
     <HashRouter>
         <Switch>
-            <Route exact path="/like" component={Like}/>
-			<Route exact path="/" component={main}/>
-			<Route exact path="/friends" component={Friends}/>
+            <Route exact path="/classify" component={Classify}/>
+			<Route exact path="/" component={Home}/>
+			<Route exact path="/chart" component={Charts}/>
 			<Route exact path="/my" component={My}/>
         </Switch>
     </HashRouter>

@@ -29,8 +29,8 @@ class Tablebar extends React.Component {
 		  // noRenderContent = {true}
         >
           <TabBar.Item
-            title="Life"
-            key="Life"
+            title="首页"
+            key="首页"
             icon={<div style={{
               width: '22px',
               height: '22px',
@@ -71,21 +71,21 @@ class Tablebar extends React.Component {
                 background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
               />
             }
-            title="Koubei"
-            key="Koubei"
+            title="分类"
+            key="分类"
             badge={'new'}
-			selected={this.props.history.location.pathname === '/like'}
+			selected={this.props.history.location.pathname === '/classify'}
             // selected={this.state.selectedTab === 'redTab'}
             onPress={() => {
 				this.setState({
 				  selectedTab: 'yellowTab',
 				});
-			  this.props.history.push('/like')
+			  this.props.history.push('/classify')
 			  console.log(this.props)
             }}
             data-seed="logId1"
           >
-            {this.renderContent('Koubei')}
+            {this.renderContent('Classify')}
           </TabBar.Item>
           <TabBar.Item
             icon={
@@ -102,25 +102,25 @@ class Tablebar extends React.Component {
                 background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat' }}
               />
             }
-            title="Friend"
-            key="Friend"
+            title="购物车"
+            key="购物车"
             dot
             // selected={this.state.selectedTab === 'greenTab'}
-			selected={this.props.history.location.pathname === '/friends'}
+			selected={this.props.history.location.pathname === '/chart'}
             onPress={() => {
               // this.setState({
               //   selectedTab: 'greenTab',
               // });
-			  this.props.history.push('/friends')
+			  this.props.history.push('/chart')
             }}
           >
-            {this.renderContent('Friend')}
+            {this.renderContent('Charts')}
           </TabBar.Item>
           <TabBar.Item
             icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
             selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-            title="My"
-            key="my"
+            title="我的"
+            key="我的"
             // selected={this.state.selectedTab === 'yellowTab'}
 			selected={this.props.history.location.pathname === '/my'}
             onPress={() => {
