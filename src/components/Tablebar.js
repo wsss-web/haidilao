@@ -47,15 +47,6 @@ class Tablebar extends React.Component {
             />
             }
             // selected={this.state.selectedTab === 'blueTab'}
-<<<<<<< HEAD
-			      selected={this.props.history.location.pathname === '/'}
-            onPress={() => {
-              // this.setState({
-              //   selectedTab: 'yellowTab',
-              // });
-              this.props.history.push('/')
-              console.log(this.props)
-=======
 			selected={this.props.history.location.pathname === '/home'}
             badge={1}
             onPress={() => {
@@ -64,7 +55,6 @@ class Tablebar extends React.Component {
 			// });
 			  this.props.history.push('/home')
 			  console.log(this.props)
->>>>>>> d9abea02c3c4fe08c00a2017b513209ae899e896
             }}
             data-seed="logId"
           >
