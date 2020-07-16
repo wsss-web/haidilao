@@ -14,7 +14,7 @@ export default function Bar() {
   return (
     <HashRouter>
         <Switch>
-            <Route exact path="/like" component={Like}/>
+      <Route exact path="/like" component={Like}/>
 			<Route exact path="/" component={main}/>
 			<Route exact path="/friends" component={Friends}/>
 			<Route exact path="/my" component={My}/>
