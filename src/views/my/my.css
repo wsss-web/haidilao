@@ -4,7 +4,7 @@ body{
 .Rhome{
 	height: 30px;
 	width: 30px;
-	background-image: url(../icon/Rhome.png);
+	background-image: url(../../icon/Rhome.png);
 	background-position: center;
 	background-size: cover;
 	border: none;
@@ -38,6 +38,7 @@ body{
 	display: inline-block;
 	margin-left: 8px;
 	color: white;
+	text-align: left;
 }
 .my_card{
 	margin-top: 5px;
@@ -58,6 +59,7 @@ body{
 	box-sizing: border-box;
 }
 .my_dan{
+	text-align: left;
 	padding: 13px 0px;
 	border-bottom: 1px solid rgb(242, 242, 242);
 }
@@ -98,4 +100,7 @@ body{
 }
 .my_tian{
 	height: 110px;
+}
+.am-list{
+	width: 100% !important;
 }

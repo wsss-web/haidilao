@@ -1,5 +1,5 @@
 import React from 'react'
-import Tablebar from '../components/Tablebar.js'
+import Tablebar from '../../components/Tablebar'
 import './my.css'
 import { List } from 'antd-mobile';
 const Item = List.Item;
@@ -13,7 +13,7 @@ var My = createReactClass({
 					<div className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
 				</div>
 				<div className='mytop'>
-					<img className='my_head' src={require('../icon/my_header.png')} />
+					<img className='my_head' src={require('../../icon/my_header.png')} />
 					<div className='my_name'>
 						<div>去海滩捉鱼</div>
 						<div style={{marginTop:8}}>15890175670</div>
@@ -24,23 +24,23 @@ var My = createReactClass({
 					<div className='my_dan'>我的订单</div>
 					<ul className='my_huo'>
 						<li>
-							<img src={require('../icon/my1.png')} />
+							<img src={require('../../icon/my1.png')} />
 							<div>待付款</div>
 						</li>
 						<li>
-						    <img src={require('../icon/my2.png')} />
+						    <img src={require('../../icon/my2.png')} />
 							<div>待发货</div>
 						</li>
 						<li>
-						    <img src={require('../icon/my3.png')} />
+						    <img src={require('../../icon/my3.png')} />
 							<div>待收货</div>
 						</li>
 						<li>
-						    <img src={require('../icon/my4.png')} />
+						    <img src={require('../../icon/my4.png')} />
 							<div>已完成</div>
 						</li>
 						<li>
-						    <img src={require('../icon/my5.png')} />
+						    <img src={require('../../icon/my5.png')} />
 							<div>售后</div>
 						</li>
 					</ul>
