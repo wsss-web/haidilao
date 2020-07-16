@@ -1,0 +1,37 @@
+html,body{
+	height: 100%;
+}
+body{
+/* 	background-image: url(../../assets/icons/背景.jpg);
+	background-position: center;
+	background-size: cover; */
+/* 	background-color: #000080; */
+background-repeat: no-repeat;
+}
+.from{
+	margin-top: 6rem;
+}
+.btn{
+	margin: auto;
+	margin-top: 2rem;
+}
+.logo{
+	margin-top: 8rem;
+}
+.am-list{
+	margin: 0 auto;
+	width: 90%;
+	background-color: transparent;
+}
+.am-list-body{
+	background-color: transparent;
+}
+.am-list-item.am-input-item{
+	background-color: transparent
+}
+.am-button-primary{
+	background-color: rgb(246,1,0);
+}
+.bottom{
+	margin-top: 1rem;
+}
