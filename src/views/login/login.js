@@ -13,7 +13,7 @@ var Login = createReactClass({
 	render: function (){
 		const { getFieldProps } = this.props.form;
 		    return (
-			<div>
+			<div style={{textAlign: 'center'}}>
 				<img class="logo" src="https://www.haidilao.com/english/2019/07/2019071713424793214.png" alt="" />
 				<div class="from">
 								<List>

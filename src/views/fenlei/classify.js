@@ -3,6 +3,7 @@ import Tablebar from '../../components/Tablebar.js'
 import Head from '../../components/head.js'
 import { Tabs, WhiteSpace, SearchBar } from 'antd-mobile';
 import './classify.css'
+import Demo from './list.js'
 export default class Classify extends React.Component {
 	constructor(props) {
 	    super(props)
@@ -50,54 +51,54 @@ export default class Classify extends React.Component {
 					  <SearchBar placeholder="搜索" ref={ref => this.autoFocusInst = ref} />
 				</div>
 				<div className="left_con" style={{ height: 600 }}>,
-						<Tabs tabs={tabs} initialPage={2} animated={false} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'}>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-							'全部商品'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-							'商品'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-							'生鲜'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'特惠套餐'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'酒水饮料'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'零食'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'调味料'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'佐餐酱'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'方便速食'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'玩具'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'周边用品'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'优惠券'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'代金券'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'其他'
-						  </div>
-						  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
-						  	'腾讯会员卡'
-						  </div>
-						  
-						</Tabs>
+					<Tabs tabs={tabs} initialPage={2} animated={false} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'}>
+					  <div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>,
+						<Demo />
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'商品'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'生鲜'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'特惠套餐'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'酒水饮料'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'零食'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'调味料'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'佐餐酱'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'方便速食'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'玩具'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'周边用品'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'优惠券'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'代金券'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'其他'
+					  </div>
+					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
+						'腾讯会员卡'
+					  </div>
+					  
+					</Tabs>
 						<WhiteSpace />
 				</div>
 				<Tablebar history={this.props.history}/>
