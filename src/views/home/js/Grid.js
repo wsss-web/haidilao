@@ -35,11 +35,11 @@ class MyGrid extends React.Component{ // eslint-disable-next-line
   render(){
     return(
       <div style={{ position:"relative", top:"-50px" }}>
-    <Grid data={data} activeStyle={false}
-      onClick={(el, index) => this.aaa(index)
-        // console.log(el.text,index)
-      }
-    ></Grid>
+        <Grid data={data} activeStyle={false} 
+          onClick={(el, index) => this.aaa(index)
+            // console.log(el.text,index)
+          }
+        ></Grid>
   </div>
     )
   }

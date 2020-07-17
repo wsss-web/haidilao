@@ -185,7 +185,7 @@ export default class Demo extends React.Component {
           overflow: 'auto',
         }}
         pageSize={4}
-        onScroll={() => { console.log('scroll'); }}
+        // onScroll={() => { console.log('scroll'); }}
         // scrollRenderAheadDistance={500}
         // onEndReached={this.onEndReached}
         // onEndReachedThreshold={10}
