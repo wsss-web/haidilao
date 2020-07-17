@@ -1,6 +1,8 @@
 /* eslint no-dupe-keys: 0, no-mixed-operators: 0 */
 import { ListView } from 'antd-mobile';
 import React from 'react'
+// import ReactDOM from 'react-dom'
+import './classify.css'
 function MyBody(props) {
   return (
     <div className="am-list-body my-body">
@@ -92,7 +94,6 @@ export default class Demo extends React.Component {
     setTimeout(() => this.lv.scrollTo(0, 120), 800);
 
     // const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-    
     // simulate initial Ajax
     // setTimeout(() => {
     //   genData();
@@ -159,11 +160,11 @@ export default class Demo extends React.Component {
           <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0', alignItems: 'center'}}>
             <img style={{ height: '110px', marginRight: '15px' }} src={obj.img} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>,
+              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
 			  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已换购 11111</span></div>
               <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥:35</span></div>
             </div>
-				<img src={require("../../../assets/icons/home.png")} alt="" style={{width: '20px'}}></img>
+				<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px'}}></img>
           </div>
         </div>
       );
@@ -184,7 +185,7 @@ export default class Demo extends React.Component {
           overflow: 'auto',
         }}
         pageSize={4}
-        // onScroll={() => { console.log('scroll'); }}
+        onScroll={() => { console.log('scroll'); }}
         // scrollRenderAheadDistance={500}
         // onEndReached={this.onEndReached}
         // onEndReachedThreshold={10}

@@ -1,0 +1,111 @@
+body{
+	background-color: #f0f0f0;
+}
+.Rhome{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/Rhome.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.my_view{
+	overflow: auto;
+}
+.my_title{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 12px;
+	font-size: 14px;
+	background-color: white;
+}
+.mytop{
+	margin-top: 2px;
+	padding:36px 0px;
+	width: 100%;
+	background:linear-gradient(135deg, rgb(248,65,67),rgb(209,35,36));
+	display: flex;
+	align-items: center;
+}
+.my_head{
+	width: 60px;
+	height: 60px;
+	background-color: rgb(242, 242, 242);
+	border-radius: 50%;
+	margin-left: 13px;
+}
+.my_name{
+	display: inline-block;
+	margin-left: 8px;
+	color: white;
+	text-align: left;
+}
+.my_card{
+	margin-top: 5px;
+	padding: 2px 0px;
+	background:linear-gradient(90deg, rgb(249,133,46),rgb(255,183,142));
+	width: 70px;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 13px;
+	color: rgb(138,53,8);
+}
+.my_ding{
+	width: 100%;
+	/* height: 100px; */
+	background-color: white;
+	margin: 7px 0px 7px 0px;
+	/* padding: 0px 12px 0px 12px; */
+	box-sizing: border-box;
+}
+.my_dan{
+	text-align: left;
+	padding: 13px 0px;
+	border-bottom: 1px solid rgb(242, 242, 242);
+}
+*{
+	padding: 0;
+	margin: 0;
+}
+.my_huo{
+	/* padding: 16px 0px; */
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	padding: 16px 12px 16px 12px;
+	/* justify-content: center; */
+}
+.my_huo>li{
+	list-style: none;
+	width: 61px;
+	/* flex: 1; */
+	text-align: center;
+	color: #787878;
+	font-size: 12.5px;
+}
+.my_huo>li>img{
+	width: 32px;
+	height: 30px;
+}
+.my_huo>li>div{
+	margin-top: 2px;
+}
+.my-list .spe .am-list-extra {
+	flex-basis: initial;
+  }
+.am-list-item .am-list-line .am-list-content{
+	font-size: 14px;
+}
+.am-list-item{
+	padding-left: 12px;
+}
+.my_tian{
+	height: 110px;
+}
+.am-list{
+	width: 100% !important;
+}
+.am-list-item .am-list-line .am-list-extra{
+	font-size: 12.5px;
+	color: #444;
+}
