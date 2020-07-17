@@ -47,14 +47,14 @@ class Tablebar extends React.Component {
             />
             }
             // selected={this.state.selectedTab === 'blueTab'}
-			selected={this.props.history.location.pathname === '/home'}
-            badge={1}
+			      selected={this.props.history.location.pathname === '/home'}
+            // badge={1}
             onPress={() => {
-			// this.setState({
-			//   selectedTab: 'yellowTab',
-			// });
-			  this.props.history.push('/home')
-			  console.log(this.props)
+			        // this.setState({
+			        //   selectedTab: 'yellowTab',
+			      // });
+			      this.props.history.push('/home')
+			        // console.log(this.props)
             }}
             data-seed="logId"
           >

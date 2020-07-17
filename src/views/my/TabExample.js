@@ -49,41 +49,12 @@ var TabExample = createReactClass({
 	}
 })
 
-
-// const TabExample = () => {
-   
-//    return <div>
-//     <Tabs tabs={tabs}
-//       initialPage={0}
-//       onChange={(tab, index) => { console.log('onChange', index, tab); }}
-//       onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-//     >
-//       <div style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
-//         <Order />
-// 		<Order />
-//       </div>
-//       <div style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
-// 	    <Order />
-//       </div>
-//       <div style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
-// 	    <Order />
-//       </div>
-// 	  <div style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
-// 	    <Order />
-//       </div>
-// 	  <div style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
-// 	    <Order />
-//       </div>
-//     </Tabs>
-//     <WhiteSpace />
-//   </div>
-// };
 class Order extends React.Component{
 	render(){
 		return <div className='order_quan'>
 		<div className='order_ordert'><span>快递订单：</span><span>666666666666</span><span className='order_dai'>待付款</span></div>
 		<div className='order_orderc'>
-			<img className='' src={require('../../icon/jiu.png')}/>
+			<img className='' src={require('../../icon/jiu.png')} alt=""/>
 			<div style={{marginLeft:10}}>
 				<div>海底捞大麦拉格啤酒500ml*12听</div>
 				<div style={{color:'red',marginTop:8}}>99.00元</div>

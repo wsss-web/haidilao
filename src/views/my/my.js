@@ -13,7 +13,7 @@ var My = createReactClass({
 					<div className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
 				</div>
 				<div className='mytop'>
-					<img className='my_head' src={require('../../icon/my_header.png')} />
+					<img className='my_head' src={require('../../icon/my_header.png')} alt=""/>
 					<div className='my_name'>
 						<div>去海滩捉鱼</div>
 						<div style={{marginTop:8}}>15890175670</div>
@@ -26,23 +26,23 @@ var My = createReactClass({
 					</List>
 					<ul className='my_huo'>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:1}})}}>
-							<img src={require('../../icon/my1.png')} />
+							<img src={require('../../icon/my1.png')} alt=""/>
 							<div>待付款</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:2}})}}>
-						    <img src={require('../../icon/my2.png')} />
+						    <img src={require('../../icon/my2.png')} alt=""/>
 							<div>待发货</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:3}})}}>
-						    <img src={require('../../icon/my3.png')} />
+						    <img src={require('../../icon/my3.png')} alt=""/>
 							<div>待收货</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:4}})}}>
-						    <img src={require('../../icon/my4.png')} />
+						    <img src={require('../../icon/my4.png')} alt=""/>
 							<div>已完成</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/odrershou',query:{a:'退款/售后',b:'暂无数据'}})}}>
-						    <img src={require('../../icon/my5.png')} />
+						    <img src={require('../../icon/my5.png')} alt=""/>
 							<div>售后</div>
 						</li>
 					</ul>
@@ -56,7 +56,7 @@ var My = createReactClass({
 })
 
 
-class ListExample extends React.Component {
+class ListExample extends React.Component { // eslint-disable-next-line
 	constructor(props){
 		super(props)
 	}
