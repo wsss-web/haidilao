@@ -2,15 +2,17 @@ html,body{
 	height: 100%;
    }
    body{
+	   background-color: white;
    /*  background-image: url(../../assets/icons/背景.jpg);
 	background-position: center;
 	background-size: cover; */
    /*  background-color: #000080; */
-   background-repeat: no-repeat;
    }
    .from{
 	margin-top: 6rem;
-   }
+	text-align: center;
+	}
+
    .btn{
 	margin: auto;
 	margin-top: 2rem;
@@ -34,4 +36,22 @@ html,body{
    }
    .bottom{
 	margin-top: 1rem;
+   }
+   .am-list-item:not(:last-child) .am-list-line::after{
+	   background: white!important;
+   }
+   .am-button{
+	overflow: unset;
+   }
+   .am-list-body::before{
+	   height: 0!important;
+   }
+   .am-list-body::after{
+	  height: 0!important;
+   }
+   .am-button-primary::before{
+	   border: none!important;
+   }
+   .am-list-line{
+	   padding: 0 15px;
    }

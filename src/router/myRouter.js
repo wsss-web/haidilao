@@ -14,6 +14,9 @@ import Order from '../views/my/odrer.js'
 import Odrershou from '../views/my/odrershou.js'
 import Login from '../views/login/login.js'
 import Myadress from '../views/my/myadress.js'
+import Forget from '../views/login/forget.js'
+import Newword from '../views/login/newword.js'
+import Register from '../views/login/register.js'
 export default function Bar() {
   return (
     <HashRouter>
@@ -27,6 +30,9 @@ export default function Bar() {
             <Route exact path="/odrershou" component={Odrershou}/>
             <Route exact path="/myadress" component={Myadress}/>
             <Route exact path="/mycang" component={Cang}/>
+            <Route exact path="/forget" component={Forget} />
+            <Route exact path="/newword" component={Newword} />
+            <Route exact path="/register" component={Register} />
         </Switch>
     </HashRouter>
   );
