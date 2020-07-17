@@ -39,8 +39,8 @@ const data = [
     des: fontNumber('选用牛后腿部位牛霖，经过排酸、绞碎、搅打成的牛肉滑，捏成丸子后，里面裹入用老鸡、火腿等精心熬制的汤冻。锅开后浮起来再煮3分钟左右即可食用。配上丸滑蘸碟，风味更突出。撒尿牛肉丸中心汤汁温度较高，食用时小心被汤汁烫到。'),
   },
 ];
-const NUM_SECTIONS = 3;
-const NUM_ROWS_PER_SECTION = 1;
+const NUM_SECTIONS = 0;
+const NUM_ROWS_PER_SECTION = 0;
 let pageIndex = 0;
 
 const dataBlobs = {};
@@ -70,15 +70,20 @@ export default class Demo extends React.Component {
     const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
     const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 
-    const dataSource = new ListView.DataSource({
-      getRowData,
-      getSectionHeaderData: getSectionData,
-      rowHasChanged: (row1, row2) => row1 !== row2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
+    // const dataSource = new ListView.DataSource({
+    //   getRowData,
+    //   getSectionHeaderData: getSectionData,
+    //   rowHasChanged: (row1, row2) => row1 !== row2,
+    //   sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+    // });
+	
+	const guize = new ListView.DataSource({
+	  rowHasChanged: (row1, row2) => row1 !== row2,
+	  sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+	});
 
     this.state = {
-      dataSource,
+      dataSource: guize.cloneWithRowsAndSections(data),
       isLoading: true,
       height: document.documentElement.clientHeight * 3 / 4,
     };
@@ -90,14 +95,14 @@ export default class Demo extends React.Component {
 
     const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
     // simulate initial Ajax
-    setTimeout(() => {
-      genData();
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-        isLoading: false,
-        height: hei,
-      });
-    }, 600);
+    // setTimeout(() => {
+    //   genData();
+    //   this.setState({
+    //     dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
+    //     isLoading: false,
+    //     height: hei,
+    //   });
+    // }, 600);
   }
 
   // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
@@ -131,10 +136,7 @@ export default class Demo extends React.Component {
       <div
         key={`${sectionID}-${rowID}`}
         style={{
-          backgroundColor: '#F5F5F9',
-          height: 8,
-          borderTop: '1px solid #ECECED',
-          borderBottom: '1px solid #ECECED',
+          backgroundColor: 'white',
         }}
       />
     );
@@ -158,7 +160,7 @@ export default class Demo extends React.Component {
           <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0', alignItems: 'center'}}>
             <img style={{ height: '110px', marginRight: '15px' }} src={obj.img} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>,
+              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
 			  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已换购 11111</span></div>
               <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥:35</span></div>
             </div>
@@ -184,9 +186,9 @@ export default class Demo extends React.Component {
         }}
         pageSize={4}
         onScroll={() => { console.log('scroll'); }}
-        scrollRenderAheadDistance={500}
-        onEndReached={this.onEndReached}
-        onEndReachedThreshold={10}
+        // scrollRenderAheadDistance={500}
+        // onEndReached={this.onEndReached}
+        // onEndReachedThreshold={10}
       />
     );
   }

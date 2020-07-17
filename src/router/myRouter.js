@@ -10,6 +10,9 @@ import Home from '../views/home/main.js'
 import Charts from '../views/cart/chart.js'
 import My from '../views/my/my.js'
 import Login from '../views/login/login.js'
+import Forget from '../views/login/forget.js'
+import Newword from '../views/login/newword.js'
+import Register from '../views/login/register.js'
 export default function Bar() {
   return (
     <HashRouter>
@@ -19,6 +22,9 @@ export default function Bar() {
 			<Route exact path="/chart" component={Charts}/>
 			<Route exact path="/my" component={My}/>
 			<Route exact path="/" component={Login}/>
+			<Route exact path="/forget" component={Forget} />
+			<Route exact path="/newword" component={Newword} />
+			<Route exact path="/register" component={Register} />
         </Switch>
     </HashRouter>
   );

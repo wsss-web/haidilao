@@ -46,13 +46,13 @@ export default class Classify extends React.Component {
 		];
 		return (
 			<div>
-				<Head name="分类"/>
+				<Head name="分类" history={this.props.history}/>
 				<div>
 					  <SearchBar placeholder="搜索" ref={ref => this.autoFocusInst = ref} />
 				</div>
-				<div className="left_con" style={{ height: 600 }}>,
-					<Tabs tabs={tabs} initialPage={2} animated={false} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'}>
-					  <div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>,
+				<div className="left_con" style={{ height: 600, backgroundColor: 'white'}}>
+					<Tabs tabs={tabs} initialPage={2} animated={false} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)">
+					  <div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>
 						<Demo />
 					  </div>
 					  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff' }}>
