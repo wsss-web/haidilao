@@ -1,9 +1,10 @@
 import React from 'react'
 import Tablebar from '../../components/Tablebar.js'
 import Head from '../../components/head.js'
-import { Tabs, WhiteSpace, SearchBar } from 'antd-mobile';
+import { Tabs, WhiteSpace } from 'antd-mobile';
 import './classify.css'
 import Demo from './list.js'
+import SearchBar from '../home/js/SearchBar.js'
 export default class Classify extends React.Component {
 	constructor(props) {
 	    super(props)
@@ -14,9 +15,9 @@ export default class Classify extends React.Component {
 		this.clear = this.clear.bind(this)
 		this.handleClick = this.handleClick.bind(this)
 	}
-	componentDidMount() {
-	  this.autoFocusInst.focus();
-	}
+	// componentDidMount() {
+	//   this.autoFocusInst.focus();
+	// }
 	onChange= (value) => {
 	  this.setState({ value });
 	}
@@ -47,8 +48,8 @@ export default class Classify extends React.Component {
 		return (
 			<div>
 				<Head name="分类" history={this.props.history}/>
-				<div>
-					  <SearchBar placeholder="搜索" ref={ref => this.autoFocusInst = ref} />
+				<div style={{marginBottom: '10px'}}>
+					  <SearchBar />
 				</div>
 				<div className="left_con" style={{ height: 600, backgroundColor: 'white'}}>
 					<Tabs tabs={tabs} initialPage={2} animated={false} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)">
