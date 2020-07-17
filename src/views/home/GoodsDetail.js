@@ -47,14 +47,6 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                     style={{width:"40px",height:"40px",position:"fixed",marginLeft:"20px"}}
                     alt="" />
                 </div>
-                {/* <div style={{
-                    width:"100%",
-                    height:"50px",
-                    textAlign:"center",
-                    backgroundColor:"aqua",
-                    position:"absolute",
-                    top:"617px"}}
-                >我是底部</div>       */}
                 <TabBar>
                     <TabBar.Item icon={<div style={{
                             width: '25px',
