@@ -42,7 +42,7 @@ body{
 .del_shou{
 	display: inline-block;
 	width: 70px;
-	border: 0.4px solid red;
+	border: 1px solid red;
 	border-radius: 15px;
 	padding: 6px 0px 6px 0px;
 	text-align: center;

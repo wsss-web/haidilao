@@ -28,7 +28,7 @@ class Tablebar extends React.Component {
           tabBarPosition="bottom"
           hidden={this.state.hidden}
           prerenderingSiblingsNumber={0}
-		  noRenderContent = {true}
+		      noRenderContent = {true}
         >
           <TabBar.Item
             title="首页"
