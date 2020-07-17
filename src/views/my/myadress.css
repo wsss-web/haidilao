@@ -50,7 +50,7 @@ body{
 	padding: 2px 0px 1px 0px;
 }
 .shou_di{
-	border: 0.4px solid red;
+	border: 1px solid red;
 	width: 48px;
 	padding: 3px 0px 3px 0px;
 	border-radius: 15px;
@@ -60,8 +60,8 @@ body{
 	justify-content: center;
 }
 .shou_bian{
-	border: 0.4px solid red;
-	width: 60px;
+	border: 1px solid red;
+	width: 70px;
 	padding: 3px 0px 3px 0px;
 	text-align: center;
 	border-radius: 4px;

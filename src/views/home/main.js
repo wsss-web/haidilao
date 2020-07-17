@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, Icon, Button, WingBlank } from 'antd-mobile';
+import { NavBar, Icon, WingBlank } from 'antd-mobile';
 import './css/main.css'
 import Tablebar from '../../components/Tablebar.js'
 import SearchBar from './js/SearchBar.js'

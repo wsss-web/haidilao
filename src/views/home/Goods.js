@@ -16,10 +16,10 @@ export default class Goods extends React.Component{ // eslint-disable-next-line
         return(
             <div>
                 <Navbar name="商品列表" props={this.props}></Navbar>
-                <div onClick={this.SearchFn.bind(this)}>
+                <div onClick={this.SearchFn.bind(this)} style={{height:"38px"}}>
                     <SearchBar disabled></SearchBar>
                 </div>
-                <div>
+                <div style={{height:"550px",backgroundColor:"white",marginTop:"15px"}}>
                     <Demo></Demo>
                 </div>
             </div>
