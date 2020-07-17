@@ -20,7 +20,7 @@ class Tablebar extends React.Component {
 
   render() {
     return (
-      <div style={{ position: 'fixed',width: '100%',bottom: 0 }}>
+      <div style={{ position: 'fixed',width: '100%',bottom: 0,zIndex:1 }}>
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#FF393A"

@@ -1,0 +1,82 @@
+body{
+	background-color: #f6f6f6;
+}
+.Rorder{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/my_order.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.my_view{
+	overflow: auto;
+}
+.my_title{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 3px;
+	font-size: 14px;
+	background-color: white;
+}
+.meng{
+	width: 100%;
+	height: 204px;
+}
+.shou_quan{
+	/* height: 60px; */
+	width: 100%;
+	box-sizing: border-box;
+	background-color: white;
+	margin-top: 6px;
+	padding: 8px 14px 8px 13px;
+	font-size: 11.6px;
+	text-align: left;
+}
+.shou_ordert{
+	padding: 5px 0px 6px 2px;
+	border-bottom: 0.6px solid #eee;
+	font-size: 13px;
+	color: black;
+}
+.shou_orderc{
+	/* border-bottom: 0.6px solid #eee; */
+	display: flex;
+	align-items: center;
+}
+.shou_cao{
+	display: flex;
+	justify-content: flex-end;
+	padding: 2px 0px 1px 0px;
+}
+.shou_di{
+	border: 0.4px solid red;
+	width: 48px;
+	padding: 3px 0px 3px 0px;
+	border-radius: 15px;
+	font-size: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.shou_bian{
+	border: 0.4px solid red;
+	width: 60px;
+	padding: 3px 0px 3px 0px;
+	text-align: center;
+	border-radius: 4px;
+	font-size: 8px;
+	background-color: red;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.my_soud{
+	padding: 10px 0px 10px 0px;
+	color: #555;
+}
+.duihao{
+	width: 15px;
+	height: 15px;
+}

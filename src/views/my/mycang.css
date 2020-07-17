@@ -1,0 +1,50 @@
+body{
+	background-color: #f6f6f6;
+}
+.Rorder{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/my_order.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.my_view{
+	overflow: auto;
+}
+.my_title{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 3px;
+	font-size: 14px;
+	background-color: white;
+}
+.meng{
+	width: 100%;
+	height: 204px;
+}
+.my_quan{
+	/* height: 60px; */
+	width: 100%;
+	box-sizing: border-box;
+	background-color: white;
+	margin-top: 6px;
+	padding: 0px 14px 0px 13px;
+	font-size: 11.6px;
+	text-align: left;
+}
+.my_orderc{
+	padding: 0px 0px 0px 2px;
+	/* border-bottom: 0.6px solid #eee; */
+	display: flex;
+	align-items: center;
+}
+.del_shou{
+	display: inline-block;
+	width: 70px;
+	border: 0.4px solid red;
+	border-radius: 15px;
+	padding: 6px 0px 6px 0px;
+	text-align: center;
+	color: red;
+}
