@@ -20,6 +20,8 @@ import Beer from '../views/home/Beer.js'
 import Goods from '../views/home/Goods.js'
 import GoodsDetail from '../views/home/GoodsDetail.js'
 import Myadress from '../views/my/myadress.js'
+import Bianadress from '../views/my/bianaddress.js'
+import Addadress from '../views/my/addaddress.js'
 import Forget from '../views/login/forget.js'
 import Newword from '../views/login/newword.js'
 import Register from '../views/login/register.js'
@@ -50,6 +52,8 @@ export default function Bar() {
             <Route exact path="/forget" component={Forget} />
             <Route exact path="/newword" component={Newword} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/addaddress" component={Addadress} />
+            <Route exact path="/bianaddress" component={Bianadress} />
         </Switch>
     </HashRouter>
   );
