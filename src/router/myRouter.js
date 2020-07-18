@@ -38,13 +38,8 @@ export default function Bar() {
             <Route exact path="/vouchers" component={Vouchers}/>
             <Route exact path="/fresh" component={Fresh}/>
             <Route exact path="/beer" component={Beer}/>
-            <Route exact path="/fresh" component={Fresh}/>
             <Route exact path="/goods" component={Goods}/>
             <Route exact path="/goodsdetail" component={GoodsDetail}/>
-            <Route exact path="/home" component={Home}/>
-            <Route exact path="/chart" component={Charts}/>
-            <Route exact path="/my" component={My}/>
-            <Route exact path="/" component={Login}/>
             <Route exact path="/order" component={Order}/>
             <Route exact path="/odrershou" component={Odrershou}/>
             <Route exact path="/myadress" component={Myadress}/>

@@ -67,16 +67,6 @@ function genData(pIndex = 0) {
 export default class Demo extends React.Component {
   constructor(props) {
     super(props);
-    // const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
-    // const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
-
-    // const dataSource = new ListView.DataSource({
-    //   getRowData,
-    //   getSectionHeaderData: getSectionData,
-    //   rowHasChanged: (row1, row2) => row1 !== row2,
-    //   sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    // });
-	
 	const guize = new ListView.DataSource({
 	  rowHasChanged: (row1, row2) => row1 !== row2,
 	  sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
@@ -93,26 +83,7 @@ export default class Demo extends React.Component {
     // you can scroll to the specified position
     setTimeout(() => this.lv.scrollTo(0, 120), 800);
 
-    // const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-    // simulate initial Ajax
-    // setTimeout(() => {
-    //   genData();
-    //   this.setState({
-    //     dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-    //     isLoading: false,
-    //     height: hei,
-    //   });
-    // }, 600);
   }
-
-  // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.dataSource !== this.props.dataSource) {
-  //     this.setState({
-  //       dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.dataSource),
-  //     });
-  //   }
-  // }
 
   onEndReached = (event) => {
     // load new data
@@ -162,7 +133,7 @@ export default class Demo extends React.Component {
             <div style={{ lineHeight: 1 }}>
               <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
 			  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已换购 11111</span></div>
-              <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥:35</span></div>
+              <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ 35</span></div>
             </div>
 				<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px'}}></img>
           </div>
@@ -185,10 +156,6 @@ export default class Demo extends React.Component {
           overflow: 'auto',
         }}
         pageSize={4}
-        onScroll={() => { console.log('scroll'); }}
-        // scrollRenderAheadDistance={500}
-        // onEndReached={this.onEndReached}
-        // onEndReachedThreshold={10}
       />
     );
   }

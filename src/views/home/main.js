@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, Icon, Button, WingBlank } from 'antd-mobile';
+import { NavBar, Icon, WingBlank } from 'antd-mobile';
 import './css/main.css'
 import Tablebar from '../../components/Tablebar.js'
 import SearchBar from './js/SearchBar.js'
@@ -28,7 +28,8 @@ export default class Home extends React.Component {
 						<div style={{ position: "relative" }}>
 							<img className="user_img" src={require('../../assets/imgs/头像1.jpg')} alt=""></img>
 							<span className="user_name">豆一六</span>
-							<Button className="user_level" inline size="small">红海会员</Button>
+							<div className='user_level'>红海会员</div>
+							{/* <Button className="user_level" inline size="small">红海会员</Button> */}
 						</div>
 					</div>
 					<MyCarousel></MyCarousel>
@@ -62,13 +63,13 @@ export default class Home extends React.Component {
 						</WingBlank>
 					</div>
 					<div className="hotpot_seasoning">
-						<img className="hotpot_cover" src={require('../../assets/imgs/底料.jpg')} alt=""></img>
+						<img className="seasoning_cover" src={require('../../assets/imgs/底料.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
 								{this.state.data.map(val =>(
 									<li className="one_goods" onClick={this.GoodsDetailFn.bind(this)}>
 										<img className="goods_img" key={val} src={require(`../../assets/imgs/底料${val}.jpg`)} alt=""></img>
-										<div className="goods_name">海底捞番茄牛腩自煮火锅</div>
+										<div className="goods_name">海底捞番茄牛腩火锅底料</div>
 										<div className="goods_price">￥ 18.9</div>
 									</li>
 								))}
