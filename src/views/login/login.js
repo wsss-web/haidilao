@@ -10,12 +10,18 @@ var Login = createReactClass({
 	handleClick()  {
 		console.log(this.props.form.getFieldsValue())
 	},
+	forget() {
+		this.props.history.push('/forget')
+	},
+	register() {
+		this.props.history.push('/register')
+	},
 	render: function (){
 		const { getFieldProps } = this.props.form;
 		    return (
-			<div>
-				<img class="logo" src="https://www.haidilao.com/english/2019/07/2019071713424793214.png" alt="" />
-				<div class="from">
+			<div style={{textAlign: 'center'}}>
+				<img className="logo" src="https://www.haidilao.com/english/2019/07/2019071713424793214.png" alt="" />
+				<div className="from">
 								<List>
 				    <InputItem
 				      {...getFieldProps('userid')}
@@ -31,11 +37,11 @@ var Login = createReactClass({
 				      ref={el => this.inputRef = el}
 				    >密码</InputItem>
 								</List>
-								<div class="btn">
+								<div className="btn">
 									<Button type="primary" style={{ width: '60%', color: 'white', textAlign: 'center', display: 'block', margin:'0 auto' }} onClick={this.handleClick}>确认</Button><WhiteSpace />
 								</div>
-								<div class="bottom">
-									<span>没有账号?</span><span> | </span><span>忘记密码?</span>
+								<div className="bottom">
+									<span onClick={this.register}>没有账号?</span><span> | </span><span onClick={this.forget}>忘记密码?</span>
 								</div>
 				</div>
 			</div>

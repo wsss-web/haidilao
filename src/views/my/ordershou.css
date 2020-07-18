@@ -1,0 +1,21 @@
+body{
+	background-color: #f6f6f6;
+}
+.Rorder{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/my_order.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.my_view4{
+	overflow: auto;
+}
+.my_title4{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 3px;
+	font-size: 14px;
+	background-color: white;
+}

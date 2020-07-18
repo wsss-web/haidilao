@@ -20,7 +20,7 @@ class Tablebar extends React.Component {
 
   render() {
     return (
-      <div style={{ position: 'fixed',width: '100%',bottom: 0 }}>
+      <div style={{ position: 'fixed',width: '100%',bottom: 0,zIndex:1 }}>
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#FF393A"
@@ -28,7 +28,7 @@ class Tablebar extends React.Component {
           tabBarPosition="bottom"
           hidden={this.state.hidden}
           prerenderingSiblingsNumber={0}
-		  noRenderContent = {true}
+		      noRenderContent = {true}
         >
           <TabBar.Item
             title="首页"
@@ -47,14 +47,14 @@ class Tablebar extends React.Component {
             />
             }
             // selected={this.state.selectedTab === 'blueTab'}
-			selected={this.props.history.location.pathname === '/home'}
-            badge={1}
+			      selected={this.props.history.location.pathname === '/home'}
+            // badge={1}
             onPress={() => {
-			// this.setState({
-			//   selectedTab: 'yellowTab',
-			// });
-			  this.props.history.push('/home')
-			  console.log(this.props)
+			        // this.setState({
+			        //   selectedTab: 'yellowTab',
+			      // });
+			      this.props.history.push('/home')
+			        // console.log(this.props)
             }}
             data-seed="logId"
           >

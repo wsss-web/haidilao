@@ -4,13 +4,17 @@ import { Carousel, WingBlank } from 'antd-mobile';
 class MyCarousel extends React.Component {
   state = {
     data: ['1', '2', '3'],
-    imgHeight: 176,
+    imgs:[
+      require('../../../assets/imgs/轮播图1.jpg'),
+      require('../../../assets/imgs/轮播图2.jpg'),
+      require('../../../assets/imgs/轮播图3.jpg')
+    ]
   }
   componentDidMount() {
     // simulate img loading
     setTimeout(() => {
       this.setState({
-        data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+        data: ['1', '2', '3']
       });
     }, 100);
   }
@@ -20,25 +24,19 @@ class MyCarousel extends React.Component {
         <Carousel
           autoplay={true}
           infinite
-          style={{ position:"relative", bottom:"50px" }}
+          style={{ position:"relative", bottom:"60px" }}
         >
           {this.state.data.map(val => (
-            <a
-              key={val}
-              href="http://www.alipay.com"
-              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-            >
               <img
-                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                key={val}
+                src={this.state.imgs[val-1]}
                 alt=""
-                style={{ width: '100%', verticalAlign: 'top', borderRadius:"10px" }}
+                style={{ width: '100%', height:"160px", verticalAlign: 'top', borderRadius:"10px" }}
                 onLoad={() => {
                   // fire window resize event to change height
                   window.dispatchEvent(new Event('resize'));
-                  this.setState({ imgHeight: 'auto' });
                 }}
               />
-            </a>
           ))}
         </Carousel>
       </WingBlank>

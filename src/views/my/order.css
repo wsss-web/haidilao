@@ -1,0 +1,75 @@
+body{
+	background-color: #f0f0f0;
+}
+.Rorder{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/my_order.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.my_view3{
+	overflow: auto;
+}
+.my_title3{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 3px;
+	font-size: 14px;
+	background-color: white;
+}
+.am-tabs-default-bar-tab{
+	font-size: 12.5px;
+	color: black;
+}
+.am-tabs-default-bar-underline{
+	border: 0.3px red solid;
+}
+.order_quan{
+	/* height: 60px; */
+	width: 100%;
+	box-sizing: border-box;
+	background-color: white;
+	margin-top: 6px;
+	padding: 8px 14px 8px 13px;
+	font-size: 11.6px;
+	text-align: left;
+}
+.order_ordert{
+	padding: 5px 0px 6px 2px;
+	border-bottom: 0.6px solid #eee;
+}
+.order_dai{
+	float: right;
+	color: red;
+}
+.order_orderc{
+	padding: 0px 0px 0px 2px;
+	border-bottom: 0.6px solid #eee;
+	display: flex;
+	align-items: center;
+}
+.order_orderb{
+	display: flex;
+	justify-content: center;
+	padding: 10px 0px 1px 0px;
+}
+.order_qu{
+	border: 1px solid red;
+	flex: 0.5;
+	padding: 6px 0px 6px 0px;
+	text-align: center;
+	border-radius: 15px;
+}
+.order_qu1{
+	border: 1px solid #333;
+}
+.order_zong{
+	flex: 1.3;
+	display: flex;
+	align-items: center;
+}
+/* .am-tabs-default-bar-tab{
+	justify-content: space-between;
+} */

@@ -11,13 +11,18 @@ body{
 }
 .my_view{
 	overflow: auto;
+	padding-top: 46px;
 }
 .my_title{
+	width: 100%;
 	display: flex;
 	align-items: center;
-	padding: 8px 12px 8px 12px;
-	font-size: 13px;
+	padding: 8px 12px 8px 10px;
+	font-size: 14px;
 	background-color: white;
+	position: fixed;
+	top: 0;
+	z-index: 10;
 }
 .mytop{
 	margin-top: 2px;
@@ -55,7 +60,7 @@ body{
 	/* height: 100px; */
 	background-color: white;
 	margin: 7px 0px 7px 0px;
-	padding: 0px 12px 0px 12px;
+	/* padding: 0px 12px 0px 12px; */
 	box-sizing: border-box;
 }
 .my_dan{
@@ -68,10 +73,11 @@ body{
 	margin: 0;
 }
 .my_huo{
-	padding: 16px 0px;
+	/* padding: 16px 0px; */
 	list-style: none;
 	display: flex;
 	justify-content: space-between;
+	padding: 16px 12px 16px 12px;
 	/* justify-content: center; */
 }
 .my_huo>li{
@@ -96,11 +102,18 @@ body{
 	font-size: 14px;
 }
 .am-list-item{
-	padding-left: 12px;
+	padding-left: 0px;
 }
 .my_tian{
 	height: 110px;
 }
 .am-list{
 	width: 100% !important;
+}
+.am-list-item .am-list-line .am-list-extra{
+	font-size: 12.5px;
+	color: #444;
+}
+.my_view .am-list-item .am-list-line{
+	border-bottom: 1px solid #eee;
 }

@@ -1,3 +1,6 @@
+#root,.App{
+	height: 667px;
+}
 .am-tabs-default-bar-content{
 	height: 40%!important;
 }
@@ -11,5 +14,24 @@
 .sub-title {
   color: #888;
   font-size: 14px;
-  padding: 30px 0 18px 0;
+  padding: 15px 0 9px 15px;
+}
+.not-square-grid .am-grid-icon {
+  width: 40px;
+  height: 60px;
+}
+.am-grid{
+	width: 100%;
+}
+.not-square-grid .am-grid-icon{
+	width: 120px;
+	height: 180px;
+	margin: 16px 15px 10px 0px;
+}
+.con_right{
+	display: flex;
+	flex-direction: column;
+}
+.am-list{
+	position: unset!important;
 }
