@@ -11,6 +11,7 @@ class SearchBarExample extends React.Component {
 	}
 	submit = (a) => {
 		console.log(a)
+		this.props.getvalue(a)
 		this.setState({
 			value: a
 		})

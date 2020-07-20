@@ -12,7 +12,9 @@ export default class Classify extends React.Component {
 		this.state = {
 			index: '',
 			title: '',
-			goods: [] 
+			goods: [] ,
+			searchmsg: '',
+			sou: ''
 		}
 		this.onChange = this.onChange.bind(this)
 		this.clear = this.clear.bind(this)
@@ -25,7 +27,7 @@ export default class Classify extends React.Component {
 	componentDidMount(){
 	// componentWillMount(){
 		var that = this
-		axios.post('http://localhost:3001/goodsInfoMana')
+		axios.post('http://localhost:3001/goodsInfoMana', {data:{status: 4}})
 			.then(
 				function(res){
 					console.log(res)
@@ -57,6 +59,13 @@ export default class Classify extends React.Component {
 			index: index
 		})
 	}
+	getsearch = (searchmsg) => {
+		this.setState({
+			sou: searchmsg
+		})
+		console.log(searchmsg)
+	}
+	
 	render111() {
 		return (
 			<div>
@@ -68,9 +77,9 @@ export default class Classify extends React.Component {
 		const tabs = [
 		  { title: '全部商品' },
 		  { title: '生鲜' },
-		  { title: '特惠套餐' },
-		  { title: '酒水饮料' },
-		  { title: '零食' },
+		  { title: '火锅' },
+		  { title: '火锅底料' },
+		  { title: '啤酒' },
 		  { title: '调味料' },
 		  { title: '佐餐酱' },
 		  { title: '方便速食' },
@@ -84,7 +93,7 @@ export default class Classify extends React.Component {
 		const Lis = tabs.map((tab,index) =>
 			{
 				return (<div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>
-						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title}/>
+						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou}/>
 							
 					</div>)
 			}
@@ -93,10 +102,10 @@ export default class Classify extends React.Component {
 			<div>
 				<Head name="分类" history={this.props.history}/>
 				<div style={{marginBottom: '10px'}}>
-					  <SearchBar />
+					  <SearchBar getvalue = {this.getsearch}/>
 				</div>
 				<div className="left_con" style={{ height: 520, backgroundColor: 'white'}}>
-					<Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)" onChange={this.tabchange}>
+					<Tabs tabs={tabs} initialPage={0} animated={true} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)" onTabClick={this.tabchange}>
 						{Lis}
 					</Tabs>
 						<WhiteSpace />
