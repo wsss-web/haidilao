@@ -47,6 +47,7 @@ export default class XXX extends React.Component{
 			title: '',
 			index: ''
 		}
+		this.addgoods = this.addgoods.bind(this)
 	}
 	componentWillReceiveProps(a){
 		console.log('7777')
@@ -56,20 +57,44 @@ export default class XXX extends React.Component{
 	})
 		console.log(goods)
 		if( goods.length != 0 ){
+			console.log(44444)
 			this.setState({
 				goods: goods,
 				title: a.title,
 				index: a.index
 			})
-		}else{
+		}else if(goods.length == 0){
+			console.log(66666)
 			this.setState({
 				goods: a.goods,
 				title: a.title,
 				index: a.index
 			})
 		}
+		if(a.sou != ''){
+			console.log(55555)
+			var sougoods = a.goods.filter(function(item){
+				if(item.productName.indexOf(a.sou) == -1){
+					return false
+				}else{
+					return true
+				}
+			})
+			console.log(sougoods)
+			if( sougoods.length != 0 ){
+				this.setState({
+					goods: sougoods
+				})
+			}else{
+				this.setState({
+					goods: a.goods
+				})
+			}
+		}
 	}
-	
+	addgoods = () => {
+		console.log(66666)
+	}
 	row(rowData, sectionID, rowID) {
 	  return (
 	    <div key={rowID} style={{ padding: '0 15px' }}>
@@ -82,7 +107,7 @@ export default class XXX extends React.Component{
 			  height: '30px'
 	        }}
 	      >{rowData.productName}</div>
-	      <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0', alignItems: 'center'}}>
+	      <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0', alignItems: 'center'}}>
 	        <img style={{ height: '110px', width: '80.22px', marginRight: '15px' }} src={rowData.productPicture} alt="" />
 	        <div style={{ lineHeight: 1, width: '120px'}}>
 	          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{fontNumber(rowData.description)}</div>
