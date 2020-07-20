@@ -22,14 +22,14 @@ var Login = createReactClass({
 			obj = res.data
 			console.log(obj)
 			console.log(that.props.form.getFieldsValue())
-			if(obj.userId === that.props.form.getFieldsValue().userid && obj.password === that.props.form.getFieldsValue().password){
+			if(obj.userId == that.props.form.getFieldsValue().userid && obj.password == that.props.form.getFieldsValue().password){
 				localStorage.setItem('userId', that.props.form.getFieldsValue().userid)
 				that.props.history.push('/home')
 				console.log('Tiao')
 			}else{
 				Toast.info('密码错误', 2);
 			}
-			if(obj === ''){
+			if(obj == ''){
 				Toast.info('账号不存在,请注册', 2);
 			}
 		  })

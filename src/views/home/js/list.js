@@ -47,7 +47,7 @@ export default class Demo extends React.Component {
 
   GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 	}
 
   render() {

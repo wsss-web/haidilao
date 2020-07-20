@@ -10,7 +10,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
         this.state = {
           goodsdetail:'',
           userId: '',
-          collect: require('../../assets/icons/收藏.png')
+          collect: ''
         }
         this.collectFn = this.collectFn.bind(this)
     }
@@ -19,7 +19,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
       var userId = localStorage.getItem('userId')
       // console.log(this.props.location.query.item)
       this.setState({
-        goodsdetail: this.props.location.query.item,
+        goodsdetail: this.props.location.state.item,
         userId: userId
       })
       axios.post('http://localhost:3001/collectInfo',{
@@ -30,14 +30,16 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
           // console.log(res.data)
           var obj = res.data
           console.log(obj)
-          if(obj.userId === userId && obj.productNumber === this.state.goodsdetail.productNumber){
-            that.setState({
-              collect: require('../../assets/icons/已收藏.png') 
-            })
-          }else{
-            that.setState({
-              collect: require('../../assets/icons/收藏.png') 
-            })
+          for (var i = 0; i < obj.length; i++){
+            if(obj[i].userId === userId && obj[i].productNumber === that.state.goodsdetail.productNumber){
+              that.setState({
+                collect: require('../../assets/icons/已收藏.png') 
+              })
+            }else{
+              that.setState({
+                collect: require('../../assets/icons/收藏.png') 
+              })
+            }
           }
 			  },
 			  function(err){
