@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 // import { Carousel, WingBlank, TabBar } from 'antd-mobile';
 import { TabBar,Toast } from 'antd-mobile';
 import Navbar from '..//home/js/Navbar.js'
@@ -8,17 +9,72 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
         super(props)
         this.state = {
           goodsdetail:'',
+          userId: '',
           collect: require('../../assets/icons/收藏.png')
         }
+        this.collectFn = this.collectFn.bind(this)
     }
     componentDidMount(){
+      var that = this
+      var userId = localStorage.getItem('userId')
       // console.log(this.props.location.query.item)
       this.setState({
-        goodsdetail:this.props.location.query.item
+        goodsdetail: this.props.location.query.item,
+        userId: userId
       })
+      axios.post('http://localhost:3001/collectInfo',{
+        data: {
+          status: 3}
+		  }).then(
+			  function(res){
+          // console.log(res.data)
+          var obj = res.data
+          console.log(obj)
+          if(obj.userId === userId && obj.productNumber === this.state.goodsdetail.productNumber){
+            that.setState({
+              collect: require('../../assets/icons/已收藏.png') 
+            })
+          }else{
+            that.setState({
+              collect: require('../../assets/icons/收藏.png') 
+            })
+          }
+			  },
+			  function(err){
+			  	console.log(err)
+			  }
+      )
     }
     collectFn(){
-
+      // console.log(this.state.userId,this.state.goodsdetail.productNumber)
+      axios.post('http://localhost:3001/collectInfo',{
+        data: {
+          status: 1, 
+          userId: this.state.userId, 
+          productNumber: this.state.goodsdetail.productNumber}
+		  }).then(
+			  function(res){
+				  console.log(res.data)
+			  },
+			  function(err){
+			  	console.log(err)
+			  }
+		  )
+    }
+    uncollectFn(){
+      axios.post('http://localhost:3001/collectInfo',{
+        data: {
+          status: 2, 
+          userId: this.state.userId, 
+          productNumber: this.state.goodsdetail.productNumber}
+		  }).then(
+			  function(res){
+				  console.log(res.data)
+			  },
+			  function(err){
+			  	console.log(err)
+			  }
+		  )
     }
     render(){
         return(
@@ -85,11 +141,13 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                           this.setState({
                             collect : require('../../assets/icons/已收藏.png'),
                           })
+                          this.collectFn()
                           Toast.info('已收藏' , 1 );
                         }else{
                           this.setState({
                             collect : require('../../assets/icons/收藏.png')
                           })
+                          this.uncollectFn()
                           Toast.info('已取消收藏' , 1 );
                         }
                       }}

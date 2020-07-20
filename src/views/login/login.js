@@ -1,14 +1,38 @@
 import React from 'react'
-// import axios from 'axios'
-import { List, InputItem,Button, WhiteSpace } from 'antd-mobile';
+import { List, InputItem,Button, WhiteSpace, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import './login.css'
+import axios from 'axios'
 var createReactClass = require('create-react-class');
 var Login = createReactClass({
 	componentDidMount() {
-	},
+	  },
 	handleClick()  {
-		console.log(this.props.form.getFieldsValue())
+		var obj = {
+			userid: this.props.form.getFieldsValue().userid,
+			password: this.props.form.getFieldsValue().password,
+			status: 4
+		}
+		var that = this
+		axios.post('http://localhost:3001/user', {
+		  data: obj,
+		})
+		  .then(function (res) {
+		    console.log(res)
+			obj = res.data
+			console.log(obj)
+			console.log(that.props.form.getFieldsValue())
+			if(obj.userId === that.props.form.getFieldsValue().userid && obj.password === that.props.form.getFieldsValue().password){
+				localStorage.setItem('userId', that.props.form.getFieldsValue().userid)
+				that.props.history.push('/home')
+				console.log('Tiao')
+			}else{
+				Toast.info('密码错误', 2);
+			}
+			if(obj === ''){
+				Toast.info('账号不存在,请注册', 2);
+			}
+		  })
 	},
 	forget() {
 		this.props.history.push('/forget')

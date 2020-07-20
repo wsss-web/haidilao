@@ -9,10 +9,29 @@ import MyGrid from './js/Grid.js'
 
 export default class Home extends React.Component {
 	state = {
-		data: ['1', '2', '3', '4']
+		data: ['1', '2', '3', '4'],
+		userinfo: ''
 	}
 	SearchFn(){
 		this.props.history.push('/search')
+	}
+	componentDidMount(){
+		var that = this
+		var userId = localStorage.getItem('userId')
+		// console.log(userId)
+		axios.post('http://localhost:3001/user',{
+			data: {status: 4, userId: userId}
+		}).then(
+			function(res){
+				// console.log(res.data[0])
+				that.setState({
+					userinfo:res.data[0]
+				})
+			},
+			function(err){
+			  	console.log(err)
+			}
+		  )
 	}
 	render() {
 		return (
@@ -24,8 +43,8 @@ export default class Home extends React.Component {
 							<SearchBar disabled></SearchBar>
 						</div>
 						<div style={{ position: "relative" }}>
-							<img className="user_img" src={require('../../assets/imgs/头像1.jpg')} alt=""></img>
-							<span className="user_name">豆一六</span>
+							<img className="user_img" src={this.state.userinfo.avatar} alt=""></img>
+							<span className="user_name">{this.state.userinfo.nickname}</span>
 							<div className='user_level'>红海会员</div>
 							{/* <Button className="user_level" inline size="small">红海会员</Button> */}
 						</div>

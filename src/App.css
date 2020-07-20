@@ -1,12 +1,15 @@
 <<<<<<< HEAD
+
 .App {
   text-align: left;
+  background-color: white;
 }
+
 =======
 /* .App {
   text-align: center;
 } */
->>>>>>> 76b2fb7a7f7dee05d93a92d495c2c0f3e91470b0
+>>>>>>> ff015cebc0b8c9b9bf8d63173f5a302a2cda6c6c
 
 .App-logo {
   height: 40vmin;

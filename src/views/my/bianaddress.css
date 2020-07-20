@@ -1,0 +1,64 @@
+body{
+	background-color: #f6f6f6;
+}
+.bian_view{
+	overflow: auto;
+}
+.bian_title{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 3px;
+	font-size: 14px;
+	background-color: white !important;
+}
+.Rorder{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/my_order.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.shou_wai{
+	height: 60px;
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+}
+.shou_nei{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	height: 42px;
+	width: 92%;
+	background-color: red;
+	color: #fff;
+	line-height: 42px;
+	text-align: center;
+}
+.my-list .spe .am-list-extra {
+	flex-basis: initial;
+  }
+.bian_view .am-list-item.am-input-item{
+	padding-left: 0;
+}
+.bian_view .am-list-item .am-input-label{
+	font-size: 13px;
+}
+.bian_view .am-list-item .am-input-control input{
+	font-size: 13px;
+	text-align: right;
+}
+.bian_view .am-list-item{
+	background-color: transparent;
+}
+.bian_view .am-list-item .am-list-line .am-list-content{
+	font-size: 13px;
+}
+.bian_view .am-list-item .am-list-line .am-list-extra{
+	color: #bbb;
+}
+
+
