@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, InputItem,Button, WhiteSpace, Toast, WingBlank } from 'antd-mobile';
+import { List, InputItem,Button, WhiteSpace, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import './login.css'
 import axios from 'axios'
@@ -30,7 +30,7 @@ var Forget = createReactClass({
 		console.log(this.props.form.getFieldsValue())
 		var that = this
 		console.log(this.state.code)
-		if(this.props.form.getFieldsValue().code == this.state.code){
+		if(this.props.form.getFieldsValue().code === this.state.code){
 			axios.post('http://localhost:3001/user',{
 				data: obj
 			})
@@ -38,7 +38,7 @@ var Forget = createReactClass({
 					function(res){
 						console.log(res)
 						// obj = res.data
-						if(res.data == '' || that.props.form.getFieldsValue().address != res.data.mailbox){
+						if(res.data === '' || that.props.form.getFieldsValue().address !== res.data.mailbox){
 							Toast.info('账号或邮箱不存在！', 2);
 						}else{
 							localStorage.setItem('userId', that.props.form.getFieldsValue().userid)
@@ -87,7 +87,7 @@ var Forget = createReactClass({
 					that.setState({
 						code: obj.code
 					})
-					if(obj.status == 0){
+					if(obj.status === 0){
 						Toast.info('账号或邮箱不存在！', 2);
 					}else{
 						Toast.info('验证码发送成功！', 2);
