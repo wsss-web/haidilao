@@ -23,28 +23,40 @@ body{
 	width: 100%;
 	height: 204px;
 }
-.my_quan{
+.my_cang{
 	/* height: 60px; */
 	width: 100%;
 	box-sizing: border-box;
 	background-color: white;
 	margin-top: 6px;
-	padding: 0px 14px 0px 13px;
+	padding: 10px 14px 10px 13px;
 	font-size: 11.6px;
 	text-align: left;
 }
-.my_orderc{
+.my_cang1{
 	padding: 0px 0px 0px 2px;
 	/* border-bottom: 0.6px solid #eee; */
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 .del_shou{
 	display: inline-block;
+	/* text-align: right; */
 	width: 70px;
 	border: 1px solid red;
 	border-radius: 15px;
 	padding: 6px 0px 6px 0px;
 	text-align: center;
 	color: red;
+}
+.del_cang{
+	/* text-align: right; */
+	margin-right: auto;
+	position: absolute;
+	right: 0;
+}
+.cang_tu{
+	height: 65px;
+	width: 65px;
 }

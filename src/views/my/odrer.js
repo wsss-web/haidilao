@@ -11,7 +11,7 @@ var Odrer = createReactClass({
 		        <div className='my_title3'>
 					<div className='Rorder' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>订单列表</span>
 				</div>
-				<TabExample bbb={this.props.location.query}/>
+				<TabExample bbb={this.props.location.query} tiao={this.props.history}/>
 				</div>
 				{/* <Tablebar history={this.props.history}/> */}
 			 </div>
