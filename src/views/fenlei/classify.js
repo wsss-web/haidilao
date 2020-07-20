@@ -27,7 +27,7 @@ export default class Classify extends React.Component {
 	componentDidMount(){
 	// componentWillMount(){
 		var that = this
-		axios.post('http://localhost:3001/goodsInfoMana')
+		axios.post('http://localhost:3001/goodsInfoMana', {data:{status: 4}})
 			.then(
 				function(res){
 					console.log(res)

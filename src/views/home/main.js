@@ -20,12 +20,12 @@ export default class Home extends React.Component {
 		var userId = localStorage.getItem('userId')
 		// console.log(userId)
 		axios.post('http://localhost:3001/user',{
-			data: {status: 4, userId: userId}
+			data: {status: 4, userid: userId}
 		}).then(
 			function(res){
 				// console.log(res.data[0])
 				that.setState({
-					userinfo:res.data[0]
+					userinfo:res.data
 				})
 			},
 			function(err){
