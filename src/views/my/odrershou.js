@@ -14,7 +14,7 @@ var Odrershou = createReactClass({
 					<div className='Rorder' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>{this.props.location.query.a}</span>
 				</div>
 				<img className='meng' src={require('../../icon/meng.jpg')} alt=""/>
-				<div style={{fontSize:13,color:'#aaa'}}>{this.props.location.query.b}</div>
+				<div style={{fontSize:13,color:'#aaa',textAlign:"center"}}>{this.props.location.query.b}</div>
 				</div>
 				{/* <Tablebar history={this.props.history}/> */}
 			 </div>

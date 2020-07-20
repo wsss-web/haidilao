@@ -2,6 +2,7 @@ import React from 'react'
 import { List, InputItem, Button, WhiteSpace, Toast, WingBlank } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import './login.css'
+import axios from 'axios'
 var createReactClass = require('create-react-class');
 const customIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="am-icon am-icon-md">
@@ -13,10 +14,32 @@ var Newword = createReactClass({
 		console.log(this.props.form.getFieldsValue())
 		if( this.props.form.getFieldsValue().password1 !== this.props.form.getFieldsValue().password2 ) {
 			Toast.info('两次密码输入不同', 1);
+		}else{
+			var obj = {
+				userId: localStorage.getItem('userId'),
+				password: this.props.form.getFieldsValue().password1,
+				status: 3
+			}
+			var that = this
+			axios.post('http://localhost:3001/user',{
+				data: obj
+			})
+				.then(
+					function (res) {
+						console.log(res.data)
+						Toast.info('密码修改成功！', 2, function(){
+							that.props.history.push('/home')
+						});
+					},
+					function (err) {
+						console.log(err)
+					}
+				)
 		}
 		if( this.props.form.getFieldsValue().password1 === undefined || this.props.form.getFieldsValue().password2 === undefined ){
 			Toast.info('请填写密码', 1);
 		}
+			
 	},
 	componentDidMount() {
 	    Toast.loading('Loading...', 30, () => {

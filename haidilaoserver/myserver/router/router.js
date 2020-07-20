@@ -2,10 +2,11 @@ const Router = require('koa-router')
 const router = new Router()
 const mysql = require('mysql')
 const fs = require("fs")
+const e_mail = require('./maiier.js')
 
 // 数据库设置
 var settings = {
-    host: '192.168.2.117',
+    host: '192.168.2.118',
     user: 'root',
     password: 'root',
     database: 'haidilao'
@@ -26,21 +27,18 @@ var settings = {
       })
     })
   }
-
-router.post('/ceshi', async ctx => {
-	ctx.body = '我是测试接口'
-})
 // 用户身份信息路由
 router.post('/user', async(ctx,body) => {
 	var one_per = ctx.request.body.data
     console.log(one_per)
-    // // 增加客户信息
-    // if(one_per.status == 1){
-    //   console.log('6666')
-    //   var sql_add = "insert into user(userId,password,telnumber,nickname,avatar,mailbox) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.telnumber +"','"+ one_per.nickname +"','"+ one_per.avatar +"','"+ one_per.mailbox +"')"
-    //   var results_add = await query(sql_add)
-    //   console.log('插入成功')
-    // }
+    // 增加客户信息
+    if(one_per.status == 1){
+      console.log('6666')
+      var sql_add = "insert into user(userId,password,mailbox) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"')"
+      var results_add = await query(sql_add)
+	  ctx.body = '插入成功'
+      console.log('插入成功')
+    }
     // //删除用户信息
     // if(one_per.status == 2){
     //   var one_per = ctx.request.query
@@ -48,56 +46,80 @@ router.post('/user', async(ctx,body) => {
     //   var results_del = await query(sql_del)
     //   console.log('删除成功')
     // }
-    // // 修改客户信息
-    // if(one_per.status == 3){
-    //   var one_per = ctx.request.query
-    //   var sql_reset = "update user set nickname='"+ one_per.nickname +"',password='"+ one_per.password +"',telnumber='"+ one_per.telnumber +"',nickname='"+ one_per.nickname +"',avatar='"+ one_per.avatar +"',mailbox='"+ one_per.mailbox +"' where userId='"+ one_per.userId +"'"
-    //   var results_reset = await query(sql_reset)
-    //   console.log('修改成功')
-    // }
-    // 显示所有客户信息
+    // 修改客户密码信息
+    if(one_per.status == 3){
+      var one_per = ctx.request.body.data
+      var sql_reset = "update user set password='"+ one_per.password +"' where userId='"+ one_per.userId +"'"
+      var results_reset = await query(sql_reset)
+      console.log('修改成功')
+	  ctx.body = '修改成功'
+    }
+    // 显示客户信息
 	if(one_per.status == 4){
 		var sql = "select * from user where userId = '" + one_per.userid + "'"
 		var results = await query(sql)
 		console.log('查询成功')
 		ctx.body=results[0]
 	}
+})
+  // 一个生成随机数的函数
+  var aaa = function () {
+    var Num = ''
+    for (var i = 0; i < 6; i++) {
+      Num += Math.floor(Math.random() * 10)
+    }
+    return Num
+  }
+  // 验证码路由
+  router.post('/identify', async (ctx, body) => {
+    var email = ctx.request.body.data.address // 刚刚从前台传过来的邮箱
+	console.log(email)
+    // var code = await tools.createSixNum(); //这里是我写的生成的随机六位数，等等下面给代码
+    var date = new Date() // 获取当前时间
+    var isLive = 'no'
+    // 一个随机六位数
+    var cur_code = await aaa()
+    // 去数据库中找有没有该邮箱
+    var status = ''
+    var code = ''
+    var to_mail = ''
+    var data = {
+      status,
+      code,
+      to_mail
+    }
+    var sql = "select * from user where mailbox='" + email + "'"
+    const results = await query(sql)
+    if (results.length == 0) {
+      data.status = 0
+    } else {
+      data.status = 1
+      data.code = cur_code
+      data.to_mail = mail
+    }
+    ctx.body = data
+    var mail = {
+      // 发件人
+      from: '<1121842729@qq.com>',
+      // 主题
+      subject: '接受凭证', // 邮箱主题
+      // 收件人
+      to: email, // 前台传过来的邮箱
+      // 邮件内容，HTML格式
+      text: '用' + cur_code + '作为你的验证码' // 发送验证码
+    }
+    // await e_mail(mail) // 发送邮件
   })
 // 商品信息管理路由
-// router.post('/goodsInfoMana', async(ctx,body) => {
-//   var one_per = ctx.request.query
-//   console.log(one_per)
-//   // 增加商品信息
-//   if(one_per.status == 1){
-//     console.log('6666')
-//     var sql_add = "insert into productInformation(productNumber,productName,price,category,stocks,productPicture,description) values('"+ one_per.productNumber +"','"+ one_per.productName +"','"+ one_per.price +"','"+ one_per.category +"','"+ one_per.stocks +"','"+ one_per.productPicture +"','"+ one_per.description +"')"
-//     var results_add = await query(sql_add)
-//     console.log('插入商品信息成功')
-//   }
-//   // 删除商品信息
-//   if(one_per.status == 2){
-//     var one_per = ctx.request.query
-//     var sql_del = "delete from productInformation where productNumber='"+ one_per.productNumber +"'"
-//     var results_del = await query(sql_del)
-//     console.log('删除商品信息成功')
-//   }
-//   // 修改商品信息
-//   if(one_per.status == 3){
-//     var one_per = ctx.request.query
-//     var sql_reset = "update productInformation set productName='"+ one_per.productName +"',price='"+ one_per.price +"',category='"+ one_per.category +"',stocks='"+ one_per.stocks +"',productPicture='"+ one_per.productPicture +"',description='"+ one_per.description +"' where productNumber='"+ one_per.productNumber +"'"
-//     var results_reset = await query(sql_reset)
-//     console.log('修改商品信息成功')
-//   }
-//    // 显示所有商品信息
-//    if(one_per.status == 4){
-//     var one_per = ctx.request.query
-//     var sql_reset = "select * from productInformation"
-//     var results_reset = await query(sql_reset)
-//     console.log('查询成功')
-//     ctx.body=results_reset
-//     console.log(results_reset)
-//   }
-// })
+router.post('/goodsInfoMana', async(ctx,body) => {
+  // var one_per = ctx.request.body.data
+   // 显示所有商品信息
+    var sql_reset = "select * from productInformation"
+    var results_reset = await query(sql_reset)
+    console.log('查询成功')
+    ctx.body=results_reset
+    console.log(results_reset)
+})
 // // 收藏信息路由
 // router.post('/collectInfo', async(ctx,body) => {
 //   var one_per = ctx.request.query

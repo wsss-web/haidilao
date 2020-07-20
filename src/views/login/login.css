@@ -2,7 +2,7 @@ html,body{
 	height: 100%;
    }
    body{
-	   background-color: white;
+	   background-color: #fff;
    /*  background-image: url(../../assets/icons/背景.jpg);
 	background-position: center;
 	background-size: cover; */
@@ -28,7 +28,7 @@ html,body{
    .am-list-body{
 	background-color: transparent;
    }
-   .am-list-item.am-input-item{
+  .am-list-item.am-input-item{
 	background-color: transparent
    }
    .am-button-primary{
@@ -54,4 +54,7 @@ html,body{
    }
    .am-list-line{
 	   padding: 0 15px;
+   }
+  .am-list-item{
+	   background-color: transparent;
    }

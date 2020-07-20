@@ -37,7 +37,8 @@ export default class Vouchers extends React.Component{ // eslint-disable-next-li
                                         src={require(`../../assets/imgs/代金券${val}.jpg`)}
                                         style={{
                                             width: "130px",
-                                            height: "130px"}} 
+                                            height: "130px",
+                                            marginLeft:"20px"}} 
                                         alt=""></img>
                                     <div style={{
                                             width: "130px",

@@ -24,13 +24,13 @@
     height: 20px;
     padding: 0 8px;
     font-size: 12px;
-    background-color: rgb(212, 182, 127);
-    color: rgb(82, 66, 24);
+    background:linear-gradient(90deg, rgb(249,133,46),rgb(255,183,142));
+    color: rgb(138,53,8);
     line-height: 20px;
     position: absolute;
     top: 43px;
-    right: 85px;
-    border-radius: 20px;
+    left: 70px;
+    border-radius: 10px;
 }
 .beer_cover{
     width: 88%;
@@ -54,6 +54,7 @@
     width: 130px;
     height: 150px;
     margin-top: 10px;
+    margin-left: 20px;
 }
 .goods_name{
     width: 130px;
@@ -70,9 +71,10 @@
     text-align: left;
     line-height: 36px;
 }
-.hotpot_cover{
+.hotpot_cover,.seasoning_cover{
     width: 88%;
     height: 150px;
     position: relative;
     top: 132px;
+    left: 22px;
 }

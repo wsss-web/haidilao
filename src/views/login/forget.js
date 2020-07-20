@@ -2,12 +2,14 @@ import React from 'react'
 import { List, InputItem,Button, WhiteSpace, Toast, WingBlank } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import './login.css'
+import axios from 'axios'
 var createReactClass = require('create-react-class');
 var Forget = createReactClass({
 	getInitialState: function() {
 		return{
 			btnText: '发送验证码',
 			btnBool: false,
+			code: ''
 		}
 	},
 	componentDidMount() {
@@ -20,7 +22,36 @@ var Forget = createReactClass({
 	    }, 1000);
 	},
 	handleClick()  {
+		var obj = {
+			userid: this.props.form.getFieldsValue().userid,
+			address: this.props.form.getFieldsValue().address,
+			status: 4
+		}
 		console.log(this.props.form.getFieldsValue())
+		var that = this
+		console.log(this.state.code)
+		if(this.props.form.getFieldsValue().code == this.state.code){
+			axios.post('http://localhost:3001/user',{
+				data: obj
+			})
+				.then(
+					function(res){
+						console.log(res)
+						// obj = res.data
+						if(res.data == '' || that.props.form.getFieldsValue().address != res.data.mailbox){
+							Toast.info('账号或邮箱不存在！', 2);
+						}else{
+							localStorage.setItem('userId', that.props.form.getFieldsValue().userid)
+							that.props.history.push('/newword')
+						}
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+		}else{
+			Toast.info('验证码错误！', 2);
+		}
 	},
 	SendVerCode() {
 		var maxTime  = 10
@@ -40,11 +71,32 @@ var Forget = createReactClass({
 	          })
 	        }
 	      }, 1000)
-		// axios.ajax({
-		// //这里写后台接口就行了
-		// }).then(res => {
-	 //   //调用接口的回调
-		// })
+		var obj = {
+			userid: this.props.form.getFieldsValue().userid,
+			address: this.props.form.getFieldsValue().address,
+			status: 4
+		}
+		var that = this
+		axios.post('http://localhost:3001/identify',{
+			data: obj
+		})
+			.then(
+				function(res){
+					console.log(res.data)
+					obj = res.data
+					that.setState({
+						code: obj.code
+					})
+					if(obj.status == 0){
+						Toast.info('账号或邮箱不存在！', 2);
+					}else{
+						Toast.info('验证码发送成功！', 2);
+					}
+				},
+				function(err){
+					console.log(err)
+				}
+			)
 	},
 	render: function (){
 		const { getFieldProps } = this.props.form;

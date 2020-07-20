@@ -23,6 +23,7 @@ var Login = createReactClass({
 			console.log(obj)
 			console.log(that.props.form.getFieldsValue())
 			if(obj.userId == that.props.form.getFieldsValue().userid && obj.password == that.props.form.getFieldsValue().password){
+				localStorage.setItem('userId', that.props.form.getFieldsValue().userid)
 				that.props.history.push('/home')
 				console.log('Tiao')
 			}else{
