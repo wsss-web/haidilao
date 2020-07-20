@@ -11,7 +11,7 @@ export default class Vouchers extends React.Component{ // eslint-disable-next-li
     }
     GoodsDetailFn(item){
 		var that = this
-        that.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+        that.props.history.push({pathname:'/goodsdetail',state:{item:item}})
     }
     componentDidMount() {
 		var that = this

@@ -20,12 +20,12 @@ export default class Home extends React.Component {
 		var userId = localStorage.getItem('userId')
 		// console.log(userId)
 		axios.post('http://localhost:3001/user',{
-			data: {status: 4, userId: userId}
+			data: {status: 4, userid: userId}
 		}).then(
 			function(res){
-				// console.log(res.data[0])
+				// console.log(res.data)
 				that.setState({
-					userinfo:res.data[0]
+					userinfo:res.data
 				})
 			},
 			function(err){
@@ -112,7 +112,7 @@ var Beer = createReactClass({
 	},
 	GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 		// console.log(item)
 	},
 	componentDidMount() {
@@ -157,7 +157,7 @@ var Hotpot = createReactClass({
 	},
 	GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 	},
 	componentDidMount() {
 		var that = this
@@ -201,7 +201,7 @@ var Seasoning = createReactClass({
 	},
 	GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 	},
 	componentDidMount() {
 		var that = this
