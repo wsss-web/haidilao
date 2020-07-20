@@ -17,7 +17,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     componentDidMount(){
       var that = this
       var userId = localStorage.getItem('userId')
-      // console.log(this.props.location.query.item)
+      // console.log(this.props.location.state.item)
       this.setState({
         goodsdetail: this.props.location.state.item,
         userId: userId
@@ -81,7 +81,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     render(){
         return(
             <div style={{position:"relative",backgroundColor:"white"}}>
-                <Navbar name="商品详情" props={this.props}></Navbar>
+                <Navbar name="商品详情" history={this.props.history}></Navbar>
                 <div style={{width:"100%",
                         height:"570px",
                         overflow:"scroll"}}>
