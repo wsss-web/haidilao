@@ -9,10 +9,10 @@ body{
 	background-size: cover;
 	border: none;
 }
-.my_view{
+.my_view2{
 	overflow: auto;
 }
-.my_title{
+.my_title2{
 	display: flex;
 	align-items: center;
 	padding: 8px 12px 8px 3px;

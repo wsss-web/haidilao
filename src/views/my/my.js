@@ -3,14 +3,13 @@ import Tablebar from '../../components/Tablebar'
 import './my.css'
 import { List } from 'antd-mobile';
 const Item = List.Item;
-const Brief = Item.Brief;
 var createReactClass = require('create-react-class');
 var My = createReactClass({
 	render: function() {
 	  return <div>
 		        <div className='my_view'>
 		        <div className='my_title'>
-					<div className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
+					<div  onClick={() => {this.props.history.push('/home')}}  className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
 				</div>
 				<div className='mytop'>
 					<img className='my_head' src={require('../../icon/my_header.png')} alt=""/>
