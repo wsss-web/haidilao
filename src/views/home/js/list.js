@@ -1,103 +1,54 @@
 /* eslint no-dupe-keys: 0, no-mixed-operators: 0 */
 import { ListView } from 'antd-mobile';
-import React from 'react'
-function MyBody(props) {
-  return (
-    <div className="am-list-body my-body">
-      <span style={{ display: 'none' }}>you can custom body wrap element</span>
-      {props.children}
-    </div>
-  );
-}
-function fontNumber(date) {
-  const length = date.length
-  if (length > 10) {
-    var str = ''
-    str = date.substring(0, 10) + '...'
-    return str
-  } else {
-    return date
-  }
-}
-
-const data = [
-  {
-    img: 'https://www.haidilao.com/zh/2019/09/2019090416520953297.jpg',
-    name: '捞派肥牛',
-    des: fontNumber('肥牛是精选谷饲一百天天以上的牛经过一定的温度、湿度、风速的环境下使牛的肌肉纤维发生变化排酸处理后，自然块分割，刨成薄片的牛肉，其口感细腻、化渣，肉味十足。'),
-  },
-  {
-    img: 'https://www.haidilao.com/zh/2019/09/2019090416523393910.jpg',
-    name: '捞派麻辣滑牛肉',
-    des: fontNumber('使用的牛肉是大小米龙和嫩肩肉，是牛的后腿和前腿中最嫩的部位，形状像黄瓜，俗称：黄瓜条。每份滑牛都要经过解冻、去筋膜、分割、切片、腌制等9道复杂工序，口感滑嫩，久煮不老，是海底捞必点菜品。'),
-  },
-  {
-    img: 'https://www.haidilao.com/english/2019/07/2019072015522482101.jpg',
-    name: '兆镇撒尿牛肉丸',
-    des: fontNumber('选用牛后腿部位牛霖，经过排酸、绞碎、搅打成的牛肉滑，捏成丸子后，里面裹入用老鸡、火腿等精心熬制的汤冻。锅开后浮起来再煮3分钟左右即可食用。配上丸滑蘸碟，风味更突出。撒尿牛肉丸中心汤汁温度较高，食用时小心被汤汁烫到。'),
-  },
-];
-const NUM_SECTIONS = 0;
-const NUM_ROWS_PER_SECTION = 0;
-let pageIndex = 0;
-
-const dataBlobs = {};
-let sectionIDs = [];
-let rowIDs = [];
-function genData(pIndex = 0) {
-  for (let i = 0; i < NUM_SECTIONS; i++) {
-    const ii = (pIndex * NUM_SECTIONS) + i;
-    const sectionName = `Section ${ii}`;
-    sectionIDs.push(sectionName);
-    dataBlobs[sectionName] = sectionName;
-    rowIDs[ii] = [];
-
-    for (let jj = 0; jj < NUM_ROWS_PER_SECTION; jj++) {
-      const rowName = `S${ii}, R${jj}`;
-      rowIDs[ii].push(rowName);
-      dataBlobs[rowName] = rowName;
-    }
-  }
-  sectionIDs = [...sectionIDs];
-  rowIDs = [...rowIDs];
-}
+import React from 'react';
+import axios from 'axios';
 
 export default class Demo extends React.Component {
   constructor(props) {
     super(props);
-    const guize = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
-
     this.state = {
-      dataSource: guize.cloneWithRowsAndSections(data),
+      rowData: [],
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => {
+          console.log("11111")
+          console.log(r1)
+          console.log(r2)
+          return r1 !== r2
+        }
+      }),
       isLoading: true
     };
   }
-
-  // componentDidMount() {
-  //   // you can scroll to the specified position
-  //   setTimeout(() => this.lv.scrollTo(0, 120), 800);
-
-  // }
+  
+  componentDidMount() {
+      var that = this
+      axios.post('http://localhost:3001/goodsInfoMana',{
+          data: {status:4}
+      }).then(
+          function(res){
+            // console.log(res.data)
+            that.setState({
+              rowData: res.data
+            })
+          },
+          function(err){
+            console.log(err)
+          }
+        )
+  }
 
   onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
     if (this.state.isLoading && !this.state.hasMore) {
       return;
     }
     console.log('reach end', event);
     this.setState({ isLoading: true });
-    setTimeout(() => {
-      genData(++pageIndex);
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-        isLoading: false,
-      });
-    }, 1000);
   }
+
+  GoodsDetailFn(item){
+		var that = this
+		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+	}
 
   render() {
     const separator = (sectionID, rowID) => (
@@ -108,44 +59,35 @@ export default class Demo extends React.Component {
         }}
       />
     );
-    let index = data.length - 1;
-    const row = (rowData, sectionID, rowID) => {
-      if (index < 0) {
-        index = data.length - 1;
-      }
-      const obj = data[index--];
+    const row = (item, sectionID, rowID) => {
       return (
-        <div key={rowID} style={{ padding: '0 15px'}}>
+        <div key={rowID} style={{ padding: '0 15px'}} onClick={()=>this.GoodsDetailFn(item)}>
           <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0', alignItems: 'center' }}>
-            <img style={{ height: '110px', margin: '0 15px 0 10px' }} src={obj.img} alt="" />
+            <img style={{width:"100px", height: '120px', margin: '0 15px 0 10px' }} src={item.productPicture} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.name}</div>
-              <div style={{ marginBottom: '8px',fontSize:"12px" }}>{obj.des}</div>
-			        <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已购 11111</span></div>
-              <div style={{ marginTop: '13px' }}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ 35</span></div>
+              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{item.productName}</div>
+              <div style={{ width:"200px",height:"12px",marginBottom: '8px',fontSize:"12px",overflow:"hidden" }}>{item.description}</div>
+			        <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>库存 {item.stocks}</span></div>
+              <div style={{ marginTop: '13px' }}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>￥ {item.price}</span></div>
             </div>
-            <img src={require("../../../assets/icons/add.png")} alt="" style={{ width: '20px',position:"relative",top:"20px",left:"80px" }}></img>
+            <img src={require("../../../assets/icons/add.png")} alt="" style={{ width: '20px',position:"relative",top:"20px",right:"10px"}}></img>
           </div>
         </div>
       );
     };
 
-    return (
-      <ListView
-        ref={el => this.lv = el}
-        dataSource={this.state.dataSource}
-        // renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-        //   {this.state.isLoading ? 'Loading...' : 'Loaded'}
-        // </div>)}
-        renderBodyComponent={() => <MyBody />}
+
+    return (<ListView
+        ref={el => this.listView = el}
+        dataSource={this.state.dataSource.cloneWithRows(this.state.rowData)}
+        useBodyScroll
         renderRow={row}
         renderSeparator={separator}
         style={{
           height: 540,
-          overflow: 'auto',
+          overflow: 'scroll',
         }}
-        pageSize={4}
-      // onScroll={() => { console.log('scroll'); }}}
+        initialListSize={500}
       />
     );
   }

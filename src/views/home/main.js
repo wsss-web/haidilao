@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { NavBar, Icon, WingBlank } from 'antd-mobile';
 import './css/main.css'
 import Tablebar from '../../components/Tablebar.js'
@@ -12,9 +13,6 @@ export default class Home extends React.Component {
 	}
 	SearchFn(){
 		this.props.history.push('/search')
-	}
-	GoodsDetailFn(){
-		this.props.history.push('/goodsdetail')
 	}
 	render() {
 		return (
@@ -38,13 +36,7 @@ export default class Home extends React.Component {
 						<img className="beer_cover" src={require('../../assets/imgs/啤酒.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
-								{this.state.data.map(val =>(
-									<li className="one_goods" onClick={this.GoodsDetailFn.bind(this)}>
-										<img className="goods_img" key={val} src={require(`../../assets/imgs/啤酒${val}.jpg`)} alt=""></img>
-										<div className="goods_name">海底捞经典大麦啤酒500ml*12听</div>
-										<div className="goods_price">￥ 28.9</div>
-									</li>
-								))}
+								<Beer props={this.props}></Beer>
 							</ul>
 						</WingBlank>
 					</div>
@@ -52,13 +44,7 @@ export default class Home extends React.Component {
 						<img className="hotpot_cover" src={require('../../assets/imgs/火锅.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
-								{this.state.data.map(val =>(
-									<li className="one_goods" onClick={this.GoodsDetailFn.bind(this)}>
-										<img className="goods_img" key={val} src={require(`../../assets/imgs/火锅${val}.jpg`)} alt=""></img>
-										<div className="goods_name">海底捞番茄牛腩自煮火锅</div>
-										<div className="goods_price">￥ 29.9</div>
-									</li>
-								))}
+								<Hotpot props={this.props}></Hotpot>
 							</ul>
 						</WingBlank>
 					</div>
@@ -66,13 +52,7 @@ export default class Home extends React.Component {
 						<img className="seasoning_cover" src={require('../../assets/imgs/底料.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
-								{this.state.data.map(val =>(
-									<li className="one_goods" onClick={this.GoodsDetailFn.bind(this)}>
-										<img className="goods_img" key={val} src={require(`../../assets/imgs/底料${val}.jpg`)} alt=""></img>
-										<div className="goods_name">海底捞番茄牛腩火锅底料</div>
-										<div className="goods_price">￥ 18.9</div>
-									</li>
-								))}
+								<Seasoning props={this.props}></Seasoning>
 							</ul>
 						</WingBlank>
 					</div>
@@ -98,3 +78,137 @@ function HomeNavBar (){
 		</div>
 	)
 }
+
+// 啤酒类商品
+var createReactClass = require('create-react-class');
+var Beer = createReactClass({
+	getDefaultProps: function() {
+		return {
+		};
+	},
+	getInitialState: function() {
+		return {
+			beer: []
+		};
+	},
+	GoodsDetailFn(item){
+		var that = this
+		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+		// console.log(item)
+	},
+	componentDidMount() {
+		var that = this
+		axios.post('http://localhost:3001/goodsInfoMana',{
+			data: {status:5,goods_type:'啤酒'}
+		}).then(
+			function(res){
+				// console.log(res.data)
+				that.setState({
+					beer: res.data.slice(0,4)
+				})
+			},
+			function(err){
+			  	console.log(err)
+			}
+		  )
+	},
+	render(){
+		return(
+			this.state.beer.map((item,index) =>(
+				<li className="one_goods" onClick={()=>this.GoodsDetailFn(item)} key={index}>
+					<img className="goods_img" src={this.state.beer[index].productPicture} alt=""></img>
+					<div className="goods_name">{this.state.beer[index].productName}</div>
+					<div className="goods_price">￥ {this.state.beer[index].price}</div>
+				</li>
+			))
+		)
+	}
+})
+
+// 自煮小火锅类商品
+var Hotpot = createReactClass({
+	getDefaultProps: function() {
+		return {
+		};
+	},
+	getInitialState: function() {
+		return {
+			hotpot: []
+		};
+	},
+	GoodsDetailFn(item){
+		var that = this
+		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+	},
+	componentDidMount() {
+		var that = this
+		axios.post('http://localhost:3001/goodsInfoMana',{
+			data: {status:5,goods_type:'火锅'}
+		}).then(
+			function(res){
+				// console.log(res.data)
+				that.setState({
+					hotpot: res.data.slice(0,4)
+				})
+			},
+			function(err){
+			  	console.log(err)
+			}
+		  )
+	},
+	render(){
+		return(
+			this.state.hotpot.map((item,index) =>(
+				<li className="one_goods" onClick={()=>this.GoodsDetailFn(item)} key={index}>
+					<img className="goods_img" src={this.state.hotpot[index].productPicture} alt=""></img>
+					<div className="goods_name">{this.state.hotpot[index].productName}</div>
+					<div className="goods_price">￥ {this.state.hotpot[index].price}</div>
+				</li>
+			))
+		)
+	}
+})
+
+// 火锅底料类商品
+var Seasoning = createReactClass({
+	getDefaultProps: function() {
+		return {
+		};
+	},
+	getInitialState: function() {
+		return {
+			seasoning: []
+		};
+	},
+	GoodsDetailFn(item){
+		var that = this
+		that.props.props.history.push({pathname:'/goodsdetail',query:{item:item}})
+	},
+	componentDidMount() {
+		var that = this
+		axios.post('http://localhost:3001/goodsInfoMana',{
+			data: {status:5,goods_type:'火锅底料'}
+		}).then(
+			function(res){
+				// console.log(res.data)
+				that.setState({
+					seasoning: res.data.slice(0,4)
+				})
+			},
+			function(err){
+			  	console.log(err)
+			}
+		  )
+	},
+	render(){
+		return(
+			this.state.seasoning.map((item,index) =>(
+				<li className="one_goods" onClick={()=>this.GoodsDetailFn(item)} key={index}>
+					<img className="goods_img" src={this.state.seasoning[index].productPicture} alt=""></img>
+					<div className="goods_name">{this.state.seasoning[index].productName}</div>
+					<div className="goods_price">￥ {this.state.seasoning[index].price}</div>
+				</li>
+			))
+		)
+	}
+})

@@ -1,12 +1,12 @@
 import React from 'react'
+// import axios from 'axios'
 import { List, InputItem,Button, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import './login.css'
 var createReactClass = require('create-react-class');
 var Login = createReactClass({
 	componentDidMount() {
-	    // this.autoFocusInst.focus();
-	  },
+	},
 	handleClick()  {
 		console.log(this.props.form.getFieldsValue())
 	},
