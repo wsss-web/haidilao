@@ -31,7 +31,8 @@ class Address extends React.Component{
 		this.yyy=this.yyy.bind(this)
 	}
 	componentDidMount(){
-		axios.post('http://localhost:3001/dizhi',{user:'0001'})
+		var userid = window.localStorage.getItem('userId')
+		axios.post('http://localhost:3001/dizhi',{user:userid})
         .then((response) => {
 			console.log(response.data[0].mo)
             this.setState({

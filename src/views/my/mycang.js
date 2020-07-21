@@ -27,7 +27,8 @@ class Scang extends React.Component{
 		this.xxx=this.xxx.bind(this)
 	}
 	componentDidMount(){
-		const a = '0001'
+		var userid = window.localStorage.getItem('userId')
+		const a = userid
 		axios.post('http://localhost:3001/selectCang',{user:a})
 			.then((response) => {
 				// console.log(response)
@@ -40,7 +41,8 @@ class Scang extends React.Component{
 			});
 	}
 	xxx (a){
-		const b = '0001'
+		var userid = window.localStorage.getItem('userId')
+		const b = userid
 		console.log(a)
 		axios.post('http://localhost:3001/quCang',{user:b,productNumber:a})
 			.then((response) => {
