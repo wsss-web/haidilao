@@ -1,3 +1,10 @@
+.doodsList{
+    height: 460px;
+    overflow:scroll;
+}
+.navC{
+    background-color: white!important;
+}
 .doodsList .am-list-thumb:first-child{
     padding-left: 3px;
 }
@@ -86,8 +93,9 @@
     display: flex;
 }
 .oneCartGoods>div:first-child{
-    flex: 1;
-    width: 50px;
+    /* flex: 1; */
+    /* width: 50px; */
+    /* //突然的变动 */
     text-align: center;
     /* line-height: 100%; */
     /* padding-top: 10px; */
@@ -139,8 +147,10 @@
 .jieSuan{
     display: flex;
     background-color: white;
-    position: absolute;
+    position: fixed;
     bottom: 50px;
+    /* position: absolute; */
+
 }
 .jieSuan>div:last-child{
     width: 73px;
@@ -175,7 +185,8 @@
     background-color: gold;
 }
 .bianJi>div:first-child{
-    padding-right: 112px;
+    padding-right: 92px;
+    padding-left: 20px;
     background-color: white;
 }
 .bianJi>div:last-child{

@@ -61,15 +61,15 @@ export default class Test extends React.Component {
     this.yyy(flagup,quantityup,quantityudown)
   }
   componentWillReceiveProps(a) {
+    // console.log(a)
+    // console.log(this.props.dsDown)
+    //如果传来的props的值需要改变，就需要放在这个生命周期里
   }
   componentDidMount (){
   }
   render() {
     return <div>
       <List>
-        
-        {/* //我要做的是将触发的下标发给父组件 */}
-        {/* 数据是父组件的数据，将检测为真的下标传给父组件 */}
         {this.props.dsDown.map((i , index) => (
           // {
           //   console.log(i)

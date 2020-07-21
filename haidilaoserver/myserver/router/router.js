@@ -141,13 +141,15 @@ router.post('/goodsInfoMana', async(ctx,body) => {
 router.post('/collectInfo', async(ctx,body) => {
   var one_per = ctx.request.body.data
   console.log(one_per)
-  // 增加收藏信息
+
+  one_per.productArr.map((i , index) => { })
+     //增加收藏信息
   if(one_per.status == 1){
-    var sql_add = "insert into collecting(userId,productNumber) values('"+ one_per.userId +"','"+one_per.productNumber+"')"
+    var sql_add = "insert into collecting(userId,productNumber) values('"+ one_per.userId +"','"+one_per.productArr[index]+"')"
     var results_add = await query(sql_add)
-    console.log('收藏成功')
+    console.log('收藏1111111')
     ctx.body = '收藏成功'
-  }
+  }  
   //取消收藏信息
   if(one_per.status == 2){
     var sql_del = "delete from collecting where userId = '"+ one_per.userId +"' and productNumber ='"+ one_per.productNumber +"'"
@@ -155,15 +157,43 @@ router.post('/collectInfo', async(ctx,body) => {
     console.log('取消收藏成功')
     ctx.body = '取消收藏成功'
   }
-  // 显示所有收藏信息
+  //显示所有收藏信息
   if(one_per.status == 3){
     var sql_reset = "select * from collecting"
     var results_reset = await query(sql_reset)
     console.log('收藏信息查询成功')
     ctx.body=results_reset
-    // console.log(results_reset)
+    console.log(results_reset)
   }
 })
+//购物车内收藏信息增加路由
+router.post('/collectInfo2', async (ctx,next) => {
+  console.log('请求收到了')
+  var one_per=ctx.request.body.data
+  var goodsNum=[]
+  goodsNum = ctx.request.body.data.productArr
+    var a = new Promise(function(resolve,reject){
+    console.log('1111111')
+          for(var i=0; i<goodsNum.length; i++){
+            idd =goodsNum[i]
+            console.log("222222222")
+            var sql_str = "insert into collecting(userId,productNumber) values('"+ one_per.userId +"','"+idd+"')"
+            connection.query(sql_str,(err,res,fields)=>{
+              console.log(33333333)
+                if(err){
+                    reject('{code:1, msg:"收藏失败"}')
+                  }else{
+                    console.log('成功收藏' + i+'个商品')
+                    resolve(res)
+                  }
+            })
+        }
+        if(i ==goodsNum.length){
+            resolve('收藏成功')
+        }
+    })
+    ctx.body=await a
+  })
 
 // 收货地址接口
 router.post('/dizhi', async (ctx,next) => {
@@ -178,7 +208,6 @@ router.post('/dizhi', async (ctx,next) => {
               console.log('失败333333333333')
           }else{
               resolve(res)
-              // console.log(res)
           }
     })
   })
@@ -485,7 +514,6 @@ router.post('/pingjia', async (ctx,next) => {
   })
   ctx.body=await a
 })
-<<<<<<< HEAD
 //购物车接口
 // 购物车信息路由
 router.post('/shoppingCartMana', async(ctx,body) => {
@@ -526,13 +554,13 @@ router.post('/shoppingCartMana', async(ctx,body) => {
     var one_per = ctx.request.body.data
     var sql_reset = "select * from shoppingcart left join productinformation on shoppingcart.productNumber=productinformation.productNumber where userId = '"+ one_per.userId +"'"
     var results_reset = await query(sql_reset)
-    console.log('登录用户购物车信息查询成功')
+    // console.log('登录用户购物车信息查询成功')
     ctx.body=results_reset
     console.log(results_reset)
   }
+})
   //
 
-=======
 
 // 获取评价接口
 router.post('/myping', async (ctx,next) => {
@@ -552,6 +580,6 @@ router.post('/myping', async (ctx,next) => {
     })
   })
   ctx.body=await a
->>>>>>> b89f95e5c72c2ddf3870e78bef570dabb40d62d7
 })
+
 module.exports = router
