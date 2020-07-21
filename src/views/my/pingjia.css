@@ -1,0 +1,78 @@
+body{
+	background-color: #f6f6f6;
+}
+.Rorder{
+	height: 30px;
+	width: 30px;
+	background-image: url(../../icon/my_order.png);
+	background-position: center;
+	background-size: cover;
+	border: none;
+}
+.my_view6{
+	overflow: auto;
+}
+.my_view6 .my_title2{
+	display: flex;
+	align-items: center;
+	padding: 8px 12px 8px 3px;
+	font-size: 14px;
+	background-color: white;
+}
+.my_view6 .meng{
+	width: 100%;
+	height: 204px;
+}
+.my_view6 .my_cang{
+	/* height: 60px; */
+	width: 100%;
+	box-sizing: border-box;
+	background-color: white;
+	margin-top: 6px;
+	padding: 10px 14px 10px 13px;
+	font-size: 11.6px;
+	text-align: left;
+}
+.my_cang2{
+	padding: 0px 0px 0px 2px;
+	/* border-bottom: 0.6px solid #eee; */
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.my_view6 .my_cang1{
+	padding: 0px 0px 5px 2px;
+	border-bottom: 0.6px solid #eee;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.my_view6 .cang_tu{
+	height: 65px;
+	width: 65px;
+}
+.my_view6 .demoTitle:before,
+.my_view6 .demoTitle:after {
+  border-bottom: none;
+}
+.my_view6 .am-list .am-list-item.am-textarea-item{
+	padding-left: 0;
+	font-size: 10px;
+}
+.my_view6 .am-textarea-label{
+	font-size: 14px;
+}
+.my_view6 .am-textarea-control textarea{
+	font-size: 14px;
+}
+.my_view6 .btn{
+	width: 62px;
+	height: 28px;
+	border-radius: 5px;
+	margin-top: 3px;
+	background-color: rgb(249,133,46);
+	border: none;
+}
+.my_view6 .sb{
+	width: 100%;
+}
