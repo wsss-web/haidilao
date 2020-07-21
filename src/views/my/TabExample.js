@@ -42,7 +42,8 @@ var TabExample = createReactClass({
 	},
 	componentDidMount () {
 		console.log('组件挂载。。。。。')
-		const a = '0001'
+		var userid = window.localStorage.getItem('userId')
+		const a = userid
 		axios.post('http://localhost:3001/orderlist',{user:a})
 			.then((response) => {
 				// console.log(response.data)

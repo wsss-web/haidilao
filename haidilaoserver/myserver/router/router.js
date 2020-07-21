@@ -485,4 +485,24 @@ router.post('/pingjia', async (ctx,next) => {
   })
   ctx.body=await a
 })
+
+// 获取评价接口
+router.post('/myping', async (ctx,next) => {
+  console.log('请求收到了')
+  var user = ctx.request.body.user
+  console.log(user)
+  var a = new Promise(function(resolve,reject){
+    const sql_str = `select * from evaluation left join productinformation on evaluation.productNumber=productinformation.productNumber`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve(res)
+              // console.log(res)
+          }
+    })
+  })
+  ctx.body=await a
+})
 module.exports = router

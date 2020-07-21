@@ -8,7 +8,8 @@ var Odrershou = createReactClass({
 		return {list: []};
 	},
 	componentDidMount:function(){
-		const b = '0001'
+		var userid = window.localStorage.getItem('userId')
+		const b = userid 
 		axios.post('http://localhost:3001/myping',{user:b})
 			.then((response) => {
 				// console.log(response.data)
