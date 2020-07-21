@@ -2,6 +2,20 @@ import React from 'react';
 import { SearchBar } from 'antd-mobile';
 
 class SearchBarExample extends React.Component {
+	constructor(props) {
+	    super(props)
+		this.state = {
+			value: ''
+		}
+		this.submit = this.submit.bind(this)
+	}
+	submit = (a) => {
+		console.log(a)
+		this.props.getvalue(a)
+		this.setState({
+			value: a
+		})
+	}
   render() {
     return (
       <div>
@@ -14,7 +28,7 @@ class SearchBarExample extends React.Component {
           backgroundColor: "white",
           margin: "20px 20px 0 20px"
         }}
-        ></SearchBar>
+        onSubmit = {this.submit}></SearchBar>
       </div>
     );
   }

@@ -1,8 +1,9 @@
 import React from 'react'
 import './login.css'
 import './register.css'
-import { List, InputItem, Button, WhiteSpace, Toast, WingBlank } from 'antd-mobile';
+import { List, InputItem, Button, WhiteSpace, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
+import axios from 'axios'
 var createReactClass = require('create-react-class')
 var Register = createReactClass({
 	componentDidMount() {
@@ -18,8 +19,27 @@ var Register = createReactClass({
 		console.log(this.props.form.getFieldsValue())
 		if( this.props.form.getFieldsValue().password1 !== this.props.form.getFieldsValue().password2 ) {
 			Toast.info('两次密码输入不同', 1);
-		}
-		if( this.props.form.getFieldsValue().password1 === undefined || this.props.form.getFieldsValue().password2 === undefined || this.props.form.getFieldsValue().userid == undefined || this.props.form.getFieldsValue().address == undefined){
+		}else if(this.props.form.getFieldsValue().password1 !== undefined && this.props.form.getFieldsValue().password2 !== undefined && this.props.form.getFieldsValue().userid !== undefined && this.props.form.getFieldsValue().address !== undefined){
+			var obj = {
+				userId: this.props.form.getFieldsValue().userid,
+				mailbox: this.props.form.getFieldsValue().address,
+				password: this.props.form.getFieldsValue().password1,
+				status: 1
+			}
+			var that = this
+			axios.post('http://localhost:3001/user',{
+				data: obj
+			})
+				.then(
+					function(res){
+						console.log(res.data)
+						that.props.history.push('/')
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+		}else{
 			Toast.info('请把信息填写完整', 1);
 		}
 	},

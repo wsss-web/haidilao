@@ -1,17 +1,33 @@
 import React from 'react';
+import axios from 'axios';
 import { WingBlank } from 'antd-mobile';
-import Navbar from '..//home/js/Navbar.js'
+import Navbar from '..//home/js/Navbar.js';
 export default class Vouchers extends React.Component{ // eslint-disable-next-line
     constructor(props) {
 		super(props)
     }
     state = {
-        data: ['1', '2', '3', '4', '5', '6'],
-        vouchers:['10', '20', '50', '100', '200', '300'],
-        price:['8.9', '16.9', '42.8', '88.8', '168.8', '228.8']
+        vouchers:[]
     }
-    GoodsDetailFn(){
-		this.props.history.push('/goodsdetail')
+    GoodsDetailFn(item){
+		var that = this
+        that.props.history.push({pathname:'/goodsdetail',state:{item:item}})
+    }
+    componentDidMount() {
+		var that = this
+		axios.post('http://localhost:3001/goodsInfoMana',{
+			data: {status:5,goods_type:'代金券'}
+		}).then(
+			function(res){
+				// console.log(res.data)
+				that.setState({
+					vouchers: res.data
+				})
+			},
+			function(err){
+			  	console.log(err)
+			}
+		  )
 	}
     render(){
         return(
@@ -30,11 +46,11 @@ export default class Vouchers extends React.Component{ // eslint-disable-next-li
                     </img>
                     <WingBlank>
                         <ul style={{margin:"0 0 20px 0", padding:"0",position: "absolute",top:"178px"}}>
-                            {this.state.data.map(val =>(
-                                <li onClick={this.GoodsDetailFn.bind(this)}
+                            {this.state.vouchers.map((item,index) =>(
+                                <li onClick={()=>this.GoodsDetailFn(item)}
                                     style={{listStyle: "none",float: "left",width: "172px",marginTop:"18px"}}>
-                                    <img key={val}
-                                        src={require(`../../assets/imgs/代金券${val}.jpg`)}
+                                    <img key={index}
+                                        src={this.state.vouchers[index].productPicture}
                                         style={{
                                             width: "130px",
                                             height: "130px",
@@ -46,7 +62,7 @@ export default class Vouchers extends React.Component{ // eslint-disable-next-li
                                             fontSize: "14px", 
                                             textAlign: "left", 
                                             lineHeight: "36px"}}> 
-                                        {this.state.vouchers[val-1]} 元代金券
+                                        {this.state.vouchers[index].productName}
                                     </div>
                                     <div style={{
                                             width: "130px",
@@ -55,7 +71,7 @@ export default class Vouchers extends React.Component{ // eslint-disable-next-li
                                             fontSize: "18px", 
                                             textAlign: "left", 
                                             lineHeight: "30px"}}> 
-                                        ￥ {this.state.price[val-1]}
+                                        ￥ {this.state.vouchers[index].price}
                                     </div>
                                 </li>
                             ))}
