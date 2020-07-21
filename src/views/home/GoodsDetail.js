@@ -35,6 +35,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
               that.setState({
                 collect: require('../../assets/icons/已收藏.png') 
               })
+              return
             }else{
               that.setState({
                 collect: require('../../assets/icons/收藏.png') 
@@ -158,7 +159,9 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                             height: '22px',
                             background: `url(${this.state.collect}) center center /  21px 21px no-repeat` }}
                     ></div>}></TabBar.Item>
-                    <TabBar.Item icon={<div style={{
+                    <TabBar.Item 
+                      onPress={()=>{console.log('1111')}} 
+                      icon={<div style={{
                             width: '100px',
                             height: '50px',
                             color: 'white',
