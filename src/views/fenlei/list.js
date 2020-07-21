@@ -39,35 +39,31 @@ const guize = new ListView.DataSource({
 
 export default class XXX extends React.Component{
 	constructor(props){
-		console.log("9999999")
-		// console.log(props)
 		super(props)
 		this.state = {
 			goods: [],
 			title: '',
-			index: ''
+			index: '',
+			popup: true
 		}
 		this.chartbtn = this.chartbtn.bind(this)
 		this.detilbtn = this.detilbtn.bind(this)
 	}
 	componentWillReceiveProps(a){
-		// console.log(this)
-		
-		console.log('7777')
 		console.log(a)
 	var goods = a.goods.filter(function(item){
 		 return item.category == a.title; 
 	})
-		console.log(goods)
+	
 		if( goods.length != 0 ){
-			console.log(44444)
+			
 			this.setState({
 				goods: goods,
 				title: a.title,
 				index: a.index
 			})
 		}else if(goods.length == 0){
-			console.log(66666)
+			
 			this.setState({
 				goods: a.goods,
 				title: a.title,
@@ -75,7 +71,7 @@ export default class XXX extends React.Component{
 			})
 		}
 		if(a.sou != ''){
-			console.log(55555)
+			
 			var sougoods = a.goods.filter(function(item){
 				if(item.productName.indexOf(a.sou) == -1){
 					return false
@@ -83,7 +79,7 @@ export default class XXX extends React.Component{
 					return true
 				}
 			})
-			console.log(sougoods)
+			
 			if( sougoods.length != 0 ){
 				this.setState({
 					goods: sougoods
@@ -103,13 +99,13 @@ export default class XXX extends React.Component{
 	// }
 	chartbtn (goods, e){
 		e.stopPropagation()
-		console.log(goods)
-		console.log('购物车')
+		
+		this.props.getflag(true, goods)
+		console.log(this.props.getflag)
 	}
 	detilbtn (goods){
-		console.log(goods)
+		
 		this.props.history.push({pathname:'/goodsdetail',state:{item: goods}})
-		console.log('详情')
 		
 	}
 	

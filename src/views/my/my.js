@@ -1,10 +1,32 @@
 import React from 'react'
 import Tablebar from '../../components/Tablebar'
 import './my.css'
+import axios from 'axios';
 import { List } from 'antd-mobile';
 const Item = List.Item;
 var createReactClass = require('create-react-class');
 var My = createReactClass({
+	getInitialState: function() {
+		return {userinfo: ''};
+	},
+	componentDidMount:function(){
+		var that = this
+		var userId = localStorage.getItem('userId')
+		// console.log(userId)
+		axios.post('http://localhost:3001/user',{
+			data: {status: 4, userid: userId}
+		}).then(
+			function(res){
+				console.log(res.data)
+				that.setState({
+					userinfo:res.data
+				})
+			},
+			function(err){
+			  	console.log(err)
+			}
+		  )
+	},
 	render: function() {
 	  return <div>
 		        <div className='my_view'>
@@ -12,10 +34,10 @@ var My = createReactClass({
 					<div  onClick={() => {this.props.history.push('/home')}}  className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
 				</div>
 				<div className='mytop'>
-					<img className='my_head' src={require('../../icon/my_header.png')} alt=""/>
+					<img className='my_head' src={this.state.userinfo.avatar} alt=""/>
 					<div className='my_name'>
-						<div>去海滩捉鱼</div>
-						<div style={{marginTop:8}}>15890175670</div>
+						<div>{this.state.userinfo.nickname}</div>
+						<div style={{marginTop:8}}>{this.state.userinfo.telnumber}</div>
 						<div className='my_card'>红海会员</div>
 					</div>
 				</div>

@@ -29,7 +29,8 @@ class BasicInput extends React.Component {
 	  this.props.form.validateFields({ force: true }, (error) => {
 		if (!error) {
 		  var a = this.props.form.getFieldsValue()
-          a.user = '0001'
+		  var userid = window.localStorage.getItem('userId')
+          a.user = userid
 		  console.log(a);
 		  axios.post('http://localhost:3001/addaddress',{a:a})
 			.then((response) => {
