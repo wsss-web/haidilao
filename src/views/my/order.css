@@ -11,13 +11,18 @@ body{
 }
 .my_view3{
 	overflow: auto;
+	padding-top: 46px;
 }
 .my_title3{
+	width: 100%;
 	display: flex;
 	align-items: center;
 	padding: 8px 12px 8px 3px;
 	font-size: 14px;
 	background-color: white;
+	position: fixed;
+	top: 0;
+	z-index: 9999;
 }
 .am-tabs-default-bar-tab{
 	font-size: 12.5px;

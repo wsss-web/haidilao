@@ -8,6 +8,7 @@ import {
 import Classify from '../views/fenlei/classify.js'
 import Home from '../views/home/main.js'
 import Charts from '../views/cart/chart.js'
+import checkOrder from '../views/cart/checkOrder.js'
 import My from '../views/my/my.js'
 import Cang from '../views/my/mycang.js'
 import Order from '../views/my/odrer.js'
@@ -20,6 +21,7 @@ import Beer from '../views/home/Beer.js'
 import Goods from '../views/home/Goods.js'
 import GoodsDetail from '../views/home/GoodsDetail.js'
 import Myadress from '../views/my/myadress.js'
+import Pingjia from '../views/my/pingjia.js'
 import Bianadress from '../views/my/bianaddress.js'
 import Addadress from '../views/my/addaddress.js'
 import Forget from '../views/login/forget.js'
@@ -33,6 +35,7 @@ export default function Bar() {
             <Route exact path="/home" component={Home}/>
             <Route exact path="/classify" component={Classify}/>
             <Route exact path="/chart" component={Charts}/>
+            <Route exact path="/checkOrder" component={checkOrder}/>
             <Route exact path="/my" component={My}/>
             <Route exact path="/search" component={Search}/>
             <Route exact path="/vouchers" component={Vouchers}/>
@@ -49,6 +52,7 @@ export default function Bar() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/addaddress" component={Addadress} />
             <Route exact path="/bianaddress" component={Bianadress} />
+            <Route exact path="/pingjia" component={Pingjia} />
         </Switch>
     </HashRouter>
   );
