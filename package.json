@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd-mobile": "^2.3.3",
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "create-react-class": "^15.6.3",
     "lodash.flow": "^3.5.0",

@@ -8,6 +8,7 @@ import {
 import Classify from '../views/fenlei/classify.js'
 import Home from '../views/home/main.js'
 import Charts from '../views/cart/chart.js'
+import checkOrder from '../views/cart/checkOrder.js'
 import My from '../views/my/my.js'
 import Cang from '../views/my/mycang.js'
 import Order from '../views/my/odrer.js'
@@ -33,6 +34,7 @@ export default function Bar() {
             <Route exact path="/home" component={Home}/>
             <Route exact path="/classify" component={Classify}/>
             <Route exact path="/chart" component={Charts}/>
+            <Route exact path="/checkOrder" component={checkOrder}/>
             <Route exact path="/my" component={My}/>
             <Route exact path="/search" component={Search}/>
             <Route exact path="/vouchers" component={Vouchers}/>

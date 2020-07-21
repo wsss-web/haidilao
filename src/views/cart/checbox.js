@@ -10,100 +10,71 @@ export default class Test extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-        heji:this.props.xx,
-        dataSource:[
-        // { value: 0, label: '海底捞商城' },
-        {
-          img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-          title:'海底捞蜂蜜桂花啤酒330ml*9听',
-          price: '19.80元',
-          mode:'支付方式：现金',
-          quantity:'10',
-          flag: false
-        },
-        {
-          img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-          title:'海底捞蜂蜜桂花啤酒330ml*9听',
-          price: '19.80元',
-          mode:'支付方式：现金',
-          quantity:'10',
-          flag: false
-        },
-        {
-          img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-          title:'海底捞蜂蜜桂花啤酒330ml*9听(预售7天内发货)',
-          price: '19.80元',
-          mode:'支付方式：现金',
-          quantity:'10',
-          flag: false
-        }
-      ]
     }
+    this.yyy = this.yyy.bind(this)
   }
-
+  yyy(e,s,t){
+    this.props.tpa(e,s,t)
+  }
+  xsdLastTwo(x){
+  　　var f_x = parseFloat(x);  
+  　　if (isNaN(f_x))  
+  　　{  
+  　　　　return 0;  
+  　　}  
+  　　var f_x = Math.round(x*100)/100;  
+  　　var s_x = f_x.toString();  
+  　　var pos_decimal = s_x.indexOf('.');  
+  　　if (pos_decimal < 0)  
+  　　{  
+  　　　　pos_decimal = s_x.length;  
+  　　s_x += '.';  
+  　　}  
+  　　while (s_x.length <= pos_decimal + 2)  
+  　　{  
+  　　　　s_x += '0';  
+  　　}  
+  　　return s_x;  
+  }
+  upTrueFlag(index){
+    // var trueFlageArr=[]
+    // trueFlageArr.push(index)
+    // console.log(trueFlageArr)
+    var flagup=index
+    // this.yyy(flagup,)
+    var quantityup=null
+    var quantityudown=null
+    this.yyy(flagup,quantityup,quantityudown)
+  }
+  upQuantity(index){
+    var flagup=null
+    // this.yyy(flagup,)
+    var quantityup=index
+    var quantityudown=null
+    this.yyy(flagup,quantityup,quantityudown)
+  }
+  downQuantity(index){
+    var flagup=null
+    // this.yyy(flagup,)
+    var quantityup=null
+    var quantityudown=index
+    this.yyy(flagup,quantityup,quantityudown)
+  }
   componentWillReceiveProps(a) {
-    console.log(a.xx)
-    var tmp_data = this.state.dataSource
-    var tmp_data2 = tmp_data.map((item , index) => {
-      // console.log(val)
-       item.flag = a.xx
-       return item
-    })
-    console.log(tmp_data2)
-    this.setState({
-      dataSource: tmp_data2
-    })
-    this.state.dataSource.filter((item , index) => {
-      item.flag = a.xx
-      return item
-   })
   }
   componentDidMount (){
-  
-  }
-  toggleChecked = (index) => {
-    console.log(index)
-    console.log(this.state.dataSource[index].flag)
-    let xx=this.state.dataSource
-    xx[index].flag=!xx[index].flag
-    this.setState({ dataSource: xx });
-  }
-  onChange = (val) => {
-    console.log(val);
-  }
-  quanxuan (){
-   
   }
   render() {
-    console.log(this.props.xx)
-    console.log(this.state.heji)
-    // var that = this
     return <div>
       <List>
-        <CheckboxItem key="enabled" onClick={      
-          (val)=>{
-            console.log(this.state.heji)
-            var tmp_data = this.state.dataSource
-            var tmp_data2 = tmp_data.map((item , index) => {
-              console.log(val)
-               item.flag = val.target.checked
-               return item
-            })
-            console.log(tmp_data2)
-            this.setState({
-              dataSource: tmp_data2
-            })
-            this.state.dataSource.filter((item , index) => {
-              item.flag = val.target.checked
-              return item
-           })
-          }
-          // () => this.toggleChecked
-        } >
-          <List.Item.Brief  style={{fontSize:"12px",color:"black"}}>海底捞商城</List.Item.Brief>
-        </CheckboxItem>
-        {this.state.dataSource.map((i , index) => (
-          <CheckboxItem key={i.index} onClick={() => this.toggleChecked(index)}  checked={i.flag} onChange={() => this.onChange(i.index)} >
+        
+        {/* //我要做的是将触发的下标发给父组件 */}
+        {/* 数据是父组件的数据，将检测为真的下标传给父组件 */}
+        {this.props.dsDown.map((i , index) => (
+          // {
+          //   console.log(i)
+          // }
+          <CheckboxItem key={i.index} onChange={() => this.upTrueFlag(index)} checked={i.flag} >
             {i.label}
             <div className='oneCartGoods'>
               <div>
@@ -114,7 +85,7 @@ export default class Test extends React.Component {
                   {i.title}
                 </div>
                 <div style={{fontSize:"16px",color:"rgb(209,35,36)",paddingTop:"3px",paddingBottom:"3px"}}>
-                  {i.price}
+                  {i.price}元
                 </div>
                 <div style={{fontSize:"12px",color:"#ccc"}}>
                   {i.mode}
@@ -122,31 +93,13 @@ export default class Test extends React.Component {
               </div> 
             </div>
             <div className='count'>
-              <div onClick={
-                ()=> {
-                  var xxx = this.state.dataSource
-                  console.log(xxx)
-                  console.log(index)
-                  xxx[index].quantity--
-                  if(xxx[index].quantity>0){
-                    this.setState({
-                    dataSource: xxx
-                  })
-                }
-                  }              
-              }>-</div>
+              <div
+                onClick={(e) => {this.upQuantity(index)
+                 e.stopPropagation()}}>-</div>
               <div>{i.quantity}</div>
-              <div onClick={
-                ()=> {
-                  var xxx = this.state.dataSource
-                  console.log(xxx)
-                  console.log(index)
-                  xxx[index].quantity++
-                  this.setState({
-                    datSource: xxx
-                  })
-                }
-              }>+</div>
+              <div 
+               onClick={(e) => {this.downQuantity(index)
+                 e.stopPropagation()}}>+</div>
             </div>
           </CheckboxItem>
         ))}      
