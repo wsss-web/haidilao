@@ -93,7 +93,7 @@ export default class Classify extends React.Component {
 		const Lis = tabs.map((tab,index) =>
 			{
 				return (<div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>
-						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou}/>
+						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou} history={this.props.history}/>
 							
 					</div>)
 			}

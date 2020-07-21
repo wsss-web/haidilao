@@ -35,6 +35,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
               that.setState({
                 collect: require('../../assets/icons/已收藏.png') 
               })
+			  return
             }else{
               that.setState({
                 collect: require('../../assets/icons/收藏.png') 

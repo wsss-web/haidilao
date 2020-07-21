@@ -47,9 +47,12 @@ export default class XXX extends React.Component{
 			title: '',
 			index: ''
 		}
-		this.addgoods = this.addgoods.bind(this)
+		this.chartbtn = this.chartbtn.bind(this)
+		this.detilbtn = this.detilbtn.bind(this)
 	}
 	componentWillReceiveProps(a){
+		// console.log(this)
+		
 		console.log('7777')
 		console.log(a)
 	var goods = a.goods.filter(function(item){
@@ -92,37 +95,58 @@ export default class XXX extends React.Component{
 			}
 		}
 	}
-	addgoods = () => {
-		console.log(66666)
+	// componentDidMount(){
+		
+	// 	this.setState({
+	// 		goods
+	// 	})
+	// }
+	chartbtn (goods, e){
+		e.stopPropagation()
+		console.log(goods)
+		console.log('购物车')
 	}
-	row(rowData, sectionID, rowID) {
-	  return (
-	    <div key={rowID} style={{ padding: '0 15px' }}>
-	      <div
-	        style={{
-	          lineHeight: '30px',
-	          color: '#888',
-	          fontSize: 14,
-	          borderBottom: '1px solid #F6F6F6',
-			  height: '30px'
-	        }}
-	      >{rowData.productName}</div>
-	      <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0', alignItems: 'center'}}>
-	        <img style={{ height: '110px', width: '80.22px', marginRight: '15px' }} src={rowData.productPicture} alt="" />
-	        <div style={{ lineHeight: 1, width: '120px'}}>
-	          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{fontNumber(rowData.description)}</div>
-			  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已换购 11111</span></div>
-	          <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ 35</span></div>
-	        </div>
-			<div className = "add">
-				<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px', marginLeft: '10px', marginRight: '10px'}}></img>
-			</div>
-				
-	      </div>
-	    </div>
-	  );
-	};
+	detilbtn (goods){
+		console.log(goods)
+		this.props.history.push({pathname:'/goodsdetail',state:{item: goods}})
+		console.log('详情')
+		
+	}
+	
+	
 	render() {
+		
+		const row = (goods, sectionID, rowID) => {
+		  return (
+		    <div key={rowID} style={{ padding: '0 15px' }}>
+		      <div
+		        style={{
+		          lineHeight: '30px',
+		          color: '#888',
+		          fontSize: 14,
+		          borderBottom: '1px solid #F6F6F6',
+				  height: '30px'
+		        }}
+		      >{goods.productName}</div>
+		      <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0', alignItems: 'center'}} onClick = {() => {this.detilbtn(goods)}}>
+		        <img style={{ height: '110px', width: '80.22px', marginRight: '15px' }} src={goods.productPicture} alt="" />
+		        <div style={{ lineHeight: 1, width: '120px'}}>
+		          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{fontNumber(goods.description)}</div>
+				  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>库存: {goods.stocks}</span></div>
+		          <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ {goods.price}</span></div>
+		        </div>
+				<div className = "add">
+					<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px', marginLeft: '10px', marginRight: '10px'}} 
+					onClick = {(e) => {this.chartbtn(goods, e)}}></img>
+				</div>
+					
+		      </div>
+		    </div>
+		  );
+		};
+		
+		
+		
 		return (
 			<div>
 				<ListView
@@ -132,9 +156,7 @@ export default class XXX extends React.Component{
 				  //   {this.state.isLoading ? 'Loading...' : 'Loaded'}
 				  // </div>)}
 				  renderBodyComponent={() => <MyBody />}
-				  renderRow={
-					  this.row
-				  }
+				  renderRow={row}
 				  // renderSeparator={separator}
 				  style={{
 				    height: "500px",
