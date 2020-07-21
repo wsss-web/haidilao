@@ -108,7 +108,7 @@ export default class XXX extends React.Component{
 	        }}
 	      >{rowData.productName}</div>
 	      <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0', alignItems: 'center'}}>
-	        <img style={{ height: '110px', width: '80.22px', marginRight: '15px' }} src={rowData.productPicture} alt="" />
+	        <img style={{ height: '110px', width: '80px', marginRight: '15px' }} src={rowData.productPicture} alt="" />
 	        <div style={{ lineHeight: 1, width: '120px'}}>
 	          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{fontNumber(rowData.description)}</div>
 			  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已换购 11111</span></div>

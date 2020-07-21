@@ -10,7 +10,9 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
         this.state = {
           goodsdetail:'',
           userId: '',
-          collect: ''
+          collect: '',
+          evaluate:[],
+          evTime:[]
         }
         this.collectFn = this.collectFn.bind(this)
     }
@@ -29,7 +31,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
 			  function(res){
           // console.log(res.data)
           var obj = res.data
-          console.log(obj)
+          // console.log(obj)
           for (var i = 0; i < obj.length; i++){
             if(obj[i].userId === userId && obj[i].productNumber === that.state.goodsdetail.productNumber){
               that.setState({
@@ -47,6 +49,35 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
 			  	console.log(err)
 			  }
       )
+      // 获取商品评价的数据
+      setTimeout(() => {
+        axios.post('http://localhost:3001/getpingjia',{
+          data: {productNumber:that.state.goodsdetail.productNumber}
+        }).then(
+          function(res){
+            // console.log(res.data)
+            that.setState({
+              evaluate:res.data
+            })
+          },
+          function(err){
+            console.log(err)
+          }
+        )
+      }, 100);
+    }
+    // 时间戳转换为年月日时分秒
+    timestampToTime(timestamp){
+      var date = new Date();
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
+        
+        var strDate = Y+M+D+h+m+s;
+        return strDate;
     }
     collectFn(){
       // console.log(this.state.userId,this.state.goodsdetail.productNumber)
@@ -79,12 +110,65 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
 			  }
 		  )
     }
+    addFn(){
+      // console.log(this.state.userId,this.state.goodsdetail.productNumber)
+      var that = this
+      axios.post('http://localhost:3001/shoppingCartMana',{
+        data: {
+          status: 6,
+          userId: this.state.userId, 
+          productNumber: this.state.goodsdetail.productNumber}
+		  }).then(
+			  function(res){
+          // console.log(res.data)
+          var cartinfo = res.data
+          // console.log(cartinfo)
+            if(cartinfo.length !== 0){
+              // console.log(cartinfo[0].quantity)
+              axios.post('http://localhost:3001/shoppingCartMana',{
+                data: {
+                  status: 5, 
+                  userId: that.state.userId, 
+                  productNumber: that.state.goodsdetail.productNumber,
+                  quantity:cartinfo[0].quantity}
+              }).then(
+                function(res){
+                  console.log(res.data)
+                  Toast.info('已加入购物车' , 1 );
+                },
+                function(err){
+                  console.log(err)
+                }
+              )
+            }else if(cartinfo.length === 0){
+              axios.post('http://localhost:3001/shoppingCartMana',{
+                data: {
+                  status: 1, 
+                  userId: that.state.userId, 
+                  productNumber: that.state.goodsdetail.productNumber,
+                  quantity:1}
+              }).then(
+                function(res){
+                  console.log(res.data)
+                  Toast.info('已加入购物车' , 1 );
+                },
+                function(err){
+                  console.log(err)
+                }
+              )
+            }
+			  },
+			  function(err){
+			  	console.log(err)
+			  }
+		  )
+    }
     render(){
         return(
             <div style={{position:"relative",backgroundColor:"white"}}>
                 <Navbar name="商品详情" history={this.props.history}></Navbar>
                 <div style={{width:"100%",
-                        height:"570px",
+                        height:"560px",
                         overflow:"scroll"}}>
                     {/* <MyCarousel goodsdetail={this.state.goodsdetail}></MyCarousel> */}
                     <img src={this.state.goodsdetail.productPicture} alt=""
@@ -122,7 +206,27 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                         lineHeight:"40px",
                         letterSpacing:"2px"
                     }}>{this.state.goodsdetail.price} 元</div>
+
+                <div style={{width:"88%",height:"200px",margin:"0 auto"}}>
+                  <span style={{fontSize:"16px",fontWeight:"600"}}>商品评价({this.state.evaluate.length})</span>
+                  <span style={{color:"#FF393A",marginLeft:"160px"}}>好评率：98%</span>
+                  <ul>
+                    {this.state.evaluate.map((item,index) =>(
+                      <li key={index} style={{listStyle:"none",width:"100%",height:"100px",marginTop:"20px"}}>
+                        <img src={this.state.evaluate[index].avatar}
+                          style={{width:"35px",height:"35px",borderRadius:"50%"}}
+                          alt=""></img>
+                        <span style={{position:"relative",left:"10px",bottom:"12px",color:"#FF393A"}}>{this.state.evaluate[index].nickName}</span>
+                        <span></span>
+                        <div style={{position:"relative",left:"5px",top:"10px"}}>{this.state.evaluate[index].content}</div>
+                        <div style={{position:"relative",left:"5px",top:"26px"}}>{this.timestampToTime(this.state.evaluate[index].evaluationTime)}</div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+
+                </div>
+                
                 <TabBar tabBarPosition="bottom">
                     <TabBar.Item
                       title="首页"
@@ -160,7 +264,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                             background: `url(${this.state.collect}) center center /  21px 21px no-repeat` }}
                     ></div>}></TabBar.Item>
                     <TabBar.Item 
-                      onPress={()=>{console.log('1111')}} 
+                      onPress={()=>{this.addFn()}}
                       icon={<div style={{
                             width: '100px',
                             height: '50px',

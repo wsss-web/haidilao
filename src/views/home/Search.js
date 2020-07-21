@@ -9,7 +9,7 @@ export default class Search extends React.Component{ // eslint-disable-next-line
         return(
             <div>
                 <Navbar name="搜索" history={this.props.history}></Navbar>
-                <SearchBar></SearchBar>
+                <SearchBar history={this.props.history}></SearchBar>
             </div>
         )
     }

@@ -50,12 +50,12 @@ export default class Home extends React.Component {
 						</div>
 					</div>
 					<MyCarousel></MyCarousel>
-					<MyGrid props={this.props}></MyGrid>
+					<MyGrid history={this.props.history}></MyGrid>
 					<div className="beer">
 						<img className="beer_cover" src={require('../../assets/imgs/啤酒.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
-								<Beer props={this.props}></Beer>
+								<Beer history={this.props.history}></Beer>
 							</ul>
 						</WingBlank>
 					</div>
@@ -63,7 +63,7 @@ export default class Home extends React.Component {
 						<img className="hotpot_cover" src={require('../../assets/imgs/火锅.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
-								<Hotpot props={this.props}></Hotpot>
+								<Hotpot history={this.props.history}></Hotpot>
 							</ul>
 						</WingBlank>
 					</div>
@@ -71,7 +71,7 @@ export default class Home extends React.Component {
 						<img className="seasoning_cover" src={require('../../assets/imgs/底料.jpg')} alt=""></img>
 						<WingBlank>
 							<ul className="goods_list">
-								<Seasoning props={this.props}></Seasoning>
+								<Seasoning history={this.props.history}></Seasoning>
 							</ul>
 						</WingBlank>
 					</div>
@@ -112,7 +112,7 @@ var Beer = createReactClass({
 	},
 	GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
+		that.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 		// console.log(item)
 	},
 	componentDidMount() {
@@ -157,7 +157,7 @@ var Hotpot = createReactClass({
 	},
 	GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
+		that.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 	},
 	componentDidMount() {
 		var that = this
@@ -201,7 +201,7 @@ var Seasoning = createReactClass({
 	},
 	GoodsDetailFn(item){
 		var that = this
-		that.props.props.history.push({pathname:'/goodsdetail',state:{item:item}})
+		that.props.history.push({pathname:'/goodsdetail',state:{item:item}})
 	},
 	componentDidMount() {
 		var that = this
