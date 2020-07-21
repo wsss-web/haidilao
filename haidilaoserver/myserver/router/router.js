@@ -485,4 +485,51 @@ router.post('/pingjia', async (ctx,next) => {
   })
   ctx.body=await a
 })
+//购物车接口
+// 购物车信息路由
+router.post('/shoppingCartMana', async(ctx,body) => {
+  var one_per = ctx.request.body.data
+  console.log(one_per)
+  // 增加购物车里的商品信息
+  if(one_per.status == 1){
+    console.log('6666')
+    var sql_add = "insert into shoppingCart(userId,productNumber,quantity) values('"+ one_per.userId +"','"+ one_per.productNumber +"','"+ one_per.quantity +"')"
+    var results_add = await query(sql_add)
+    console.log('插入成功')
+  }
+  //删除购物车单个商品信息
+  if(one_per.status == 2){
+    var one_per = ctx.request.body.data
+    var sql_del = "delete from shoppingCart where productNumber='"+ one_per.productNumber +"'&& userId='"+ one_per.userId +"'"
+    var results_del = await query(sql_del)
+    console.log('删除成功')
+  }
+  // 修改购物车单个商品得数量
+  if(one_per.status == 3){
+    var one_per = ctx.request.body.data
+    var sql_reset = "update shoppingCart set productNumber='"+ one_per.productNumber +"',quantity='"+ one_per.quantity +"'  where productNumber='"+ one_per.productNumber +"'"
+    var results_reset = await query(sql_reset)
+    console.log('修改成功')
+  }
+  // 查询所有购物车信息
+  if(one_per.status == 4){
+    var one_per = ctx.request.body.data
+    var sql_reset = "select * from shoppingCart"
+    var results_reset = await query(sql_reset)
+    console.log('查询成功')
+    ctx.body=results_reset
+    // console.log(results_reset)
+  }
+  // 查询登录用户购物车信息
+  if(one_per.status == 5){
+    var one_per = ctx.request.body.data
+    var sql_reset = "select * from shoppingcart left join productinformation on shoppingcart.productNumber=productinformation.productNumber where userId = '"+ one_per.userId +"'"
+    var results_reset = await query(sql_reset)
+    console.log('登录用户购物车信息查询成功')
+    ctx.body=results_reset
+    console.log(results_reset)
+  }
+  //
+
+})
 module.exports = router

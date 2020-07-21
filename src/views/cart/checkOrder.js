@@ -6,30 +6,6 @@ export default class checkOrder extends React.Component {
         super(props)
         this.state = {
             checkedGoods: [
-                {
-                    img: 'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-                    title: '海底捞蜂蜜桂花啤酒330ml*9听',
-                    price: '19.80',
-                    mode: '支付方式：现金',
-                    quantity: '10',
-                    flag: false
-                },
-                {
-                    img: 'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-                    title: '海底捞蜂蜜桂花啤酒330ml*9听',
-                    price: '19.80',
-                    mode: '支付方式：现金',
-                    quantity: '9',
-                    flag: false
-                },
-                {
-                    img: 'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-                    title: '海底捞蜂蜜桂花啤酒330ml*9听(预售7天内发货)',
-                    price: '19.80',
-                    mode: '支付方式：现金',
-                    quantity: '10',
-                    flag: false
-                }
             ]
 
         }
@@ -39,22 +15,19 @@ export default class checkOrder extends React.Component {
         //  this.tpa=this.tpa.bind(this)
     }
     componentDidMount () {
-        console.log(this.props.location.query)
-        // var order=this.props.location.query
-        // var data = this.props.location.query
-        // var {id} = data;
-        // var data = this.props.location.query;
-        // var orObj= [{img,title,price,mode,quantity,flag},{img,title,price,mode,quantity,flag} ]= order
-        // console.log(orObj)
-        // Object.keys(order) 
-        // console.log(Object.keys(order) )
-        // console.log(order[0] )
-        // Object.values(obj)
-        // console.log(order)
-        // var cc=this.state.checkedGoods
-        // console.log(cc)
-        // this.setState({cc:this.props.location.query})
-        // console.log(cc)
+        // console.log("777666888")
+        // console.log(this.props)
+        // console.log(this.props.location.query)
+
+        var tmp_arr = []
+        if (this.props.location && this.props.location.query && this.props.location.query.id) {
+            console.log(this.props.location.query.id)
+            
+            for (var i = 0; i < this.props.location.query.id.length; i++) {
+                tmp_arr.push(this.props.location.query.id[i])
+            }
+            this.setState({checkedGoods:tmp_arr})
+        }
     }
     pushBcak(){
         this.props.history.goBack();
@@ -79,10 +52,10 @@ export default class checkOrder extends React.Component {
                     {this.state.checkedGoods.map((i, index) => (
                         <div key={ i.index } className="oneGoodsFont">
                             <div className="imgFont">
-                                <img src={ i.img }></img>
+                                <img src={ i.productPicture }></img>
                             </div>
                             <div className="ziA">
-                                <div className="ziEli">{ i.title }</div>
+                                <div className="ziEli">{ i.productName }</div>
                                 <div style={ { color: "rgb(209,35,36)", padding: "10px 0px" } }>{ i.price }元</div>
                                 <div style={ { fontSize: "10px", color: "#999" } }>产品规格{ i.quantity }：件支付方式：现金购买</div>
                             </div>

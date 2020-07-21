@@ -2,6 +2,7 @@ import React from 'react'
 import Tablebar from '../../components/Tablebar.js'
 import NavBar from '../../components/Navbar.js'
 import './chart.css'
+import axios from 'axios'
 import './alichart/iconfont.css'
 import Test from './checbox.js'
 import { List, Checkbox } from 'antd-mobile';
@@ -105,9 +106,7 @@ var createReactClass = require('create-react-class');
 			var coTrue=this.state.dataSource.filter((i , index) => {
 				return i.flag==true
 			})
-			console.log(coTrue)
-			var co=[1,1,1,1,]
-			this.props.history.push({pathname:'/checkOrder', query:{checkDate: co}})
+			this.props.history.push({pathname:'/checkOrder', query:{id: coTrue}})
 		}
 		tipF (){
 			if(this.state.tipsFlag!=0){
@@ -130,7 +129,34 @@ var createReactClass = require('create-react-class');
 			}
 		}
 		componentDidMount (){
+			var userId=localStorage.getItem('userId')
+			console.log(userId)
+			if(userId==null){
+				console.log("请先登录")
+			}else if(userId!=null){
+				var that = this
+				var userIdGoodsInfo=[]
+			axios.post('http://localhost:3001/shoppingCartMana', {data:{status: 5,userId:localStorage.getItem('userId')}})
+				.then(
+					function(res){
+						console.log(res)
+						console.log(res.data)
+						userIdGoodsInfo=res.data
+						that.setState({
+							dataSource:res.data,
+						})					
+					},
+					function(err){
+						console.log(err)
+					}
+			)
+
+
+
+
+			}
 		//每次进入这个界面都会重新渲染数据，请求数据库
+		
 		}
 	render () {
 		return <div>

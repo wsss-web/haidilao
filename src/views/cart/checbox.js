@@ -78,17 +78,17 @@ export default class Test extends React.Component {
             {i.label}
             <div className='oneCartGoods'>
               <div>
-                <img src={i.img}></img>
+                <img src={i.productPicture}></img>
               </div>
               <div style={{fontSize:"14px",paddingTop:"5px",paddingLeft:"10px"}}>
                  <div style={{wordWrap:"break-word",whiteSpace:'pre-wrap'}}>
-                  {i.title}
+                  {i.productName}
                 </div>
                 <div style={{fontSize:"16px",color:"rgb(209,35,36)",paddingTop:"3px",paddingBottom:"3px"}}>
                   {i.price}元
                 </div>
                 <div style={{fontSize:"12px",color:"#ccc"}}>
-                  {i.mode}
+                支付方式：现金
                 </div>
               </div> 
             </div>
