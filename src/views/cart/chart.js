@@ -2,6 +2,7 @@ import React from 'react'
 import Tablebar from '../../components/Tablebar.js'
 import NavBar from '../../components/Navbar.js'
 import './chart.css'
+import axios from 'axios'
 import './alichart/iconfont.css'
 import Test from './checbox.js'
 import { List, Checkbox } from 'antd-mobile';
@@ -17,32 +18,7 @@ var createReactClass = require('create-react-class');
 				checked: false,
 				tipsFlag: 0,
 				totalPrice:0,
-				dataSource:[
-					{
-					  img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-					  title:'海底捞蜂蜜桂花啤酒330ml*9听',
-					  price: '19.80',
-					  mode:'支付方式：现金',
-					  quantity:'10',
-					  flag: false
-					},
-					{
-					  img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-					  title:'海底捞蜂蜜桂花啤酒330ml*9听',
-					  price: '19.80',
-					  mode:'支付方式：现金',
-					  quantity:'9',
-					  flag: false
-					},
-					{
-					  img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-					  title:'海底捞蜂蜜桂花啤酒330ml*9听(预售7天内发货)',
-					  price: '19.80',
-					  mode:'支付方式：现金',
-					  quantity:'10',
-					  flag: false
-					}
-				  ]
+				dataSource:[]
 			 }
 			 this.tpa=this.tpa.bind(this)
 			 this.pushOrder = this.pushOrder.bind(this)
@@ -105,9 +81,7 @@ var createReactClass = require('create-react-class');
 			var coTrue=this.state.dataSource.filter((i , index) => {
 				return i.flag==true
 			})
-			console.log(coTrue)
-			var co=[1,1,1,1,]
-			this.props.history.push({pathname:'/checkOrder', query:{checkDate: co}})
+			this.props.history.push({pathname:'/checkOrder', query:{id: coTrue}})
 		}
 		tipF (){
 			if(this.state.tipsFlag!=0){
@@ -130,7 +104,34 @@ var createReactClass = require('create-react-class');
 			}
 		}
 		componentDidMount (){
+			var userId=localStorage.getItem('userId')
+			console.log(userId)
+			if(userId==null){
+				console.log("请先登录")
+			}else if(userId!=null){
+				var that = this
+				var userIdGoodsInfo=[]
+			axios.post('http://localhost:3001/shoppingCartMana', {data:{status: 5,userId:localStorage.getItem('userId')}})
+				.then(
+					function(res){
+						console.log(res)
+						console.log(res.data)
+						userIdGoodsInfo=res.data
+						that.setState({
+							dataSource:res.data,
+						})					
+					},
+					function(err){
+						console.log(err)
+					}
+			)
+
+
+
+
+			}
 		//每次进入这个界面都会重新渲染数据，请求数据库
+		
 		}
 	render () {
 		return <div>

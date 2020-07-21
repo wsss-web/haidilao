@@ -37,7 +37,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
               that.setState({
                 collect: require('../../assets/icons/已收藏.png') 
               })
-              return
+			  return
             }else{
               that.setState({
                 collect: require('../../assets/icons/收藏.png') 
@@ -113,21 +113,20 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     addFn(){
       // console.log(this.state.userId,this.state.goodsdetail.productNumber)
       var that = this
-      axios.post('http://localhost:3001/shoppingCartMana',{
+      axios.post('http://localhost:3001/CartMana',{
         data: {
-          status: 6,
+          status: 3,
           userId: this.state.userId, 
           productNumber: this.state.goodsdetail.productNumber}
 		  }).then(
 			  function(res){
-          // console.log(res.data)
           var cartinfo = res.data
           // console.log(cartinfo)
             if(cartinfo.length !== 0){
               // console.log(cartinfo[0].quantity)
-              axios.post('http://localhost:3001/shoppingCartMana',{
+              axios.post('http://localhost:3001/CartMana',{
                 data: {
-                  status: 5, 
+                  status: 2, 
                   userId: that.state.userId, 
                   productNumber: that.state.goodsdetail.productNumber,
                   quantity:cartinfo[0].quantity}
@@ -141,7 +140,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                 }
               )
             }else if(cartinfo.length === 0){
-              axios.post('http://localhost:3001/shoppingCartMana',{
+              axios.post('http://localhost:3001/CartMana',{
                 data: {
                   status: 1, 
                   userId: that.state.userId, 
