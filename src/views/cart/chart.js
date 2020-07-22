@@ -275,13 +275,13 @@ var createReactClass = require('create-react-class');
 				this.setState({gouwuche:1})
 			}
 		//每次进入这个界面都会重新渲染数据，请求数据库
-		
 		}
+
 	render () {
 		return <div>
 			<div className="navBar" style={{textAlign:"center"}}>
-                <div className="sanjiao" onClick={this.pushBcak}style={{textAlign:"center"}} ></div>
-                <span style={{fontSize:"16px"}}>购物车</span>
+                <div className="sanjiao" onClick={() => {this.props.history.push('/home')}} style={{textAlign:"center"}} ></div>
+                <span className="carttitle">购物车</span>
             </div>
 			<div>
 				<div className="topbackground"></div>

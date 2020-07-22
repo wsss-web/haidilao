@@ -3,6 +3,7 @@ import Tablebar from '../../components/Tablebar'
 import './my.css'
 import axios from 'axios';
 import { List } from 'antd-mobile';
+import Avatar from '../login/touxiang.js'
 const Item = List.Item;
 var createReactClass = require('create-react-class');
 var My = createReactClass({
@@ -31,10 +32,10 @@ var My = createReactClass({
 	  return <div>
 		        <div className='my_view'>
 		        <div className='my_title'>
-					<div  onClick={() => {this.props.history.push('/home')}}  className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
+					<div  onClick={() => {this.props.history.push('/home')}}  className='Rhome'></div><span style={{marginLeft:20,fontSize:"18px"}}>个人中心</span>
 				</div>
-				<div className='mytop'>
-					<img className='my_head' src={this.state.userinfo.avatar} alt=""/>
+				<div className='mytop' style={{paddingLeft: '10px'}}>
+					<Avatar style = {{width: '50px', height: '50px'}}/>
 					<div className='my_name'>
 						<div>{this.state.userinfo.nickname}</div>
 						<div style={{marginTop:8}}>{this.state.userinfo.telnumber}</div>

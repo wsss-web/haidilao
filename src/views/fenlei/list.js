@@ -132,7 +132,7 @@ export default class XXX extends React.Component{
 		          <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ {goods.price}</span></div>
 		        </div>
 				<div className = "add">
-					<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px', marginLeft: '10px', marginRight: '10px'}} 
+					<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px', marginRight: '10px'}} 
 					onClick = {(e) => {this.chartbtn(goods, e)}}></img>
 				</div>
 					

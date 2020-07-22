@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 // import { Carousel, WingBlank, TabBar } from 'antd-mobile';
 import { TabBar,Toast } from 'antd-mobile';
-import Navbar from '..//home/js/Navbar.js'
+import Navbar from '../home/js/Navbar.js'
+import MyPopup from "../home/js/Popup.js"
 
 export default class GoodsDetail extends React.Component{ // eslint-disable-next-line
     constructor(props){
@@ -12,7 +13,8 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
           userId: '',
           collect: '',
           evaluate:[],
-          evTime:[]
+          evTime:[],
+          modal2: false
         }
         this.collectFn = this.collectFn.bind(this)
     }
@@ -271,13 +273,15 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                             lineHeight: '50px',
                             backgroundColor: '#E83538' }}
                     >加入购物车</div>}></TabBar.Item>
-                    <TabBar.Item icon={<div style={{
+                    <TabBar.Item
+                      icon={<div style={{
                             width: '100px',
                             height: '50px',
                             color: 'white',
                             lineHeight: '50px',
                             backgroundColor: '#383838' }}
-                    >立即购买</div>}></TabBar.Item>
+                    ><MyPopup goodsdetail={this.state.goodsdetail}></MyPopup>
+                    </div>}></TabBar.Item>
                 </TabBar>
             </div>
         )

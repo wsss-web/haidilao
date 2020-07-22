@@ -70,7 +70,7 @@ export default class Demo extends React.Component {
 			        <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>库存 {item.stocks}</span></div>
               <div style={{ marginTop: '13px' }}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>￥ {item.price}</span></div>
             </div>
-            <img src={require("../../../assets/icons/add.png")} alt="" style={{ width: '22px',height:'22px',position:"relative",top:"20px",right:"10px"}}></img>
+            {/* <img src={require("../../../assets/icons/add.png")} alt="" style={{ width: '22px',height:'22px',position:"relative",top:"20px",right:"10px"}}></img> */}
           </div>
         </div>
       );
