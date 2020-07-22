@@ -1,6 +1,7 @@
 import React from 'react'
-import NavBar from '../../components/Navbar.js'
+// import NavBar from '../../components/Navbar.js'
 import './chart.css'
+import { Modal, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
 export default class checkOrder extends React.Component {
     constructor(props) {
         super(props)
@@ -9,6 +10,7 @@ export default class checkOrder extends React.Component {
             ddpeo:null,
             ddaddr:null,
             ddtel:null,
+            isAddAddress:false,
             checkedGoods: [
             ]
 
@@ -31,15 +33,17 @@ export default class checkOrder extends React.Component {
             for (var i = 0; i < this.props.location.query.id.length; i++) {
                 tmp_arr.push(this.props.location.query.id[i])
             }
-            this.setState({ddpeo:this.props.location.query.addressDe[0].receiver})
-            this.setState({ddaddr:this.props.location.query.addressDe[0].receiverAddress})
-            this.setState({ddtel:this.props.location.query.addressDe[0].receiverTelnumber})
-            this.setState({checkedGoods:tmp_arr})
-            local_goodsInfo=JSON.stringify(tmp_arr)
-            window.localStorage.setItem("local_goodsInfo" , JSON.stringify(tmp_arr))
-            window.localStorage.setItem("local_jiage" , JSON.stringify(this.props.location.query.jiage))
-
-
+            if(this.props.location.query.addressDe[0]!=1){
+                this.setState({ddpeo:this.props.location.query.addressDe[0].receiver})
+                this.setState({ddaddr:this.props.location.query.addressDe[0].receiverAddress})
+                this.setState({ddtel:this.props.location.query.addressDe[0].receiverTelnumber})
+                this.setState({checkedGoods:tmp_arr})
+                local_goodsInfo=JSON.stringify(tmp_arr)
+                window.localStorage.setItem("local_goodsInfo" , JSON.stringify(tmp_arr))
+                window.localStorage.setItem("local_jiage" , JSON.stringify(this.props.location.query.jiage))
+            }else{
+                this.setState({isAddAddress:true})
+            }
         } else {
             var lcoal_address = JSON.parse(window.localStorage.getItem("moren"))
             var local_goodsInfo2 = JSON.parse(window.localStorage.getItem("local_goodsInfo"))
@@ -51,7 +55,7 @@ export default class checkOrder extends React.Component {
             this.setState({ddtel:lcoal_address[0].receiverTelnumber})
         }
     }
-   
+
     pushBcak(){
         this.props.history.goBack();
     }
@@ -59,6 +63,9 @@ export default class checkOrder extends React.Component {
         // var gouwuc=1
         this.props.history.push({pathname:'/myadress', query:{id:'1'}})
         // that.props.history.push({pathname:'/checkOrder', query:{id: coTrue,jiage:that.state.totalPrice,addressDe:addressDefault}})
+
+    }
+    zhifuDialog(){
 
     }
     render () {
@@ -70,13 +77,17 @@ export default class checkOrder extends React.Component {
             ></NavBar> */}
             <div className="navBar">
                 <div className="sanjiao" onClick={this.pushBcak}></div>
-                <span>确认订单</span>
+                <span >确认订单</span>
             </div>
             <div className="order" >
-                <div className="reInfo">
+                <div className={this.state.isAddAddress?"dis":"reInfo"}>
                     <div>{this.state.ddpeo} <span>{this.state.ddtel}</span></div>
                     <div>{this.state.ddaddr}</div>
                     <div className="sanjiao" onClick={this.pushAddressList}></div>
+                </div>
+                <div className={this.state.isAddAddress?"addAddress":"dis"}>
+                    <div>+</div>
+                    <div>新增地址</div>
                 </div>
                 <div className="goodsInfo">
                     <div className="litte">商品信息</div>
@@ -102,6 +113,13 @@ export default class checkOrder extends React.Component {
                     <div><span>商品总金额</span><span>{this.state.jiage2}元</span></div>
                 </div>
             </div>
+            <div className="zhifu">
+                <div className="zfLeft">
+                    <div>实付金额：<span style={{color:"red"}}>{this.state.jiage2}元</span></div>
+                    <div>非金钱兑换商品不支持退换</div>
+                </div>
+                <div onClick={()=>{}}><Apptc></Apptc></div>
+            </div>
         </div>
 
         )
@@ -109,4 +127,30 @@ export default class checkOrder extends React.Component {
 
 }
 
+
+
+
+
+
+const prompt = Modal.prompt;
+const Apptc = () => (
+    <WingBlank size="lg">
+      <WhiteSpace size="lg" /> 
+      <WhiteSpace size="lg" />
+      <Button onClick={() => prompt(
+        'Password',
+        '请输入微信支付密码',
+        [
+          { text: '取消' },
+          { text: '提交', onPress: password => console.log(`密码为:${password}`) },
+        ],
+        'secure-text',
+      )}
+      >去支付</Button>
+      <WhiteSpace size="lg" />
+    </WingBlank>
+  );
+  
+  
+//   ReactDOM.render(<Apptc />, mountNode);
 // export default checkOrder
