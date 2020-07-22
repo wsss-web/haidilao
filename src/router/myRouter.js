@@ -20,6 +20,7 @@ import Fresh from '../views/home/Fresh.js'
 import Beer from '../views/home/Beer.js'
 import Goods from '../views/home/Goods.js'
 import GoodsDetail from '../views/home/GoodsDetail.js'
+import Confirmorder from '../views/home/Confirmorder.js'
 import Myadress from '../views/my/myadress.js'
 import Pingjia from '../views/my/pingjia.js'
 import Bianadress from '../views/my/bianaddress.js'
@@ -43,6 +44,7 @@ export default function Bar() {
             <Route exact path="/beer" component={Beer}/>
             <Route exact path="/goods" component={Goods}/>
             <Route exact path="/goodsdetail" component={GoodsDetail}/>
+            <Route exact path="/confirmorder" component={Confirmorder}/>
             <Route exact path="/order" component={Order}/>
             <Route exact path="/odrershou" component={Odrershou}/>
             <Route exact path="/myadress" component={Myadress}/>

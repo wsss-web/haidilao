@@ -13,17 +13,128 @@ var createReactClass = require('create-react-class');
 		constructor(props) {
 			super(props)
 			this.state = { 
+				lingshiArr:[],
 				banjiFlag:"false",
 				whetherBianji: "编辑",
 				checked: false,
 				tipsFlag: 0,
 				totalPrice:0,
-				dataSource:[]
+				gouwuche:1,
+				dataSource:[
+					// {
+					//   img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
+					//   title:'海底捞蜂蜜桂花啤酒330ml*9听',
+					//   price: '19.80',
+					//   mode:'支付方式：现金',
+					//   quantity:'10',
+					//   flag: false
+					// },
+					// {
+					//   img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
+					//   title:'海底捞蜂蜜桂花啤酒330ml*9听',
+					//   price: '19.80',
+					//   mode:'支付方式：现金',
+					//   quantity:'9',
+					//   flag: false
+					// },
+					// {
+					//   img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
+					//   title:'海底捞蜂蜜桂花啤酒330ml*9听(预售7天内发货)',
+					//   price: '19.80',
+					//   mode:'支付方式：现金',
+					//   quantity:'10',
+					//   flag: false
+					// }
+				  ]
 			 }
+			 
 			 this.tpa=this.tpa.bind(this)
 			 this.pushOrder = this.pushOrder.bind(this)
+			 this.collectFn = this.collectFn.bind(this)
 			//  this.tpa2=this.tpa2.bind(this)
 		}
+		collectFn(){
+			this.scTips()
+			// console.log(1111)
+			var shoucangArr=[]
+			var collectArr=[]
+			var productnum=[]
+			var productnum2=[]
+			shoucangArr=this.state.dataSource.filter((i , index) => {
+				if(i.flag==true) 
+				{
+					collectArr.push(i)
+					productnum.push(i.productNumber)
+				}				
+			})
+			// console.log(collectArr)
+			// console.log(productnum)
+			this.setState({
+				lingshiArr: collectArr
+			})
+			//axios判断收藏信息里是否有这个收藏商品
+			if(collectArr[0]!=undefined){
+				var cR=false
+				var that = this	
+				console.log("777777777")
+				axios.post('http://localhost:3001/collectInfo', {data:{status:3,userId:localStorage.getItem('userId'),productArr:collectArr}})
+				.then(
+					function(res){
+						var obj = res.data
+						console.log("818181818")
+						console.log(obj[0].userId)
+						if(obj[0].userId!=null){
+							console.log(21212)
+							console.log(collectArr)
+
+						for (var i = 0; i < obj.length; i++){
+							for(var j=0;j<collectArr.length;j++){
+								if(obj[i].userId ==collectArr[j].userId && obj[i].productNumber == collectArr[j].productNumber){
+									collectArr.splice(j,1)
+									console.log(productnum[j]+'此商品已被添加，请勿重复添加')
+									productnum.splice(j,1)
+									console.log(productnum)
+								}
+						    }
+						}	
+					}
+					if(collectArr[0]!=undefined){
+						console.log(productnum)
+						// axios收藏信息添加	
+						axios.post('http://localhost:3001/collectInfo2', {data:{userId:localStorage.getItem('userId'),productArr:productnum}})
+							.then(
+								function(res1){
+									console.log("1616161616")
+									console.log(res1.data)
+								},
+								function(err){
+									console.log(err)
+								}
+							)
+					}			
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+				console.log(collectArr[0])
+				// if(collectArr[0]!=undefined){
+				// 	console.log(productnum)
+				// 	// axios收藏信息添加	
+				// 	axios.post('http://localhost:3001/collectInfo2', {data:{userId:localStorage.getItem('userId'),productArr:productnum}})
+				// 		.then(
+				// 			function(res){
+				// 				console.log("1616161616")
+				// 				console.log(res.data)
+				// 			},
+				// 			function(err){
+				// 				console.log(err)
+				// 			}
+				// 		)
+				// }
+			}
+		}
+		
 		tpa(e,s,t) {
 			// console.log(e,s,t)
 			parseInt(s)
@@ -36,12 +147,12 @@ var createReactClass = require('create-react-class');
 				// this.setState({changeFlag:this.state.dataSource[s].quantity+1})
 			}else if(s!=null){
 				var a1= parseInt(this.state.dataSource[s].quantity)-1
-				console.log(a1)
+				// console.log(a1)
 				this.state.dataSource[s].quantity= parseInt(this.state.dataSource[s].quantity)-1
 				this.setState({changeFlag:this.state.dataSource[s]})
 			}else if(t!=null){
 				var a2= parseInt(this.state.dataSource[t].quantity)+1
-				console.log(a2)
+				// console.log(a2)
 				this.state.dataSource[t].quantity= parseInt(this.state.dataSource[t].quantity)+1
 				this.setState({changeFlag:this.state.dataSource[t]})
 			}
@@ -50,7 +161,7 @@ var createReactClass = require('create-react-class');
 				if(i.flag==true){
 					totalPrice1=parseInt(i.price)*parseInt(i.quantity)+totalPrice1
 				}
-				console.log(totalPrice1)
+				// console.log(totalPrice1)
 			})
 			this.setState({totalPrice:totalPrice1})	
 		}
@@ -97,7 +208,7 @@ var createReactClass = require('create-react-class');
 			if(shouCang[0]!=null){
 				//有值时
 				this.setState({ tipsFlag:1});
-				console.log(this.state.tipsFlag)
+				// console.log(this.state.tipsFlag)
 			}else{
 				this.setState({ tipsFlag:2});
 				console.log(this.state.tipsFlag)
@@ -109,14 +220,12 @@ var createReactClass = require('create-react-class');
 			if(userId==null){
 				console.log("请先登录")
 			}else if(userId!=null){
-				var that = this
-				var userIdGoodsInfo=[]
+				var that = this				
 			axios.post('http://localhost:3001/shoppingCartMana', {data:{status: 5,userId:localStorage.getItem('userId')}})
 				.then(
 					function(res){
 						console.log(res)
 						console.log(res.data)
-						userIdGoodsInfo=res.data
 						that.setState({
 							dataSource:res.data,
 						})					
@@ -124,41 +233,46 @@ var createReactClass = require('create-react-class');
 					function(err){
 						console.log(err)
 					}
-			)
-
-
-
-
+			)}
+			if(this.state.dataSource!=null){
+				// if(1){
+				this.setState({gouwuche:2})
+				console.log("das")
+			}else{
+				this.setState({gouwuche:1})
 			}
 		//每次进入这个界面都会重新渲染数据，请求数据库
-		
 		}
+
 	render () {
 		return <div>
-			<NavBar name="购物车" />
+			<div className="navBar" style={{textAlign:"center"}}>
+                <div className="sanjiao" onClick={() => {this.props.history.push('/home')}} style={{textAlign:"center"}} ></div>
+                <span className="carttitle">购物车</span>
+            </div>
 			<div>
 				<div className="topbackground"></div>
 				{/* 购物车为空时 */ }
-				{/* <div className="nothing">
+				<div className={this.state.gouwuche=="1"?'nothing':'dis'}>
 					<div className="kongche">
 						<i className="iconfont icon-gouwuche"></i>
 					</div>
 					<div className="description">购物车里没有东西哦</div>
 					<div className="goAother">去逛逛</div>
-				</div> */}
+				</div>
 				{/* 购物车有商品时 */ }
-				<div className="hasGoods">
+				<div className={this.state.gouwuche=="2"?'hasGoods':'dis'}>
 					<div className="topZiFont" onClick={()=> {						
 						  console.log(this.state.banjiFlag)
 						  console.log(this.state.whetherBianji)
-						  if (this.state.banjiFlag == 'false') {
+						  if (this.state.banjiFlag == 'true') {
 							this.setState({
-								banjiFlag: "true",
+								banjiFlag: "false",
 								whetherBianji: "编辑"
 							})
 						  } else {
 							this.setState({
-								banjiFlag: "false",
+								banjiFlag: "true",
 								whetherBianji: "完成"
 							})
 						  }
@@ -182,14 +296,17 @@ var createReactClass = require('create-react-class');
 						</div>
 						<div className={this.state.banjiFlag=="false"?'dis':'bianJi'}>
 							<div>
-								<CheckboxItem key="enabled" checked={this.state.checked} onChange={()=>{this.totalPriceQuanxuan()}} >
-									{/* <List.Item.Brief style={ { fontSize: "12px", colo: "black" } }> */}
+								<CheckboxItem style={{paddingLeft:"30px"}} key="enabled" checked={this.state.checked} onChange={()=>{this.totalPriceQuanxuan()}} >
 										全选
-										{/* </List.Item.Brief> */}
 								</CheckboxItem>
 							</div>
-							<div onClick={this.scTips} onChange={this.tipF}>收藏</div>
-							<div className={this.state.tipsFlag=="1"?'showTips':'dis'} >收藏成功</div>
+							
+							<div onClick={
+								() => {
+									this.collectFn()
+								}
+							}  onChange={this.tipF} >收藏</div>
+							<div className={this.state.tipsFlag=="1"?'showTips':'dis'}>收藏成功</div>
 							<div className={this.state.tipsFlag==2?'noTips':'dis'} >请选择需要收藏的商品</div>
 							<div>删除</div>
 						</div>

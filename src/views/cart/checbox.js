@@ -61,6 +61,9 @@ export default class Test extends React.Component {
     this.yyy(flagup,quantityup,quantityudown)
   }
   componentWillReceiveProps(a) {
+    // console.log(a)
+    // console.log(this.props.dsDown)
+    //如果传来的props的值需要改变，就需要放在这个生命周期里
   }
   componentDidMount (){
   }

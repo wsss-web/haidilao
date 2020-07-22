@@ -1,8 +1,8 @@
 import React from 'react'
 import Tablebar from '../../components/Tablebar.js'
-import SearchBar from '../home/js/SearchBar.js'
+// import SearchBar from '../home/js/SearchBar.js'
 import Head from '../../components/head.js'
-import { Tabs, WhiteSpace } from 'antd-mobile';
+import { Tabs, WhiteSpace, SearchBar} from 'antd-mobile';
 import './classify.css'
 import Demo from './list.js'
 import Popup from './popup.js'
@@ -91,13 +91,6 @@ export default class Classify extends React.Component {
 		})
 	}
 	
-	// render111() {
-	// 	return (
-	// 		<div>
-	// 			<Demo xxx={this.state.goods} />
-	// 		</div>
-	// 	)
-	// }
 	render() {
 		const tabs = [
 		  { title: '全部商品' },
@@ -127,7 +120,7 @@ export default class Classify extends React.Component {
 			<div>
 				<Head name="分类" history={this.props.history}/>
 				<div style={{marginBottom: '10px'}}>
-					  <SearchBar getvalue = {this.getsearch}/>
+					  <SearchBarExample getvalue = {this.getsearch}/>
 				</div>
 				<div className="left_con" style={{ height: 520, backgroundColor: 'white'}}>
 					<Tabs tabs={tabs} initialPage={0} animated={true} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)" onTabClick={this.tabchange}>
@@ -140,4 +133,38 @@ export default class Classify extends React.Component {
 			</div>
 	)
 	}
+}
+
+
+class SearchBarExample extends React.Component {
+	constructor(props) {
+	    super(props)
+		this.state = {
+      		value: ''
+		}
+		this.submit = this.submit.bind(this)
+  }
+  submit = (a) => {
+	console.log(a)
+	this.props.getvalue(a)
+	this.setState({
+	 value: a
+	})
+  }
+  render() {
+    return (
+      <div>
+        <SearchBar 
+        className="searchbar" 
+        placeholder="搜索商品"
+        maxLength={8}
+        style={{ height: "35px",
+          borderRadius: "20px",
+          backgroundColor: "white",
+          margin: "20px 20px 0 20px"
+        }}
+        onSubmit = {this.submit}></SearchBar>
+      </div>
+    );
+  }
 }

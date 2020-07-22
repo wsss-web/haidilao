@@ -138,9 +138,9 @@ router.post('/collectInfo', async(ctx,body) => {
   if(one_per.status === 1){
     var sql_add = "insert into collecting(userId,productNumber) values('"+ one_per.userId +"','"+one_per.productNumber+"')"
     var results_add = await query(sql_add)
-    console.log('收藏成功')
+    console.log('收藏1111111')
     ctx.body = '收藏成功'
-  }
+  }  
   //取消收藏信息
   if(one_per.status === 2){
     var sql_del = "delete from collecting where userId = '"+ one_per.userId +"' and productNumber ='"+ one_per.productNumber +"'"
@@ -154,9 +154,38 @@ router.post('/collectInfo', async(ctx,body) => {
     var results_reset = await query(sql_reset)
     console.log('收藏信息查询成功')
     ctx.body=results_reset
-    // console.log(results_reset)
+    console.log(results_reset)
   }
 })
+//购物车内收藏信息增加路由
+router.post('/collectInfo2', async (ctx,next) => {
+  console.log('请求收到了')
+  var one_per=ctx.request.body.data
+  var goodsNum=[]
+  goodsNum = ctx.request.body.data.productArr
+  console.log(goodsNum+"wwwwwwwwwwwww")
+    var a = new Promise(function(resolve,reject){
+    console.log('1111111')
+          for(var i=0; i<goodsNum.length; i++){
+            var idd =goodsNum[i]
+            console.log("222222222")
+            var sql_str = "insert into collecting(userId,productNumber) values('"+ one_per.userId +"','"+idd+"')"
+            connection.query(sql_str,(err,res,fields)=>{
+              console.log(33333333)
+                if(err){
+                    reject('{code:1, msg:"收藏失败"}')
+                  }else{
+                    console.log('成功收藏' + i+'个商品')
+                    resolve(res)
+                  }
+            })
+        }
+        if(i ==goodsNum.length){
+            resolve('收藏成功')
+        }
+    })
+    ctx.body=await a
+  })
 
 //购物车接口
 router.post('/shoppingCartMana', async(ctx,body) => {
@@ -183,7 +212,7 @@ router.post('/shoppingCartMana', async(ctx,body) => {
     var sql_reset = "update shoppingCart set productNumber='"+ one_per.productNumber +"',quantity='"+ one_per.quantity +"'  where productNumber='"+ one_per.productNumber +"'"
     var results_reset = await query(sql_reset)
     console.log('修改成功')
-	ctx.body = '添加购物车成功'
+	  ctx.body = '添加购物车成功'
   }
   // 查询所有购物车信息
   if(one_per.status == 4){
@@ -254,7 +283,6 @@ router.post('/dizhi', async (ctx,next) => {
               console.log('失败333333333333')
           }else{
               resolve(res)
-              // console.log(res)
           }
     })
   })
@@ -418,7 +446,7 @@ router.post('/selectCang', async (ctx,next) => {
               console.log('失败333333333333')
           }else{
               resolve(res)
-              // console.log(res)
+              console.log(res+'11111111111111111')
           }
     })
   })
@@ -612,7 +640,7 @@ router.post('/shoppingCartMana', async(ctx,body) => {
     var one_per = ctx.request.body.data
     var sql_reset = "select * from shoppingcart left join productinformation on shoppingcart.productNumber=productinformation.productNumber where userId = '"+ one_per.userId +"'"
     var results_reset = await query(sql_reset)
-    console.log('登录用户购物车信息查询成功')
+    // console.log('登录用户购物车信息查询成功')
     ctx.body=results_reset
     console.log(results_reset)
   }
@@ -784,3 +812,4 @@ module.exports = router
 
 
 
+module.exports = router
