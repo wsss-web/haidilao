@@ -15,10 +15,6 @@ export default class checkOrder extends React.Component {
         //  this.tpa=this.tpa.bind(this)
     }
     componentDidMount () {
-        // console.log("777666888")
-        // console.log(this.props)
-        // console.log(this.props.location.query)
-
         var tmp_arr = []
         if (this.props.location && this.props.location.query && this.props.location.query.id) {
             console.log(this.props.location.query.id)

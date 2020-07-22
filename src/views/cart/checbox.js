@@ -61,15 +61,15 @@ export default class Test extends React.Component {
     this.yyy(flagup,quantityup,quantityudown)
   }
   componentWillReceiveProps(a) {
+    // console.log(a)
+    // console.log(this.props.dsDown)
+    //如果传来的props的值需要改变，就需要放在这个生命周期里
   }
   componentDidMount (){
   }
   render() {
     return <div>
       <List>
-        
-        {/* //我要做的是将触发的下标发给父组件 */}
-        {/* 数据是父组件的数据，将检测为真的下标传给父组件 */}
         {this.props.dsDown.map((i , index) => (
           // {
           //   console.log(i)
@@ -78,7 +78,7 @@ export default class Test extends React.Component {
             {i.label}
             <div className='oneCartGoods'>
               <div>
-                <img src={i.productPicture}></img>
+                <img src={i.productPicture} alt=""></img>
               </div>
               <div style={{fontSize:"14px",paddingTop:"5px",paddingLeft:"10px"}}>
                  <div style={{wordWrap:"break-word",whiteSpace:'pre-wrap'}}>
