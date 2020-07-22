@@ -13,6 +13,7 @@ var createReactClass = require('create-react-class');
 		constructor(props) {
 			super(props)
 			this.state = { 
+				shuaxin:0,
 				lingshiArr:[],
 				banjiFlag:"false",
 				whetherBianji: "编辑",
@@ -21,41 +22,36 @@ var createReactClass = require('create-react-class');
 				totalPrice:0,
 				gouwuche:1,
 				dataSource:[
-					// {
-					//   img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-					//   title:'海底捞蜂蜜桂花啤酒330ml*9听',
-					//   price: '19.80',
-					//   mode:'支付方式：现金',
-					//   quantity:'10',
-					//   flag: false
-					// },
-					// {
-					//   img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-					//   title:'海底捞蜂蜜桂花啤酒330ml*9听',
-					//   price: '19.80',
-					//   mode:'支付方式：现金',
-					//   quantity:'9',
-					//   flag: false
-					// },
-					// {
-					//   img:'https://mirror-gold-cdn.xitu.io/168e083f35ac00b6f3c?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
-					//   title:'海底捞蜂蜜桂花啤酒330ml*9听(预售7天内发货)',
-					//   price: '19.80',
-					//   mode:'支付方式：现金',
-					//   quantity:'10',
-					//   flag: false
-					// }
 				  ]
 			 }
 			 
 			 this.tpa=this.tpa.bind(this)
 			 this.pushOrder = this.pushOrder.bind(this)
 			 this.collectFn = this.collectFn.bind(this)
-			//  this.tpa2=this.tpa2.bind(this)
+		}
+		deleteFn(){
+			var shanchuNum=[]
+			var shanchuArr=[]
+			shanchuArr=this.state.dataSource.filter((i , index) => {
+				if(i.flag==true) 
+				{
+					shanchuNum.push(i.productNumber)
+				}				
+			})
+			var that=this
+			axios.post('http://localhost:3001/cartDelete', {data:{userId:localStorage.getItem('userId'),productArr:shanchuNum}})
+							.then(
+								function(res){
+									console.log(res.data)
+								},
+								function(err){
+									console.log(err)
+								}
+							)
+							window.location.reload(true); 
 		}
 		collectFn(){
 			this.scTips()
-			// console.log(1111)
 			var shoucangArr=[]
 			var collectArr=[]
 			var productnum=[]
@@ -67,8 +63,6 @@ var createReactClass = require('create-react-class');
 					productnum.push(i.productNumber)
 				}				
 			})
-			// console.log(collectArr)
-			// console.log(productnum)
 			this.setState({
 				lingshiArr: collectArr
 			})
@@ -134,35 +128,57 @@ var createReactClass = require('create-react-class');
 				// }
 			}
 		}
-		
+		//小数点后两位
+		xsdLastTwo(x){
+			　　var f_x = parseFloat(x);  
+			　　if (isNaN(f_x))  
+			　　{  
+			　　　　return 0;  
+			　　}  
+			　　var f_x = Math.round(x*100)/100;  
+			　　var s_x = f_x.toString();  
+			　　var pos_decimal = s_x.indexOf('.');  
+			　　if (pos_decimal < 0)  
+			　　{  
+			　　　　pos_decimal = s_x.length;  
+			　　s_x += '.';  
+			　　}  
+			　　while (s_x.length <= pos_decimal + 2)  
+			　　{  
+			　　　　s_x += '0';  
+			　　}  
+			　　return s_x;  
+			}
 		tpa(e,s,t) {
 			// console.log(e,s,t)
 			parseInt(s)
 			var changeFlag=this.state.dataSource
 			if(e!=null){
 				this.state.dataSource[e].flag=!this.state.dataSource[e].flag
+				console.log(this.state.dataSource[e])
 				this.setState({changeFlag:this.state.dataSource[e]})
-				// changeQ=this.state.dataSource[s].quantity+1
-				// this.state.dataSource[s].quantity=this.state.dataSource[s].quantity--
-				// this.setState({changeFlag:this.state.dataSource[s].quantity+1})
 			}else if(s!=null){
-				var a1= parseInt(this.state.dataSource[s].quantity)-1
+				var a1= parseFloat(this.state.dataSource[s].quantity)-1
 				// console.log(a1)
-				this.state.dataSource[s].quantity= parseInt(this.state.dataSource[s].quantity)-1
+				this.state.dataSource[s].quantity= parseFloat(this.state.dataSource[s].quantity)-1
+				if(this.state.dataSource[s].quantity<0){
+				 	this.state.dataSource[s].quantity=0 
+				}
 				this.setState({changeFlag:this.state.dataSource[s]})
 			}else if(t!=null){
-				var a2= parseInt(this.state.dataSource[t].quantity)+1
+				var a2= parseFloat(this.state.dataSource[t].quantity)+1
 				// console.log(a2)
-				this.state.dataSource[t].quantity= parseInt(this.state.dataSource[t].quantity)+1
+				this.state.dataSource[t].quantity= parseFloat(this.state.dataSource[t].quantity)+1
 				this.setState({changeFlag:this.state.dataSource[t]})
 			}
 			var totalPrice1=0
 			this.state.dataSource.map((i , index) => {
 				if(i.flag==true){
-					totalPrice1=parseInt(i.price)*parseInt(i.quantity)+totalPrice1
+					totalPrice1=parseFloat(i.price)*parseFloat(i.quantity)+totalPrice1
 				}
 				// console.log(totalPrice1)
 			})
+			totalPrice1=this.xsdLastTwo(totalPrice1)
 			this.setState({totalPrice:totalPrice1})	
 		}
 		totalPriceQuanxuan(){
@@ -192,7 +208,24 @@ var createReactClass = require('create-react-class');
 			var coTrue=this.state.dataSource.filter((i , index) => {
 				return i.flag==true
 			})
-			this.props.history.push({pathname:'/checkOrder', query:{id: coTrue}})
+			//请求地址接口
+			var addressDefault=[]
+			var that=this
+			axios.post('http://localhost:3001/chaxunmoren', {id:localStorage.getItem('userId')})
+				.then(
+					function(res1){
+						console.log(res1.data)
+						window.localStorage.setItem("moren" , JSON.stringify(res1.data))
+						addressDefault=res1.data
+						console.log("默认地址")
+						console.log(addressDefault)
+						that.props.history.push({pathname:'/checkOrder', query:{id: coTrue,jiage:that.state.totalPrice,addressDe:addressDefault}})
+
+					},
+					function(err){
+						console.log(err)
+					}
+				)
 		}
 		tipF (){
 			if(this.state.tipsFlag!=0){
@@ -308,7 +341,11 @@ var createReactClass = require('create-react-class');
 							}  onChange={this.tipF} >收藏</div>
 							<div className={this.state.tipsFlag=="1"?'showTips':'dis'}>收藏成功</div>
 							<div className={this.state.tipsFlag==2?'noTips':'dis'} >请选择需要收藏的商品</div>
-							<div>删除</div>
+							<div onClick={
+								() => {
+									this.deleteFn()
+								}
+							}>删除</div>
 						</div>
 					</div>
 					<Tablebar history={ this.props.history } />
