@@ -59,6 +59,7 @@ var createReactClass = require('create-react-class');
 			var shoucangArr=[]
 			var collectArr=[]
 			var productnum=[]
+			var productnum2=[]
 			shoucangArr=this.state.dataSource.filter((i , index) => {
 				if(i.flag==true) 
 				{
@@ -72,11 +73,11 @@ var createReactClass = require('create-react-class');
 				lingshiArr: collectArr
 			})
 			//axios判断收藏信息里是否有这个收藏商品
-			var userId=null
-			if(1){
+			if(collectArr[0]!=undefined){
+				var cR=false
 				var that = this	
 				console.log("777777777")
-				axios.post('http://localhost:3001/collectInfo', {data:{status:3,userId:localStorage.getItem('userId'),productArr:productnum}})
+				axios.post('http://localhost:3001/collectInfo', {data:{status:3,userId:localStorage.getItem('userId'),productArr:collectArr}})
 				.then(
 					function(res){
 						var obj = res.data
@@ -89,29 +90,48 @@ var createReactClass = require('create-react-class');
 						for (var i = 0; i < obj.length; i++){
 							for(var j=0;j<collectArr.length;j++){
 								if(obj[i].userId ==collectArr[j].userId && obj[i].productNumber == collectArr[j].productNumber){
+									collectArr.splice(j,1)
+									console.log(productnum[j]+'此商品已被添加，请勿重复添加')
 									productnum.splice(j,1)
-									console.log(productnum[j]+'此商品已添加')
+									console.log(productnum)
 								}
 						    }
 						}	
+					}
+					if(collectArr[0]!=undefined){
+						console.log(productnum)
+						// axios收藏信息添加	
+						axios.post('http://localhost:3001/collectInfo2', {data:{userId:localStorage.getItem('userId'),productArr:productnum}})
+							.then(
+								function(res1){
+									console.log("1616161616")
+									console.log(res1.data)
+								},
+								function(err){
+									console.log(err)
+								}
+							)
 					}			
 					},
 					function(err){
 						console.log(err)
 					}
 				)
-				
-			// axios收藏信息添加	
-			axios.post('http://localhost:3001/collectInfo2', {data:{userId:localStorage.getItem('userId'),productArr:productnum}})
-				.then(
-					function(res){
-						console.log("1616161616")
-						console.log(res.data)
-					},
-					function(err){
-						console.log(err)
-					}
-				)
+				console.log(collectArr[0])
+				// if(collectArr[0]!=undefined){
+				// 	console.log(productnum)
+				// 	// axios收藏信息添加	
+				// 	axios.post('http://localhost:3001/collectInfo2', {data:{userId:localStorage.getItem('userId'),productArr:productnum}})
+				// 		.then(
+				// 			function(res){
+				// 				console.log("1616161616")
+				// 				console.log(res.data)
+				// 			},
+				// 			function(err){
+				// 				console.log(err)
+				// 			}
+				// 		)
+				// }
 			}
 		}
 		

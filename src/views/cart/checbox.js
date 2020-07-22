@@ -78,7 +78,7 @@ export default class Test extends React.Component {
             {i.label}
             <div className='oneCartGoods'>
               <div>
-                <img src={i.productPicture}></img>
+                <img src={i.productPicture} alt=""></img>
               </div>
               <div style={{fontSize:"14px",paddingTop:"5px",paddingLeft:"10px"}}>
                  <div style={{wordWrap:"break-word",whiteSpace:'pre-wrap'}}>

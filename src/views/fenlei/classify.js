@@ -5,6 +5,7 @@ import Head from '../../components/head.js'
 import { Tabs, WhiteSpace } from 'antd-mobile';
 import './classify.css'
 import Demo from './list.js'
+import Popup from './popup.js'
 import axios from 'axios'
 export default class Classify extends React.Component {
 	constructor(props) {
@@ -14,11 +15,14 @@ export default class Classify extends React.Component {
 			title: '',
 			goods: [] ,
 			searchmsg: '',
-			sou: ''
+			sou: '',
+			popup: false,
+			item: ''
 		}
 		this.onChange = this.onChange.bind(this)
 		this.clear = this.clear.bind(this)
 		this.handleClick = this.handleClick.bind(this)
+		this.getflag = this.getflag.bind(this)
 	}
 	
 	// componentDidMount() {
@@ -54,10 +58,24 @@ export default class Classify extends React.Component {
 	  this.manualFocusInst.focus();
 	}
 	tabchange = (data,index) => {
+		
+		console.log(data , index)
 		this.setState({
 			title: data.title,
 			index: index
 		})
+		setTimeout(() => {
+			this.setState({
+				title: data.title,
+				index: index
+			})
+		} , 100)
+		setTimeout(() => {
+			this.setState({
+				title: data.title,
+				index: index
+			})
+		} , 100)
 	}
 	getsearch = (searchmsg) => {
 		this.setState({
@@ -65,14 +83,21 @@ export default class Classify extends React.Component {
 		})
 		console.log(searchmsg)
 	}
-	
-	render111() {
-		return (
-			<div>
-				<Demo xxx={this.state.goods} />
-			</div>
-		)
+	getflag = (popupflag, item) => {
+		console.log(popupflag, item)
+		this.setState({
+			popup: popupflag,
+			item: item
+		})
 	}
+	
+	// render111() {
+	// 	return (
+	// 		<div>
+	// 			<Demo xxx={this.state.goods} />
+	// 		</div>
+	// 	)
+	// }
 	render() {
 		const tabs = [
 		  { title: '全部商品' },
@@ -93,7 +118,7 @@ export default class Classify extends React.Component {
 		const Lis = tabs.map((tab,index) =>
 			{
 				return (<div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>
-						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou}/>
+						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou} getflag = {this.getflag} history={this.props.history}/>
 							
 					</div>)
 			}
@@ -108,9 +133,10 @@ export default class Classify extends React.Component {
 					<Tabs tabs={tabs} initialPage={0} animated={true} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)" onTabClick={this.tabchange}>
 						{Lis}
 					</Tabs>
-						<WhiteSpace />
+					<WhiteSpace />
 				</div>
 				<Tablebar history={this.props.history}/>
+				<Popup flag = {this.state.popup} goods = {this.state.item}/>
 			</div>
 	)
 	}

@@ -23,13 +23,13 @@ class MyGrid extends React.Component{ // eslint-disable-next-line
     if(index === 0){
       // console.log('0000')
       // console.log(this.props)
-      this.props.props.history.push('/vouchers')
+      this.props.history.push('/vouchers')
     }else if(index === 1){
-      this.props.props.history.push('/fresh')
+      this.props.history.push('/fresh')
     }else if(index === 2){
-      this.props.props.history.push('/beer')
+      this.props.history.push('/beer')
     }else if(index === 3){
-      this.props.props.history.push('/goods')
+      this.props.history.push('/goods')
     }
   }
   render(){

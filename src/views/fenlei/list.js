@@ -39,32 +39,31 @@ const guize = new ListView.DataSource({
 
 export default class XXX extends React.Component{
 	constructor(props){
-		console.log("9999999")
-		// console.log(props)
 		super(props)
 		this.state = {
 			goods: [],
 			title: '',
-			index: ''
+			index: '',
+			popup: true
 		}
-		this.addgoods = this.addgoods.bind(this)
+		this.chartbtn = this.chartbtn.bind(this)
+		this.detilbtn = this.detilbtn.bind(this)
 	}
 	componentWillReceiveProps(a){
-		console.log('7777')
 		console.log(a)
 	var goods = a.goods.filter(function(item){
 		 return item.category == a.title; 
 	})
-		console.log(goods)
+	
 		if( goods.length != 0 ){
-			console.log(44444)
+			
 			this.setState({
 				goods: goods,
 				title: a.title,
 				index: a.index
 			})
 		}else if(goods.length == 0){
-			console.log(66666)
+			
 			this.setState({
 				goods: a.goods,
 				title: a.title,
@@ -72,7 +71,7 @@ export default class XXX extends React.Component{
 			})
 		}
 		if(a.sou != ''){
-			console.log(55555)
+			
 			var sougoods = a.goods.filter(function(item){
 				if(item.productName.indexOf(a.sou) == -1){
 					return false
@@ -80,7 +79,7 @@ export default class XXX extends React.Component{
 					return true
 				}
 			})
-			console.log(sougoods)
+			
 			if( sougoods.length != 0 ){
 				this.setState({
 					goods: sougoods
@@ -92,37 +91,58 @@ export default class XXX extends React.Component{
 			}
 		}
 	}
-	addgoods = () => {
-		console.log(66666)
+	// componentDidMount(){
+		
+	// 	this.setState({
+	// 		goods
+	// 	})
+	// }
+	chartbtn (goods, e){
+		e.stopPropagation()
+		
+		this.props.getflag(true, goods)
+		console.log(this.props.getflag)
 	}
-	row(rowData, sectionID, rowID) {
-	  return (
-	    <div key={rowID} style={{ padding: '0 15px' }}>
-	      <div
-	        style={{
-	          lineHeight: '30px',
-	          color: '#888',
-	          fontSize: 14,
-	          borderBottom: '1px solid #F6F6F6',
-			  height: '30px'
-	        }}
-	      >{rowData.productName}</div>
-	      <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0', alignItems: 'center'}}>
-	        <img style={{ height: '110px', width: '80.22px', marginRight: '15px' }} src={rowData.productPicture} alt="" />
-	        <div style={{ lineHeight: 1, width: '120px'}}>
-	          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{fontNumber(rowData.description)}</div>
-			  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>已换购 11111</span></div>
-	          <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ 35</span></div>
-	        </div>
-			<div className = "add">
-				<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px', marginLeft: '10px', marginRight: '10px'}}></img>
-			</div>
-				
-	      </div>
-	    </div>
-	  );
-	};
+	detilbtn (goods){
+		
+		this.props.history.push({pathname:'/goodsdetail',state:{item: goods}})
+		
+	}
+	
+	
 	render() {
+		
+		const row = (goods, sectionID, rowID) => {
+		  return (
+		    <div key={rowID} style={{ padding: '0 15px' }}>
+		      <div
+		        style={{
+		          lineHeight: '30px',
+		          color: '#888',
+		          fontSize: 14,
+		          borderBottom: '1px solid #F6F6F6',
+				  height: '30px'
+		        }}
+		      >{goods.productName}</div>
+		      <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0', alignItems: 'center'}} onClick = {() => {this.detilbtn(goods)}}>
+		        <img style={{ height: '110px', width: '80.22px', marginRight: '15px' }} src={goods.productPicture} alt="" />
+		        <div style={{ lineHeight: 1, width: '120px'}}>
+		          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{fontNumber(goods.description)}</div>
+				  <div><span style={{ fontSize: '10px', color: '#FF6E27' }}>库存: {goods.stocks}</span></div>
+		          <div style={{marginTop: '13px'}}><span style={{ fontSize: '27px', color: 'rgb(255,1,1)' }}>¥ {goods.price}</span></div>
+		        </div>
+				<div className = "add">
+					<img src={require("../../assets/icons/add.png")} alt="" style={{width: '20px', marginLeft: '10px', marginRight: '10px'}} 
+					onClick = {(e) => {this.chartbtn(goods, e)}}></img>
+				</div>
+					
+		      </div>
+		    </div>
+		  );
+		};
+		
+		
+		
 		return (
 			<div>
 				<ListView
@@ -132,9 +152,7 @@ export default class XXX extends React.Component{
 				  //   {this.state.isLoading ? 'Loading...' : 'Loaded'}
 				  // </div>)}
 				  renderBodyComponent={() => <MyBody />}
-				  renderRow={
-					  this.row
-				  }
+				  renderRow={row}
 				  // renderSeparator={separator}
 				  style={{
 				    height: "500px",
