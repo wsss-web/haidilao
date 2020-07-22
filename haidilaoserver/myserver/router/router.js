@@ -39,6 +39,13 @@ router.post('/user', async(ctx,body) => {
 	  ctx.body = '插入成功'
       console.log('插入成功')
     }
+    // 显示所有用户信息
+    if(one_per.status == 2){
+      var sql = "select * from user "
+      var results = await query(sql)
+      console.log('查询成功')
+      ctx.body=results
+    }
     // 修改客户密码信息
     if(one_per.status == 3){
       var one_per = ctx.request.body.data
@@ -637,4 +644,143 @@ router.post('/myping', async (ctx,next) => {
   })
   ctx.body=await a
 })
+
+// 发货接口
+router.post('/fahuo', async (ctx,next) => {
+  // console.log('请求收到了')
+  var danhao = ctx.request.body.orderNumber
+  console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update orderform set status='2' where orderNumber='${danhao}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('发货成功')
+              console.log('发货成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台修改订单信息接口
+router.post('/xiuding', async (ctx,next) => {
+  var orderNumber = ctx.request.body.a.orderNumber
+  var shouperson = ctx.request.body.a.shouperson
+  var shouaddress = ctx.request.body.a.shouaddress
+  var shoutel = ctx.request.body.a.shoutel
+  var totalPrice = ctx.request.body.a.totalPrice
+  console.log('收到请求')
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update orderform set shouperson='${shouperson}',shouaddress='${shouaddress}',shoutel='${shoutel}',totalPrice='${totalPrice}' where orderNumber='${orderNumber}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败')
+          }else{
+              resolve('修改成功')
+              console.log('修改成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台批量删除课程
+router.post('/manydelding', async (ctx,next) => {
+  var id = ctx.request.body.id
+  id = JSON.parse(id)
+  console.log(id)
+  var a = new Promise(function(resolve,reject){
+      for(var i=0; i<id.length; i++){
+          var idd = id[i]
+          var sql_str = `delete from orderform where orderNumber = "${idd}"`
+          connection.query(sql_str,(err,res,fields)=>{
+              if(err){
+                  reject('{code:1, msg:"删除失败"}')
+                  }else{
+                  console.log('删除了' + i)
+                  }
+          })
+      }
+      if(i == id.length){
+          resolve('删除成功')
+          console.log('删除了')
+      }
+  })
+  ctx.body=await a
+})
+
+// 上架接口
+router.post('/shangjia', async (ctx,next) => {
+  // console.log('请求收到了')
+  var productNumber = ctx.request.body.productNumber
+  // console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update productinformation set zhuangtai='已上架' where productNumber='${productNumber}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('上架成功')
+              console.log('上架成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+// 下架接口
+router.post('/xiajia', async (ctx,next) => {
+  // console.log('请求收到了')
+  var productNumber = ctx.request.body.productNumber
+  // console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update productinformation set zhuangtai='未上架' where productNumber='${productNumber}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('下架成功')
+              console.log('下架成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台修改订单信息接口
+router.post('/xiushang', async (ctx,next) => {
+  var productNumber = ctx.request.body.a.productNumber
+  var productName = ctx.request.body.a.productName
+  var stocks = ctx.request.body.a.stocks
+  var productPicture = ctx.request.body.a.productPicture
+  var description = ctx.request.body.a.description
+  var price = ctx.request.body.a.price
+  console.log('收到请求')
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update productinformation set productName='${productName}',stocks='${stocks}',productPicture='${productPicture}',description='${description}',price='${price}' where productNumber='${productNumber}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败')
+          }else{
+              resolve('修改成功')
+              console.log('修改成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+
 module.exports = router
+
+
+
