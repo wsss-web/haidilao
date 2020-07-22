@@ -32,6 +32,11 @@ export default class Popup extends React.Component {
     console.log(val);
     this.setState({ val });
   }
+  onClose_oth = key => () => {
+	  this.setState({
+	    [key]: false,
+	  });
+  }
   onClose = key => () => {
 	this.setState({
 	  [key]: false,
@@ -104,7 +109,7 @@ export default class Popup extends React.Component {
         <Modal
           popup
           visible={this.state.modal2}
-          onClose={this.onClose('modal2')}
+          onClose={this.onClose_oth('modal2')}
           animationType="slide-up"
         >
           <div style={{ padding: '0 15px' }}>
