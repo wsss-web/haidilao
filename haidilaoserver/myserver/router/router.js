@@ -179,6 +179,35 @@ router.post('/collectInfo2', async (ctx,next) => {
     })
     ctx.body=await a
   })
+//购物车内多个删除商品路由
+router.post('/cartDelete', async (ctx,next) => {
+  console.log('请求收到了')
+  var one_per=ctx.request.body.data
+  var goodsNum=[]
+  goodsNum = ctx.request.body.data.productArr
+  console.log(goodsNum+"sssssssss")
+    var a = new Promise(function(resolve,reject){
+    console.log('1111111')
+          for(var i=0; i<goodsNum.length; i++){
+            idd =goodsNum[i]
+            console.log("222222222")
+            var sql_str = "delete from shoppingCart where productNumber='"+ idd +"'&& userId='"+ one_per.userId +"'"
+            connection.query(sql_str,(err,res,fields)=>{
+              console.log(33333333)
+                if(err){
+                    reject('{code:1, msg:"删除失败"}')
+                  }else{
+                    console.log('成功删除' + i+'个商品')
+                    resolve(res)
+                  }
+            })
+        }
+        if(i ==goodsNum.length){
+            resolve('删除成功')
+        }
+    })
+    ctx.body=await a
+  })
 
 //购物车接口
 router.post('/shoppingCartMana', async(ctx,body) => {
@@ -281,10 +310,32 @@ router.post('/dizhi', async (ctx,next) => {
   })
   ctx.body=await a
 })
-
+// 查询默认地址
+router.post('/chaxunmoren', async (ctx,next) => {
+  var id = ctx.request.body.id
+  // console.log(ctx.request.body)
+  console.log(id)
+  const sql_str = "select * from receivingaddress where userId='"+ id +"' && mo=1"
+  var results_reset = await query(sql_str)
+    ctx.body=results_reset
+    console.log('查询成功')
+  // var a = new Promise(function(resolve,reject){
+  //   connection.query(sql_str,(err,res,fields)=>{
+  //     if(err){
+  //             reject(res+"没有默认地址")
+  //             console.log('没有默认地址')
+  //         }else{
+  //             resolve(res.data)
+  //           }
+  //         }
+  //   )
+  // })
+  // ctx.body=await a
+})
 // 默认地址接口
 router.post('/moren', async (ctx,next) => {
   var id = ctx.request.body.id
+  // console.log(ctx.request.body)
   console.log(id)
   var a = new Promise(function(resolve,reject){
     const sql_str = `update receivingaddress set mo=0 where mo=1`
