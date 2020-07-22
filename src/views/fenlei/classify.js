@@ -69,13 +69,7 @@ export default class Classify extends React.Component {
 				title: data.title,
 				index: index
 			})
-		} , 100)
-		setTimeout(() => {
-			this.setState({
-				title: data.title,
-				index: index
-			})
-		} , 100)
+		} , 10)
 	}
 	getsearch = (searchmsg) => {
 		this.setState({
