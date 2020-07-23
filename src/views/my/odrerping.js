@@ -34,9 +34,9 @@ var Odrershou = createReactClass({
 	  return <div>
 		        <div className='my_view4'>
 		        <div className='my_title4'>
-					<div className='Rorder' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>{this.props.location.query.a}</span>
+					<div className='Rorder' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>我的评价</span>
 				</div>
-				<Ping  aaa={this.state.list}/>
+				<Ping history={this.props.history} aaa={this.state.list}/>
 				</div>
 				{/* <Tablebar history={this.props.history}/> */}
 			 </div>
@@ -49,10 +49,15 @@ class Ping extends React.Component{
 			list: []
 		}
 	}
+	GoodsDetailFn(row){
+		var that = this
+		that.props.history.push({pathname:'/goodsdetail',state:{item:row}})
+		// console.log(item)
+	}
 	render(){
 		return this.props.aaa.map((row,index)=>{
 			return  <div className='my_cang' key={index}>
-						<div className='my_cang1'>
+						<div className='my_cang1' onClick={()=>this.GoodsDetailFn(row)}>
 							<img className='cang_tu' alt='' src={row.productPicture}/>
 							{/* require('../../icon/jiu.png') */}
 							<div style={{marginLeft:10}}>
@@ -60,7 +65,7 @@ class Ping extends React.Component{
 								<div style={{color:'red',marginTop:12}}>￥{row.price}</div>
 							</div>
 						</div>
-						<div className='pinglun'>{row.content}</div>
+						<div className='pinglun'><span style={{marginRight:10}}>我的评价:</span>{row.content}</div>
 		            </div>
 		}) 
 	}
