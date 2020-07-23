@@ -926,7 +926,7 @@ router.post('/manydelgoods', async (ctx,next) => {
   console.log(id)
   var a = new Promise(function(resolve,reject){
       for(var i=0; i<id.length; i++){
-          idd = id[i]
+          var idd = id[i]
           var sql_str = `delete from productinformation where productNumber = "${idd}"`
           connection.query(sql_str,(err,res,fields)=>{
               if(err){
