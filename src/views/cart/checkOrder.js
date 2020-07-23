@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 // import NavBar from '../../components/Navbar.js'
 import './chart.css'
 import { Modal, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
@@ -20,6 +21,11 @@ export default class checkOrder extends React.Component {
 
 
         //  this.tpa=this.tpa.bind(this)
+    }
+    componentWillMount(){
+        console.log(this.props.location.query)
+    
+    
     }
     componentDidMount () {
         var tmp_arr = []
@@ -59,6 +65,7 @@ export default class checkOrder extends React.Component {
             window.localStorage.setItem("local_goodsInfo" , JSON.stringify(tmp_arr))
             window.localStorage.setItem("local_jiage" , JSON.stringify(this.props.location.query.jiage))
         } else {
+        ///如果myadress返回一个地址，优先渲染这个地址
             //没有路由的信息
              var lcoal_address = JSON.parse(window.localStorage.getItem("moren"))
             var local_goodsInfo2 = JSON.parse(window.localStorage.getItem("local_goodsInfo"))
@@ -66,39 +73,47 @@ export default class checkOrder extends React.Component {
             console.log("没有路由的信息")
             if(lcoal_address[0]&&local_goodsInfo2&&local_jiage2){
                 console.log(11111111)
+                console.log(this.props.location.query)
                 this.setState({checkedGoods:local_goodsInfo2})
-                this.setState({jiage2:local_jiage2}) 
-                this.setState({ddpeo:lcoal_address[0].receiver})
-                this.setState({ddaddr:lcoal_address[0].receiverAddress})
-                this.setState({ddtel:lcoal_address[0].receiverTelnumber})
+                this.setState({jiage2:local_jiage2})
+                if (this.props.location && this.props.location.query && this.props.location.query.val) {
+                    console.log(this.props.location.query.val) 
+                    var duxiia=this.props.location.query.val
+                    this.setState({ddpeo:duxiia.receiver})
+                    this.setState({ddaddr:duxiia.receiverAddress})
+                    this.setState({ddtel:duxiia.receiverTelnumber})
+                }
+                else{
+                    this.setState({ddpeo:lcoal_address[0].receiver})
+                    this.setState({ddaddr:lcoal_address[0].receiverAddress})
+                    this.setState({ddtel:lcoal_address[0].receiverTelnumber})
+                }
             }else if(local_goodsInfo2&&local_jiage2){
                 console.log(2222222222)
                 this.setState({checkedGoods:local_goodsInfo2})
                 this.setState({jiage2:local_jiage2}) 
                 this.setState({isAddAddress:true})
+            }else{
+                this.setState({isAddAddress:true})
+                
             }
         }
     }
 
     pushBcak(){
-        this.props.history.goBack();
+        this.props.history.push('/chart');
     }
     pushAddressList(){
-        // var gouwuc=1
         this.props.history.push({pathname:'/myadress', query:{id:'1'}})
-        // that.props.history.push({pathname:'/checkOrder', query:{id: coTrue,jiage:that.state.totalPrice,addressDe:addressDefault}})
+        window.localStorage.setItem("sb" , 1)
 
     }
     zhifuDialog(){
 
     }
     render () {
-        // console.log(this.state.ddpeo)
 
         return (<div props={ this.props } style={ { backgroundColor: "#f0f0f0" } }>
-
-            {/* <NavBar name="确认订单" style={ { backgroundColor: "white!important" } }
-            ></NavBar> */}
             <div className="navBar">
                 <div className="sanjiao" onClick={this.pushBcak}></div>
                 <span >确认订单</span>
@@ -153,12 +168,55 @@ export default class checkOrder extends React.Component {
 }
 
 
-
-
-
-
+// var that=this
+// function qxOrder(){
+//     console.log(that)
+//     console.log(this)
+// }
+// const prompt = Modal.prompt;
+// const Apptc = () => (
+//     <WingBlank size="lg">
+//       <WhiteSpace size="lg" /> 
+//       <WhiteSpace size="lg" />
+//       <Button onClick={() => prompt(
+//         'Password',
+//         '请输入微信支付密码',
+//         [
+//             { text: '取消' ,onPress: () => {
+//                     qxOrder()
+//                     return console.log(this) 
+//                 }
+//             },
+//             { text: '提交', onPress: password => console.log(`密码为:${password}`) },
+//         ],
+//         'secure-text',
+//       )}
+//       >去支付</Button>
+//       <WhiteSpace size="lg" />
+//     </WingBlank>
+//   );
 const prompt = Modal.prompt;
-const Apptc = () => (
+ class Apptc extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+        }
+    }
+    qxOrder(){
+        axios.post('http://localhost:3001/cartDelete')
+            .then(
+                function(res){
+                    console.log(res.data)
+                },
+                function(err){
+                    console.log(err)
+                }
+            )
+    }
+    componentDidMount () {}
+    render () {
+
+    return(
     <WingBlank size="lg">
       <WhiteSpace size="lg" /> 
       <WhiteSpace size="lg" />
@@ -166,16 +224,23 @@ const Apptc = () => (
         'Password',
         '请输入微信支付密码',
         [
-          { text: '取消' },
-          { text: '提交', onPress: password => console.log(`密码为:${password}`) },
+            { text: '取消' ,onPress:
+            //  () => {
+                this.qxOrder
+                    // qxOrder()
+                    // return console.log(this) 
+                // }
+            },
+            { text: '提交', onPress: 
+            // password => console.log(`密码为:${password}`) 
+            this.qrOrder
+        },
         ],
         'secure-text',
       )}
-      >去支付</Button>
+      style={{color:"white"}} >提交订单</Button>
       <WhiteSpace size="lg" />
     </WingBlank>
-  );
-  
-  
-//   ReactDOM.render(<Apptc />, mountNode);
-// export default checkOrder
+  )}
+
+    }
