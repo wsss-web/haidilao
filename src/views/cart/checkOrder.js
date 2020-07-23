@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from '../../components/Navbar.js'
+import Navbar from '../home/js/Navbar.js'
 import './chart.css'
 export default class checkOrder extends React.Component {
     constructor(props) {
@@ -64,14 +64,9 @@ export default class checkOrder extends React.Component {
     render () {
         console.log(this.state.ddpeo)
 
-        return (<div props={ this.props } style={ { backgroundColor: "#f0f0f0" } }>
-
-            {/* <NavBar name="确认订单" style={ { backgroundColor: "white!important" } }
-            ></NavBar> */}
-            <div className="navBar">
-                <div className="sanjiao" onClick={this.pushBcak}></div>
-                <span>确认订单</span>
-            </div>
+        return (
+        <div props={ this.props } style={ { backgroundColor: "#f0f0f0" } }>
+            <Navbar name="确认订单" history={this.props.history}></Navbar>
             <div className="order" >
                 <div className="reInfo">
                     <div>{this.state.ddpeo} <span>{this.state.ddtel}</span></div>
@@ -83,7 +78,7 @@ export default class checkOrder extends React.Component {
                     {this.state.checkedGoods.map((i, index) => (
                         <div key={ i.index } className="oneGoodsFont">
                             <div className="imgFont">
-                                <img src={ i.productPicture }></img>
+                                <img src={ i.productPicture } alt=""></img>
                             </div>
                             <div className="ziA">
                                 <div className="ziEli">{ i.productName }</div>

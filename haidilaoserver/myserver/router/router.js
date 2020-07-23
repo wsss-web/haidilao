@@ -34,7 +34,7 @@ router.post('/user', async(ctx,body) => {
     // 增加客户信息
     if(one_per.status == 1){
       console.log('6666')
-      var sql_add = "insert into user(userId,password,mailbox) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"')"
+      var sql_add = "insert into user(userId,password,mailbox,phone) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"','"+ one_per.phonenum +"')"
       var results_add = await query(sql_add)
 	  ctx.body = '插入成功'
     }
@@ -57,6 +57,11 @@ router.post('/user', async(ctx,body) => {
 		var sql = "select * from user where userId = '" + one_per.userid + "'"
 		var results = await query(sql)
 		ctx.body=results[0]
+	}
+	if(one_per.status == 5){
+		var sql = "update user set nickname = '"+ one_per.nickname +"' where userId = '"+ one_per.userId +"'"
+		var results = await query(sql)
+		ctx.body = '修改昵称成功'
 	}
 })
   // 一个生成随机数的函数
@@ -189,7 +194,7 @@ router.post('/cartDelete', async (ctx,next) => {
     var a = new Promise(function(resolve,reject){
     console.log('1111111')
           for(var i=0; i<goodsNum.length; i++){
-            idd =goodsNum[i]
+            var idd =goodsNum[i]
             console.log("222222222")
             var sql_str = "delete from shoppingCart where productNumber='"+ idd +"'&& userId='"+ one_per.userId +"'"
             connection.query(sql_str,(err,res,fields)=>{
@@ -332,6 +337,18 @@ router.post('/chaxunmoren', async (ctx,next) => {
   // })
   // ctx.body=await a
 })
+
+// 马彦查询默认地址接口
+router.post('/morenadress', async (ctx,next) => {
+  // console.log(ctx.request.body)
+  var id = ctx.request.body.data.userId
+  // console.log(id)
+  const sql_str = "select * from receivingaddress where userId='"+ id +"' && mo=1"
+  var results_reset = await query(sql_str)
+    ctx.body=results_reset
+    console.log('查询成功')
+})
+
 // 默认地址接口
 router.post('/moren', async (ctx,next) => {
   var id = ctx.request.body.id.id
@@ -948,7 +965,7 @@ router.post('/manydelgoods', async (ctx,next) => {
   console.log(id)
   var a = new Promise(function(resolve,reject){
       for(var i=0; i<id.length; i++){
-          idd = id[i]
+          var idd = id[i]
           var sql_str = `delete from productinformation where productNumber = "${idd}"`
           connection.query(sql_str,(err,res,fields)=>{
               if(err){
@@ -1105,4 +1122,5 @@ router.get('/newconn', async(ctx, body) => {
     "thumbUrl": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 	}
 })
+
 module.exports = router
