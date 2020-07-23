@@ -187,16 +187,23 @@ router.post('/dizhi', async (ctx,next) => {
 
 // 默认地址接口
 router.post('/moren', async (ctx,next) => {
-  var id = ctx.request.body.id
-  console.log(id)
+  var id = ctx.request.body.id.id
+  var userId = ctx.request.body.id.userId
+  var mo = ctx.request.body.id.mo
+  console.log(id,userId,mo)
+  if(mo == '0'){
+    mo = '1'
+  }else{
+    mo='0'
+  }
   var a = new Promise(function(resolve,reject){
-    const sql_str = `update receivingaddress set mo=0 where mo=1`
+    const sql_str = `update receivingaddress set mo='0' where mo='1' and userId='${userId}'`
     connection.query(sql_str,(err,res,fields)=>{
       if(err){
               reject('失败')
               console.log('失败')
           }else{
-            const sql_str1 = `update receivingaddress set mo=1 where id=${id}`
+            const sql_str1 = `update receivingaddress set mo='${mo}' where id='${id}'`
             connection.query(sql_str1,(err,res,fields)=>{
               if(err){
                       reject('失败')
@@ -255,7 +262,7 @@ router.post('/addaddress', async (ctx,next) => {
     ctx.body=await a
   } else {
     var a = new Promise(function(resolve,reject){
-      const sql_str = `update receivingaddress set mo=0 where mo=1`
+      const sql_str = `update receivingaddress set mo=0 where mo=1 and userId=${userId}`
       connection.query(sql_str,(err,res,fields)=>{
         if(err){
                 reject('失败le')
@@ -287,11 +294,17 @@ router.post('/bianaddress', async (ctx,next) => {
   var receiverAddress = a.address
   var userId = a.user
   var mo = a.mo
+  var mo1 = ''
+  if(mo==true){
+    mo1 = '1'
+  }else{
+    mo1 = '0'
+  }
   var id = a.id
   console.log(receiver,receiverTelnumber,receiverAddress,userId,mo)
   if(mo == false){
     var a = new Promise(function(resolve,reject){
-      const sql_str = `update receivingaddress set receiver='${receiver}',receiverTelnumber='${receiverTelnumber}',receiverAddress='${receiverAddress}' where userId='${userId}'`
+      const sql_str = `update receivingaddress set receiver='${receiver}',receiverTelnumber='${receiverTelnumber}',receiverAddress='${receiverAddress}',mo='${mo1}' where userId='${userId}'`
       connection.query(sql_str,(err,res,fields)=>{
         if(err){
                 reject('失败')
@@ -305,7 +318,7 @@ router.post('/bianaddress', async (ctx,next) => {
     ctx.body=await a
   } else {
     var a = new Promise(function(resolve,reject){
-      const sql_str = `update receivingaddress set mo=0 where mo=1`
+      const sql_str = `update receivingaddress set mo=0 where mo=1 and userId='${userId}'`
       connection.query(sql_str,(err,res,fields)=>{
         if(err){
                 reject('失败le')
@@ -500,6 +513,307 @@ router.post('/myping', async (ctx,next) => {
           }else{
               resolve(res)
               // console.log(res)
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 发货接口
+router.post('/fahuo', async (ctx,next) => {
+  // console.log('请求收到了')
+  var danhao = ctx.request.body.orderNumber
+  console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update orderform set status='2' where orderNumber='${danhao}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('发货成功')
+              console.log('发货成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台修改订单信息接口
+router.post('/xiuding', async (ctx,next) => {
+  var orderNumber = ctx.request.body.a.orderNumber
+  var shouperson = ctx.request.body.a.shouperson
+  var shouaddress = ctx.request.body.a.shouaddress
+  var shoutel = ctx.request.body.a.shoutel
+  var totalPrice = ctx.request.body.a.totalPrice
+  console.log('收到请求')
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update orderform set shouperson='${shouperson}',shouaddress='${shouaddress}',shoutel='${shoutel}',totalPrice='${totalPrice}' where orderNumber='${orderNumber}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败')
+          }else{
+              resolve('修改成功')
+              console.log('修改成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台批量删除课程
+router.post('/manydelding', async (ctx,next) => {
+  var id = ctx.request.body.id
+  id = JSON.parse(id)
+  console.log(id)
+  var a = new Promise(function(resolve,reject){
+      for(var i=0; i<id.length; i++){
+          idd = id[i]
+          var sql_str = `delete from orderform where orderNumber = "${idd}"`
+          connection.query(sql_str,(err,res,fields)=>{
+              if(err){
+                  reject('{code:1, msg:"删除失败"}')
+                  }else{
+                  console.log('删除了' + i)
+                  }
+          })
+      }
+      if(i == id.length){
+          resolve('删除成功')
+          console.log('删除了')
+      }
+  })
+  ctx.body=await a
+})
+
+// 上架接口
+router.post('/shangjia', async (ctx,next) => {
+  // console.log('请求收到了')
+  var productNumber = ctx.request.body.productNumber
+  // console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update productinformation set zhuangtai='已上架' where productNumber='${productNumber}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('上架成功')
+              console.log('上架成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+// 下架接口
+router.post('/xiajia', async (ctx,next) => {
+  // console.log('请求收到了')
+  var productNumber = ctx.request.body.productNumber
+  // console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update productinformation set zhuangtai='未上架' where productNumber='${productNumber}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('下架成功')
+              console.log('下架成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台修改订单信息接口
+router.post('/xiushang', async (ctx,next) => {
+  var productNumber = ctx.request.body.a.productNumber
+  var productName = ctx.request.body.a.productName
+  var stocks = ctx.request.body.a.stocks
+  var productPicture = ctx.request.body.a.productPicture
+  var description = ctx.request.body.a.description
+  var price = ctx.request.body.a.price
+  console.log('收到请求')
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update productinformation set productName='${productName}',stocks='${stocks}',productPicture='${productPicture}',description='${description}',price='${price}' where productNumber='${productNumber}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败')
+          }else{
+              resolve('修改成功')
+              console.log('修改成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台添加商品接口
+router.post('/addgoods', async (ctx,next) => {
+  var productNumber = ctx.request.body.goods.productNumber
+  var productName = ctx.request.body.goods.productName
+  var category = ctx.request.body.goods.category
+  var stocks = ctx.request.body.goods.stocks
+  var productPicture = ctx.request.body.goods.productPicture
+  var description = ctx.request.body.goods.description
+  var price = ctx.request.body.goods.price
+  console.log('收到请求')
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `insert into  productinformation(productNumber,productName,category,stocks,productPicture,description,price) values('${productNumber}','${productName}','${category}','${stocks}','${productPicture}','${description}','${price}')`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败')
+          }else{
+              resolve('添加成功')
+              console.log('添加成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+// 后台删除商品接口
+router.post('/delgoods', async (ctx,next) => {
+  console.log('请求收到了')
+  var productNumber = ctx.request.body.productNumber
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `delete from productinformation where productNumber='${productNumber}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('删除商品成功')
+              console.log('删除商品成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台批量删除商品接口
+router.post('/manydelgoods', async (ctx,next) => {
+  var id = ctx.request.body.id
+  id = JSON.parse(id)
+  console.log(id)
+  var a = new Promise(function(resolve,reject){
+      for(var i=0; i<id.length; i++){
+          idd = id[i]
+          var sql_str = `delete from productinformation where productNumber = "${idd}"`
+          connection.query(sql_str,(err,res,fields)=>{
+              if(err){
+                  reject('{code:1, msg:"删除失败"}')
+                  }else{
+                  console.log('删除了' + i)
+                  }
+          })
+      }
+      if(i == id.length){
+          resolve('删除成功')
+          console.log('删除了')
+      }
+  })
+  ctx.body=await a
+})
+// 获取用户信息接口
+router.post('/usersdata', async (ctx,next) => {
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `select * from user`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve(res)
+              console.log('获取成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台修改用户信息接口
+router.post('/xiuuser', async (ctx,next) => {
+  var avatar = ctx.request.body.a.avatar
+  var userId = ctx.request.body.a.userId
+  var nickname = ctx.request.body.a.nickname
+  console.log('收到请求')
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update user set avatar='${avatar}',nickname ='${nickname }' where userId='${userId}'`
+    // delete from orderform where orderNumber='${danhao}'
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败')
+          }else{
+              resolve('修改成功')
+              console.log('修改成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 后台删除用户接口
+router.post('/deluser', async (ctx,next) => {
+  console.log('请求收到了')
+  var userId = ctx.request.body.userId
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `delete from user where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('删除用户成功')
+              console.log('删除用户成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+// 冻结接口
+router.post('/dong', async (ctx,next) => {
+  // console.log('请求收到了')
+  var userId = ctx.request.body.userId
+  var weigui = ctx.request.body.weigui
+  weigui = weigui-0+1
+  // console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update user set zhuang='冻结',weigui='${weigui}' where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('冻结成功')
+              console.log('冻结成功')
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// 解冻接口
+router.post('/jie', async (ctx,next) => {
+  // console.log('请求收到了')
+  var userId = ctx.request.body.userId
+  // console.log(danhao)
+  var a = new Promise(function(resolve,reject){ 
+    const sql_str = `update user set zhuang='解冻' where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve('解冻成功')
+              console.log('解冻成功')
           }
     })
   })

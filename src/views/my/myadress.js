@@ -44,6 +44,7 @@ class Address extends React.Component{
 		});
 	}
 	xxx(a){
+		console.log(a)
 		axios.post('http://localhost:3001/moren',{id:a})
         .then((response) => {
 			console.log(response)
@@ -78,7 +79,7 @@ class Address extends React.Component{
 						<div className='my_soud'>{val.receiverAddress}</div>
 					</div>
 					<div className='shou_cao'>
-						<div onClick={()=>{this.xxx(val.id)}} className={val.mo==1?'shou_bian':'shou_bian2'} style={{marginRight:9}}><img alt='' className='duihao' src={require('../../icon/duihao.png')}/><span>默认地址</span></div>
+						<div onClick={()=>{this.xxx(val)}} className={val.mo==1?'shou_bian':'shou_bian2'} style={{marginRight:9}}><img alt='' className='duihao' src={require('../../icon/duihao.png')}/><span>默认地址</span></div>
 						<div onClick={()=>{this.yyy(val.id)}} className='shou_di' style={{marginRight:9}}>删除</div>
 						<div onClick={()=>{this.props.z.push({pathname:'/bianaddress',query:{val:val}})}} className='shou_di'>编辑</div>
 					</div>
