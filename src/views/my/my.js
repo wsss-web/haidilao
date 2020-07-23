@@ -52,7 +52,7 @@ var My = createReactClass({
 	  return <div>
 		        <div className='my_view'>
 		        <div className='my_title'>
-					<div  onClick={() => {this.props.history.push('/home')}}  className='Rhome'></div><span style={{marginLeft:8}}>个人中心</span>
+					<div  onClick={() => {this.props.history.push('/home')}}  className='Rhome'></div><span style={{marginLeft:20,fontSize:"18px"}}>个人中心</span>
 				</div>
 				<div className='mytop' style={{paddingLeft: '10px'}}>
 					<Avatar style = {{width: '50px', height: '50px'}}/>

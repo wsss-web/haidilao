@@ -82,7 +82,7 @@ var Register = createReactClass({
 								  clear
 								  placeholder="请设置账号"
 								  ref={el => this.autoFocusInst = el}
-								>设置账号::</InputItem>
+								>设置账号:</InputItem>
 							</List.Item>
 							<List.Item
 							  multipleLine
