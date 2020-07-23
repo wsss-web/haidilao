@@ -8,11 +8,19 @@ const Item = List.Item;
 var createReactClass = require('create-react-class');
 var Addaddress = createReactClass({
 	render: function() {
+				 var flage2=false
+				 var gouwucheluyou= window.localStorage.getItem("gouwucheluyou")
+				 if(gouwucheluyou){
+					flage2=true
+				 } 
 		// console.log(this.props.location.query)
 	  return <div>
 		        <div className='add_view'>
-		        <div className='add_title'>
+		        <div className={flage2?'dis':'add_title'}>
 					<div className='Rorder' onClick={()=>{this.props.history.push('/myadress')}}></div><span style={{marginLeft:4}}>新增地址</span>
+				</div>
+				<div className={flage2?'add_title':'dis'}>
+					<div className='Rorder' onClick={()=>{this.props.history.push({pathname:'/myadress', query:{id2:'1'}})}}></div><span style={{marginLeft:4}}>新增地址</span>
 				</div>
 				<BasicInputWrapper c={this.props.history}/>
 				</div>

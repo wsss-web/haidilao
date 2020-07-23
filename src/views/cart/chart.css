@@ -2,6 +2,25 @@
     height: 460px;
     overflow:scroll;
 }
+.navBarg{
+    display: flex;
+    background-color: white;
+}
+.navBarg .shouye1{
+    width: 28px;
+    height:28px;
+      /* background-image: url(../../assets/icons/home.png); */
+      background-image: url(/static/media/Rhome.58ef44d4.png);
+	background-position: center;
+    background-size: cover;
+    margin: 10px;
+    margin-left: 20px;
+   /*  background-color: #000080; */
+}
+.carttitle{
+    margin-top: 28px;
+    margin-left: 102px;
+}
 .navC{
     background-color: white!important;
 }
@@ -12,7 +31,7 @@
     font-size: 14px!important;
 }
 .topbackground{
-    background:linear-gradient(135deg,rgb(255,1,1), rgb(248,65,67));
+    background:linear-gradient(135deg,rgb(216, 53, 53), rgb(192, 48, 51));
     width: 100%;
     height: 120px;
     border-bottom-left-radius: 33%;
@@ -53,6 +72,7 @@
     margin: auto;
     line-height: 30px;
 }
+
 .am-navbar{
     background-color: white;
     color: black;
@@ -138,6 +158,30 @@
     height: 8px!important;
 }
 /* 购物车结算 */
+.order{
+    
+}
+.zhifu{
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: white;
+}
+.zfLeft{
+    flex: 1;
+    padding: 10px 10px;
+}
+.zfLeft >div:first-child{
+    padding-bottom: 5px;
+}
+.zhifu>div:last-child{
+    width: 90px;
+    background-color: red;
+    /* line-height: 50%; */
+    /* padding: 20px 0px; */
+    text-align: center;
+}
 .dis{
     display: none;
 }
@@ -247,8 +291,23 @@
 }
 .navBar{
     background-color: white;
+    /* position: fixed;
+    top: 0; */
+    /* width: 92%; */
+    width: 100%;
+    /* padding: 20px 10px; */
+    text-align: left;
+    padding-bottom: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    /* line-height: 50%; */
 }
-.reInfo{
+.navBar span{
+    margin-left: 30px;
+    padding-bottom: 15px;
+
+}
+.reInfo,.addAddress{
     background:linear-gradient(135deg,rgb(255,1,1), rgb(248,65,67));
     padding: 20px 10px;
     color: white;
@@ -257,10 +316,26 @@
     /* border-bottom-left-radius: 5px;
     border-bottom-ght-radius: 5px; */
     margin: auto;
-    margin-top: 16px;
+    margin-top: 12px;
     margin-bottom: 12px;
     /* display: flex; */
 }
+.addAddress{
+    display: flex;
+
+    /* display: inline-block; */
+    /* margin: auto; */
+}
+.addAddress div:first-child{
+    padding: 0px 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.addAddress div:nth-child(2){
+        padding: 5px 20px;
+
+}
+
 .reInfo>div:first-child{
     /* flex: 1; */
     /* background: yellow; */
@@ -280,6 +355,9 @@
     /* flex: 1; */
     background: yellow;
     font-size: 12px;
+}
+.order .reInfo .sanjiao{
+    top:92px!important;
 }
 .goodsInfo{
     /* margin-top: 20px; */
@@ -319,6 +397,9 @@
 .ziA{
     font-size: 13px;
 }
+.lei{
+    padding-bottom: 80px;
+}
 .lei>div{
     width: 88%;
     border-radius: 5px;
@@ -334,16 +415,31 @@
     font-size: 13px;
     text-align: right;
 }
+
 .sanjiao{
-    height: 28px;
-	width: 28px;
-	background-image: url(../../icon/Rhome.png);
-	background-position: center;
-	background-size: cover;
-    border: none;
-    position: relative;
-    top: 10px;
+    height: 10px;
+    width: 10px;
+    border-top:1px solid black  ;
+    border-right:1px solid black  ;
+    /* transform: rotate(45deg); */
+	/* background-image: url(../../icon/Rhome.png); */
+	/* background-position: center;
+	background-size: cover; */
+    /* border: none; */
+    position: absolute;
+    z-index: 999;
+    top: 19px;
     left: 20px;
+}
+.navBar >.sanjiao{
+    transform: rotate(-135deg);
+}
+.order .sanjiao{
+    transform: rotate(45deg);
+    position: absolute;
+    top: 83px;
+    left: 330px;
+    border-color: white;
 }
 .carttitle{
     font-size: 18px;
@@ -353,4 +449,33 @@
 }
 .lei>div>span>input{
     outline: none;
+}
+.am-button{
+    background-color: red !important;
+    border: 0 solid red !important;
+    outline: none;
+    outline-color: red
+
+
+}
+.am-whitespace.am-whitespace-lg{
+    height: 0px !important;
+}
+.am-whitespace .am-whitespace-lg{
+    height: 0px !important;
+    padding: 0px;
+}
+.am-button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* width: 200%; */
+    /* height: 200%; */
+    border: 1PX solid red!important;
+    border-radius: 10px;
+    transform-origin: 0 0;
+    transform: scale(0.5);
+    box-sizing: border-box;
+    pointer-events: none;
 }

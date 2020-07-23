@@ -415,7 +415,7 @@ router.post('/addaddress', async (ctx,next) => {
     ctx.body=await a
   } else {
     var a = new Promise(function(resolve,reject){
-      const sql_str = `update receivingaddress set mo=0 where mo=1 and userId=${userId}`
+      const sql_str = `update receivingaddress set mo='0' where mo='1' and userId='${userId}'`
       connection.query(sql_str,(err,res,fields)=>{
         if(err){
                 reject('失败le')
@@ -437,6 +437,40 @@ router.post('/addaddress', async (ctx,next) => {
     ctx.body=await a
   }
 })
+
+// 前台订单用接口
+router.post('/moaddress', async (ctx,next) => {
+  // console.log('请求收到了')
+  var userId = ctx.request.body.userId
+  // console.log(user)
+  var a = new Promise(function(resolve,reject){
+    // const sql_str = `select * from collecting,productinformation where collecting.productNumber=productinformation.productNumber` 
+    const sql_str = `select * from receivingaddress where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              if(res.length==0){
+                resolve('没有地址哦')
+              }else{
+                var a = '0'
+                for(var i=0;i<res.length;i++){
+                  if(res[i].mo=='1'){
+                    resolve(res[i])
+                    a = '1'
+                  }
+                }
+                if(a=='0'){
+                  resolve(res[0])
+                }
+              }
+          }
+    })
+  })
+  ctx.body=await a
+})
+
 
 // 编辑地址接口
 router.post('/bianaddress', async (ctx,next) => {

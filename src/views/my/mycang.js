@@ -71,7 +71,7 @@ class Scang extends React.Component{
 								<div>{row.productName}</div>
 								<div style={{color:'red',marginTop:12}}>￥{row.price}</div>
 							</div>
-							<div className='del_cang'><span className='del_shou' onClick={()=>{this.xxx(row.productNumber)}}>取消收藏</span></div>
+							<div className='del_cang'><span className='del_shou' onClick={(event)=>{event.stopPropagation();this.xxx(row.productNumber)}}>取消收藏</span></div>
 						</div>
 		            </div>
 		}) 
