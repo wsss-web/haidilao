@@ -6,11 +6,19 @@ import axios from 'axios';
 var createReactClass = require('create-react-class');
 var Myadress = createReactClass({
 	render: function() {
-		// console.log(this.props.location.query)
+		var flag=false
+		if (this.props.location && this.props.location.query && this.props.location.query.id) {
+			if(this.props.location.query.id==1){
+				flag=true
+			}
+		}
 	  return <div>
 		        <div className='my_view1'>
-		        <div className='my_title1'>
+		        <div className={flag?'dis':'my_title1'}>
 					<div className='Rorder1' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>收货地址列表</span>
+				</div>
+				<div className={flag?'my_title1':'dis'}>
+					<div className='Rorder1' onClick={()=>{this.props.history.go(-1)}}></div><span style={{marginLeft:4}}>收货地址列表</span>
 				</div>
 				<Address z ={this.props.history}/>
 				<div className='shou_wai'><div onClick={()=>{this.props.history.push('/addaddress')}} className='shou_nei'>添加新地址</div></div>
@@ -30,7 +38,7 @@ class Address extends React.Component{
 		this.xxx=this.xxx.bind(this)
 		this.yyy=this.yyy.bind(this)
 	}
-	componentDidMount(){
+	componentDidMount(){		
 		var userid = window.localStorage.getItem('userId')
 		axios.post('http://localhost:3001/dizhi',{user:userid})
         .then((response) => {
@@ -42,6 +50,9 @@ class Address extends React.Component{
         .catch(function (error) {
             console.log(error);
 		});
+		////////////
+		
+	// }
 	}
 	xxx(a){
 		console.log(a)

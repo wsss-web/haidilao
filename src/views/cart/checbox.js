@@ -16,26 +16,7 @@ export default class Test extends React.Component {
   yyy(e,s,t){
     this.props.tpa(e,s,t)
   }
-  xsdLastTwo(x){
-  　　var f_x = parseFloat(x);  
-  　　if (isNaN(f_x))  
-  　　{  
-  　　　　return 0;  
-  　　}  
-  　　var f_x = Math.round(x*100)/100;  
-  　　var s_x = f_x.toString();  
-  　　var pos_decimal = s_x.indexOf('.');  
-  　　if (pos_decimal < 0)  
-  　　{  
-  　　　　pos_decimal = s_x.length;  
-  　　s_x += '.';  
-  　　}  
-  　　while (s_x.length <= pos_decimal + 2)  
-  　　{  
-  　　　　s_x += '0';  
-  　　}  
-  　　return s_x;  
-  }
+ 
   upTrueFlag(index){
     // var trueFlageArr=[]
     // trueFlageArr.push(index)
@@ -61,15 +42,15 @@ export default class Test extends React.Component {
     this.yyy(flagup,quantityup,quantityudown)
   }
   componentWillReceiveProps(a) {
+    // console.log(a)
+    // console.log(this.props.dsDown)
+    //如果传来的props的值需要改变，就需要放在这个生命周期里
   }
   componentDidMount (){
   }
   render() {
     return <div>
       <List>
-        
-        {/* //我要做的是将触发的下标发给父组件 */}
-        {/* 数据是父组件的数据，将检测为真的下标传给父组件 */}
         {this.props.dsDown.map((i , index) => (
           // {
           //   console.log(i)
@@ -78,17 +59,17 @@ export default class Test extends React.Component {
             {i.label}
             <div className='oneCartGoods'>
               <div>
-                <img src={i.img}></img>
+                <img src={i.productPicture} alt=""></img>
               </div>
               <div style={{fontSize:"14px",paddingTop:"5px",paddingLeft:"10px"}}>
                  <div style={{wordWrap:"break-word",whiteSpace:'pre-wrap'}}>
-                  {i.title}
+                  {i.productName}
                 </div>
                 <div style={{fontSize:"16px",color:"rgb(209,35,36)",paddingTop:"3px",paddingBottom:"3px"}}>
                   {i.price}元
                 </div>
                 <div style={{fontSize:"12px",color:"#ccc"}}>
-                  {i.mode}
+                支付方式：现金
                 </div>
               </div> 
             </div>

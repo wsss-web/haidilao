@@ -32,7 +32,7 @@ export default class Vouchers extends React.Component{ // eslint-disable-next-li
     render(){
         return(
             <div>
-                <Navbar name="啤酒" props={this.props}></Navbar>
+                <Navbar name="啤酒" history={this.props.history}></Navbar>
                 <div style={{ backgroundColor:"white",height:"620px",position: "relative", overflow:"scroll" }}>
                     <img className="Vouchers_cover" 
                         src={require('../../assets/imgs/啤酒.jpg')} 

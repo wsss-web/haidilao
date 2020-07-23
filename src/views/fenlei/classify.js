@@ -1,10 +1,11 @@
 import React from 'react'
 import Tablebar from '../../components/Tablebar.js'
-import SearchBar from '../home/js/SearchBar.js'
+// import SearchBar from '../home/js/SearchBar.js'
 import Head from '../../components/head.js'
-import { Tabs, WhiteSpace } from 'antd-mobile';
+import { Tabs, WhiteSpace, SearchBar} from 'antd-mobile';
 import './classify.css'
 import Demo from './list.js'
+import Popup from './popup.js'
 import axios from 'axios'
 export default class Classify extends React.Component {
 	constructor(props) {
@@ -14,11 +15,14 @@ export default class Classify extends React.Component {
 			title: '',
 			goods: [] ,
 			searchmsg: '',
-			sou: ''
+			sou: '',
+			popup: false,
+			item: ''
 		}
 		this.onChange = this.onChange.bind(this)
 		this.clear = this.clear.bind(this)
 		this.handleClick = this.handleClick.bind(this)
+		this.getflag = this.getflag.bind(this)
 	}
 	
 	// componentDidMount() {
@@ -54,10 +58,18 @@ export default class Classify extends React.Component {
 	  this.manualFocusInst.focus();
 	}
 	tabchange = (data,index) => {
+		
+		console.log(data , index)
 		this.setState({
 			title: data.title,
 			index: index
 		})
+		setTimeout(() => {
+			this.setState({
+				title: data.title,
+				index: index
+			})
+		} , 10)
 	}
 	getsearch = (searchmsg) => {
 		this.setState({
@@ -65,14 +77,14 @@ export default class Classify extends React.Component {
 		})
 		console.log(searchmsg)
 	}
-	
-	render111() {
-		return (
-			<div>
-				<Demo xxx={this.state.goods} />
-			</div>
-		)
+	getflag = (popupflag, item) => {
+		console.log(popupflag, item)
+		this.setState({
+			popup: popupflag,
+			item: item
+		})
 	}
+	
 	render() {
 		const tabs = [
 		  { title: '全部商品' },
@@ -93,7 +105,7 @@ export default class Classify extends React.Component {
 		const Lis = tabs.map((tab,index) =>
 			{
 				return (<div style={{ display: 'flex', alignItems: 'top', justifyContent: 'left', height: '100%', backgroundColor: '#fff' }}>
-						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou}/>
+						<Demo  goods={this.state.goods} index = {this.state.index} title = {this.state.title} sou = {this.state.sou} getflag = {this.getflag} history={this.props.history}/>
 							
 					</div>)
 			}
@@ -102,16 +114,51 @@ export default class Classify extends React.Component {
 			<div>
 				<Head name="分类" history={this.props.history}/>
 				<div style={{marginBottom: '10px'}}>
-					  <SearchBar getvalue = {this.getsearch}/>
+					  <SearchBarExample getvalue = {this.getsearch}/>
 				</div>
 				<div className="left_con" style={{ height: 520, backgroundColor: 'white'}}>
 					<Tabs tabs={tabs} initialPage={0} animated={true} useOnPan={false} tabBarPosition={'left'} tabDirection={'vertical'} tabBarActiveTextColor="rgb(255,106,3)" onTabClick={this.tabchange}>
 						{Lis}
 					</Tabs>
-						<WhiteSpace />
+					<WhiteSpace />
 				</div>
 				<Tablebar history={this.props.history}/>
+				<Popup flag = {this.state.popup} goods = {this.state.item}/>
 			</div>
 	)
 	}
+}
+
+
+class SearchBarExample extends React.Component {
+	constructor(props) {
+	    super(props)
+		this.state = {
+      		value: ''
+		}
+		this.submit = this.submit.bind(this)
+  }
+  submit = (a) => {
+	console.log(a)
+	this.props.getvalue(a)
+	this.setState({
+	 value: a
+	})
+  }
+  render() {
+    return (
+      <div>
+        <SearchBar 
+        className="searchbar" 
+        placeholder="搜索商品"
+        maxLength={8}
+        style={{ height: "35px",
+          borderRadius: "20px",
+          backgroundColor: "white",
+          margin: "20px 20px 0 20px"
+        }}
+        onSubmit = {this.submit}></SearchBar>
+      </div>
+    );
+  }
 }
