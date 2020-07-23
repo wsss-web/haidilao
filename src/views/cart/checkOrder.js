@@ -63,13 +63,18 @@ export default class checkOrder extends React.Component {
              var lcoal_address = JSON.parse(window.localStorage.getItem("moren"))
             var local_goodsInfo2 = JSON.parse(window.localStorage.getItem("local_goodsInfo"))
             var local_jiage2 = JSON.parse(window.localStorage.getItem("local_jiage"))
-            if(lcoal_address&&local_goodsInfo2&&local_jiage2){
+            console.log("没有路由的信息")
+            if(lcoal_address[0]&&local_goodsInfo2&&local_jiage2){
+                console.log(11111111)
                 this.setState({checkedGoods:local_goodsInfo2})
                 this.setState({jiage2:local_jiage2}) 
                 this.setState({ddpeo:lcoal_address[0].receiver})
                 this.setState({ddaddr:lcoal_address[0].receiverAddress})
                 this.setState({ddtel:lcoal_address[0].receiverTelnumber})
-            }else{
+            }else if(local_goodsInfo2&&local_jiage2){
+                console.log(2222222222)
+                this.setState({checkedGoods:local_goodsInfo2})
+                this.setState({jiage2:local_jiage2}) 
                 this.setState({isAddAddress:true})
             }
         }
@@ -114,7 +119,7 @@ export default class checkOrder extends React.Component {
                     {this.state.checkedGoods.map((i, index) => (
                         <div key={ i.index } className="oneGoodsFont">
                             <div className="imgFont">
-                                <img src={ i.productPicture }></img>
+                                <img src={ i.productPicture } alt=""></img>
                             </div>
                             <div className="ziA">
                                 <div className="ziEli">{ i.productName }</div>

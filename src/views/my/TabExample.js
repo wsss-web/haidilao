@@ -9,7 +9,7 @@ const tabs = [
   { title: <Badge>待付款</Badge> },
   { title: <Badge>待发货</Badge> },
   { title: <Badge>待收货</Badge> },
-  { title: <Badge>已完成</Badge> },
+  { title: <Badge>待评价</Badge> },
 ];
 var TabExample = createReactClass({
 	getInitialState: function() {
@@ -314,7 +314,7 @@ class Order extends React.Component{
 		} else if(this.props.aaa == '3') {
 			return this.props.list.map((row,index)=>{
 				return <div className='order_quan' key={index}>
-				<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>已完成</span></div>
+				<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待评价</span></div>
 				<div className='order_orderc'>
 					<img className='goods_img111' src={row.productPicture} alt=""/>
 					<div style={{marginLeft:10}}>
