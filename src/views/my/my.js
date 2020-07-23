@@ -18,17 +18,14 @@ var My = createReactClass({
 	componentWillMount:function(){
 		var that = this
 		var userId = localStorage.getItem('userId')
-		// console.log(userId)
 		axios.post('http://localhost:3001/user',{
 			data: {status: 4, userid: userId}
 		}).then(
 			function(res){
-				console.log(res.data)
 				that.setState({
 					userinfo:res.data
 				})
 				localStorage.setItem('nickname', res.data.nickname)
-				console.log(localStorage.getItem('nickname'))
 			},
 			function(err){
 			  	console.log(err)
@@ -48,7 +45,7 @@ var My = createReactClass({
 		})
 	},
 	render: function() {
-		console.log(this.state.userinfo)
+		// console.log(this.state.userinfo)
 	  return <div>
 		        <div className='my_view'>
 		        <div className='my_title'>
@@ -68,23 +65,23 @@ var My = createReactClass({
 					</List>
 					<ul className='my_huo'>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:1}})}}>
-							<img src={require('../../icon/my1.png')} alt=""/>
+							<img alt='加载失败' src={require('../../icon/my1.png')} alt=""/>
 							<div>待付款</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:2}})}}>
-						    <img src={require('../../icon/my2.png')} alt=""/>
+						    <img alt='加载失败' src={require('../../icon/my2.png')} alt=""/>
 							<div>待发货</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:3}})}}>
-						    <img src={require('../../icon/my3.png')} alt=""/>
+						    <img alt='加载失败' src={require('../../icon/my3.png')} alt=""/>
 							<div>待收货</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:4}})}}>
-						    <img src={require('../../icon/my4.png')} alt=""/>
+						    <img alt='加载失败' src={require('../../icon/my4.png')} alt=""/>
 							<div>待评价</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/odrershou',query:{a:'退款/售后',b:'暂无数据'}})}}>
-						    <img src={require('../../icon/my5.png')} alt=""/>
+						    <img alt='加载失败' src={require('../../icon/my5.png')} alt=""/>
 							<div>售后</div>
 						</li>
 					</ul>

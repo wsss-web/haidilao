@@ -9,7 +9,7 @@ var Myadress = createReactClass({
 		var flag=false
 		// console.log(this.props.location.query.id)
 		if (this.props.location && this.props.location.query && this.props.location.query.id) {
-			if(this.props.location.query.id==1){
+			if(this.props.location.query.id===1){
 				flag=true
 				console.log(flag)
 				window.localStorage.setItem("gouwucheluyou" , 1)

@@ -426,7 +426,7 @@ router.post('/addaddress', async (ctx,next) => {
     ctx.body=await a
   } else {
     var a = new Promise(function(resolve,reject){
-      const sql_str = `update receivingaddress set mo=0 where mo=1 and userId=${userId}`
+      const sql_str = `update receivingaddress set mo='0' where mo='1' and userId='${userId}'`
       connection.query(sql_str,(err,res,fields)=>{
         if(err){
                 reject('失败le')
