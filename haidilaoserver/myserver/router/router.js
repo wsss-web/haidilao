@@ -338,17 +338,6 @@ router.post('/chaxunmoren', async (ctx,next) => {
   // ctx.body=await a
 })
 
-// 马彦查询默认地址接口
-router.post('/morenadress', async (ctx,next) => {
-  // console.log(ctx.request.body)
-  var id = ctx.request.body.data.userId
-  // console.log(id)
-  const sql_str = "select * from receivingaddress where userId='"+ id +"' && mo=1"
-  var results_reset = await query(sql_str)
-    ctx.body=results_reset
-    console.log('查询成功')
-})
-
 // 默认地址接口
 router.post('/moren', async (ctx,next) => {
   var id = ctx.request.body.id.id
@@ -1087,6 +1076,39 @@ router.get('/newconn', async(ctx, body) => {
     "url": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     "thumbUrl": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 	}
+})
+
+// 前台订单用接口
+router.post('/moaddress', async (ctx,next) => {
+  // console.log('请求收到了')
+  var userId = ctx.request.body.data.userId
+  // console.log(user)
+  var a = new Promise(function(resolve,reject){
+    // const sql_str = `select * from collecting,productinformation where collecting.productNumber=productinformation.productNumber` 
+    const sql_str = `select * from receivingaddress where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              if(res.length==0){
+                resolve([])
+              }else{
+                var a = '0'
+                for(var i=0;i<res.length;i++){
+                  if(res[i].mo=='1'){
+                    resolve(res[i])
+                    a = '1'
+                  }
+                }
+                if(a=='0'){
+                  resolve(res[0])
+                }
+              }
+          }
+    })
+  })
+  ctx.body=await a
 })
 
 module.exports = router

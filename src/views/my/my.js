@@ -110,7 +110,7 @@ class ListExample extends React.Component { // eslint-disable-next-line
 	render() {
 	  return (<div>
 		<List className="my-list">
-		  <Item arrow="horizontal" onClick={() => {this.props.aa.push('/myadress')}}>地址管理</Item>
+		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/myadress'})}}>地址管理</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push('/mycang')}}>我的收藏</Item>
 		  <Item arrow="horizontal" onClick={() => {}}>优惠券</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'拼团专区',b:'暂无商品'}})}}>拼团入口</Item>
