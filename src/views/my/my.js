@@ -4,13 +4,18 @@ import './my.css'
 import axios from 'axios';
 import { List } from 'antd-mobile';
 import Avatar from '../login/touxiang.js'
+import Namepop from './popname.js'
 const Item = List.Item;
 var createReactClass = require('create-react-class');
 var My = createReactClass({
 	getInitialState: function() {
-		return {userinfo: ''};
+		return {userinfo: '',
+				flag: false,
+				nickname: localStorage.getItem('nickname')
+		
+		};
 	},
-	componentDidMount:function(){
+	componentWillMount:function(){
 		var that = this
 		var userId = localStorage.getItem('userId')
 		// console.log(userId)
@@ -22,13 +27,28 @@ var My = createReactClass({
 				that.setState({
 					userinfo:res.data
 				})
+				localStorage.setItem('nickname', res.data.nickname)
+				console.log(localStorage.getItem('nickname'))
 			},
 			function(err){
 			  	console.log(err)
 			}
 		  )
 	},
+	onModifyName(newName){
+		localStorage.setItem('nickname', newName)
+		this.setState({
+			nickname: localStorage.getItem('nickname')
+		})
+	},
+	rename(){
+		console.log(666)
+		this.setState({
+			flag: true
+		})
+	},
 	render: function() {
+		console.log(this.state.userinfo)
 	  return <div>
 		        <div className='my_view'>
 		        <div className='my_title'>
@@ -37,7 +57,7 @@ var My = createReactClass({
 				<div className='mytop' style={{paddingLeft: '10px'}}>
 					<Avatar style = {{width: '50px', height: '50px'}}/>
 					<div className='my_name'>
-						<div>{this.state.userinfo.nickname}</div>
+						<div onClick={this.rename}>{this.state.nickname}</div>
 						<div style={{marginTop:8}}>{this.state.userinfo.telnumber}</div>
 						<div className='my_card'>红海会员</div>
 					</div>
@@ -70,7 +90,9 @@ var My = createReactClass({
 					</ul>
 				</div>
 				<ListExample aa={this.props.history}/>
-				<div className='my_tian'></div>
+				<div className='my_tian'>
+					<Namepop newNameFn={this.onModifyName} flag = {this.state.flag} />
+				</div>
 				</div>
 				<Tablebar history={this.props.history}/>
 			 </div>

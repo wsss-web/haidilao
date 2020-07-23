@@ -2,8 +2,8 @@ import React from 'react'
 import './login.css'
 import './register.css'
 import { List, InputItem, Button, WhiteSpace, Toast } from 'antd-mobile';
-import { createForm } from 'rc-form';
 import axios from 'axios'
+import { createForm } from 'rc-form';
 var createReactClass = require('create-react-class')
 var Register = createReactClass({
 	componentDidMount() {
@@ -19,12 +19,13 @@ var Register = createReactClass({
 		console.log(this.props.form.getFieldsValue())
 		if( this.props.form.getFieldsValue().password1 !== this.props.form.getFieldsValue().password2 ) {
 			Toast.info('两次密码输入不同', 1);
-		}else if(this.props.form.getFieldsValue().password1 !== undefined && this.props.form.getFieldsValue().password2 !== undefined && this.props.form.getFieldsValue().userid !== undefined && this.props.form.getFieldsValue().address !== undefined){
+		}else if(this.props.form.getFieldsValue().password1 !== undefined && this.props.form.getFieldsValue().password2 !== undefined && this.props.form.getFieldsValue().userid !== undefined && this.props.form.getFieldsValue().address !== undefined && this.props.form.getFieldsValue().phone !== undefined){
 			var obj = {
 				userId: this.props.form.getFieldsValue().userid,
 				mailbox: this.props.form.getFieldsValue().address,
 				password: this.props.form.getFieldsValue().password1,
-				status: 1
+				phonenum: this.props.form.getFieldsValue().phone,
+				status: 4
 			}
 			var that = this
 			axios.post('http://localhost:3001/user',{
@@ -32,8 +33,30 @@ var Register = createReactClass({
 			})
 				.then(
 					function(res){
-						console.log(res.data)
-						that.props.history.push('/')
+						console.log(res)
+						if(res.data != ''){
+							obj.status = 1
+							axios.post('http://localhost:3001/user',{
+								data: obj
+							})
+								.then(
+									function(res){
+										console.log(res.data)
+										Toast.info('您已注册成功！', 1);
+										setTimeout(() => {
+											that.props.history.push('/')
+										},1200)
+									},
+									function(err){
+										console.log(err)
+									}
+								)
+						}else{
+							Toast.info('您的账号已存在！', 1);
+							setTimeout(() => {
+								that.props.history.push('/')
+							},1200)
+						}
 					},
 					function(err){
 						console.log(err)
@@ -93,6 +116,17 @@ var Register = createReactClass({
 								  placeholder="请重复输入密码"
 								  ref={el => this.autoFocusInst = el}
 								>重复密码:</InputItem>
+							</List.Item>
+							<List.Item
+							  multipleLine
+							  style={{border: 'none'}}
+							>
+								<InputItem
+								  {...getFieldProps('phone')}
+								  clear
+								  placeholder="请输入手机号"
+								  ref={el => this.autoFocusInst = el}
+								>绑定手机号:</InputItem>
 							</List.Item>
 						<div className="btn">
 							<Button type="primary" style={{ width: '60%', color: 'white', textAlign: 'center', display: 'block', margin:'0 auto' }} onClick={this.handleClick}>确认</Button><WhiteSpace />
