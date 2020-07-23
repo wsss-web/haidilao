@@ -81,7 +81,7 @@ var My = createReactClass({
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/Order',query:{name:4}})}}>
 						    <img src={require('../../icon/my4.png')} alt=""/>
-							<div>已完成</div>
+							<div>待评价</div>
 						</li>
 						<li onClick={() => {this.props.history.push({pathname:'/odrershou',query:{a:'退款/售后',b:'暂无数据'}})}}>
 						    <img src={require('../../icon/my5.png')} alt=""/>
@@ -112,13 +112,13 @@ class ListExample extends React.Component { // eslint-disable-next-line
 		<List className="my-list">
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push('/myadress')}}>地址管理</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push('/mycang')}}>我的收藏</Item>
-		  <Item arrow="horizontal" onClick={() => {}}>优惠券</Item>
+		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'优惠券',b:'还没有优惠券哦'}})}}>优惠券</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'拼团专区',b:'暂无商品'}})}}>拼团入口</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'砍价专区',b:'暂无砍价商品'}})}}>砍价入口</Item>
-		  <Item arrow="horizontal" onClick={() => {}}>抽奖记录</Item>
+		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'抽奖记录',b:'暂无抽奖记录'}})}}>抽奖记录</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'我的砍价',b:'暂无砍价信息'}})}}>我的砍价</Item>
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'我的拼团',b:'暂无拼团信息'}})}}>我的拼团</Item>
-		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrershou',query:{a:'我的评价',b:'您还没有评价哦'}})}}>我的评价</Item>
+		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrerping',query:{a:'我的评价',b:'您还没有评价哦'}})}}>我的评价</Item>
 		</List>
 		<List className="my-list" style={{marginTop:9}}>
 		<Item arrow="horizontal" onClick={() => {}}>重新登录</Item>
