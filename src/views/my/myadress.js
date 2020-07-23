@@ -5,6 +5,18 @@ import './myadress.css'
 import axios from 'axios';
 var createReactClass = require('create-react-class');
 var Myadress = createReactClass({
+	titletiao:function(){
+		var a = window.localStorage.getItem('sb')
+       if(a=='1'){
+		 this.props.history.push('/checkOrder')
+		 window.localStorage.setItem('sb','0')
+	   } else if(a=='2'){
+		 this.props.history.push('/Confirmorder')
+		 window.localStorage.setItem('sb','0')
+	   }else{
+		 this.props.history.push('/my')
+	   }
+	},
 	render: function() {
 		var flag=false
 		// console.log(this.props.location.query.id)
@@ -23,10 +35,9 @@ var Myadress = createReactClass({
 			}
 		}
 	  return <div>
-		  
 		        <div className='my_view1'>
 		        <div className={flag?'dis':'my_title1'}>
-					<div className='Rorder1' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>收货地址列表</span>
+					<div className='Rorder1' onClick={()=>{this.titletiao()}}></div><span style={{marginLeft:4}}>收货地址列表</span>
 				</div>
 				<div className={flag?'my_title1':'dis'}>
 					<div className='Rorder1' onClick={()=>{this.props.history.push('/checkOrder')}}></div><span style={{marginLeft:4}}>收货地址列表</span>
@@ -48,6 +59,7 @@ class Address extends React.Component{
 		}
 		this.xxx=this.xxx.bind(this)
 		this.yyy=this.yyy.bind(this)
+		this.xuandi=this.xuandi.bind(this)
 	}
 	componentDidMount(){		
 		var userid = window.localStorage.getItem('userId')
@@ -64,6 +76,19 @@ class Address extends React.Component{
 		////////////
 		
 	// }
+	}
+	xuandi(val){
+		console.log(val)
+		var a = window.localStorage.getItem('sb')
+		if(a=='1'){
+			this.props.z.push({pathname:'/checkOrder',query:{val:val}})
+			window.localStorage.setItem('sb','0')
+		} else if(a=='2'){
+			this.props.z.push({pathname:'/Confirmorder',query:{val:val}})
+		} else {
+			console.log('sb')
+			window.localStorage.setItem('sb','0')
+		}
 	}
 	xxx(a){
 		console.log(a)
@@ -95,15 +120,15 @@ class Address extends React.Component{
 	render(){
 		// this.getData()
 		return this.state.list.map((val,index) => {
-					return <div key={index} className='shou_quan'>
+					return <div key={index} className='shou_quan' onClick={()=>{this.xuandi(val)}} >
 					<div className='shou_ordert'><span>收货人：</span><span>{val.receiver}</span><span style={{marginLeft:9}}>{val.receiverTelnumber}</span></div>
 					<div className='shou_orderc'>
 						<div className='my_soud'>{val.receiverAddress}</div>
 					</div>
 					<div className='shou_cao'>
-						<div onClick={()=>{this.xxx(val)}} className={val.mo==1?'shou_bian':'shou_bian2'} style={{marginRight:9}}><img alt='' className='duihao' src={require('../../icon/duihao.png')}/><span>默认地址</span></div>
-						<div onClick={()=>{this.yyy(val.id)}} className='shou_di' style={{marginRight:9}}>删除</div>
-						<div onClick={()=>{this.props.z.push({pathname:'/bianaddress',query:{val:val}})}} className='shou_di'>编辑</div>
+						<div onClick={(event)=>{event.stopPropagation();this.xxx(val)}} className={val.mo==1?'shou_bian':'shou_bian2'} style={{marginRight:9}}><img alt='' className='duihao' src={require('../../icon/duihao.png')}/><span>默认地址</span></div>
+						<div onClick={(event)=>{event.stopPropagation();this.yyy(val.id)}} className='shou_di' style={{marginRight:9}}>删除</div>
+						<div onClick={(event)=>{event.stopPropagation();this.props.z.push({pathname:'/bianaddress',query:{val:val}})}} className='shou_di'>编辑</div>
 					</div>
 				</div>
 				})
