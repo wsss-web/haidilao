@@ -6,18 +6,19 @@ import axios from 'axios';
 var createReactClass = require('create-react-class');
 var Myadress = createReactClass({
 	titletiao:function(){
-		        var a = window.localStorage.getItem('sb')
-		       if(a=='1'){
-		         this.props.history.push('/checkOrder')
-		         window.localStorage.setItem('sb','0')
-		       } else if(a=='2'){
-		         this.props.history.push('/Confirmorder')
-		         window.localStorage.setItem('sb','0')
-		       }else{
-		         this.props.history.push('/my')
-		       }
-		    },
-
+       var a = window.localStorage.getItem('sb')
+	   var goodsDetail = JSON.parse(localStorage.getItem('goodsDetail'))
+	   var goodsNum = JSON.parse(localStorage.getItem('goodsNum'))
+       if(a=='1'){
+         this.props.history.push('/checkOrder')
+         window.localStorage.setItem('sb','0')
+       } else if(a=='2'){
+         this.props.history.push({pathname:'/confirmorder',state:{goodsdetail:goodsDetail,goodsNum:goodsNum}})
+         window.localStorage.setItem('sb','0')
+       }else{
+         this.props.history.push('/my')
+       }
+    },
 	render: function() {
 		var flag=false
 		// console.log(this.props.location.query.id)
@@ -79,18 +80,20 @@ class Address extends React.Component{
 	// }
 	}
 	xuandi(val){
-		        console.log(val)
-		        var a = window.localStorage.getItem('sb')
-		        if(a=='1'){
-		            this.props.z.push({pathname:'/checkOrder',query:{val:val}})
-		            window.localStorage.setItem('sb','0')
-		        } else if(a=='2'){
-		            this.props.z.push({pathname:'/Confirmorder',query:{val:val}})
-		        } else {
-		            console.log('sb')
-		            window.localStorage.setItem('sb','0')
-		        }
-		    }
+		var goodsDetail = JSON.parse(localStorage.getItem('goodsDetail'))
+	    var goodsNum = JSON.parse(localStorage.getItem('goodsNum'))
+        console.log(val)
+        var a = window.localStorage.getItem('sb')
+        if(a=='1'){
+            this.props.z.push({pathname:'/checkOrder',query:{val:val}})
+            window.localStorage.setItem('sb','0')
+        } else if(a=='2'){
+            this.props.z.push({pathname:'/Confirmorder',state:{val:val,goodsdetail:goodsDetail,goodsNum:goodsNum}})
+        } else {
+            console.log('sb')
+            window.localStorage.setItem('sb','0')
+        }
+    }
 	xxx(a){
 		console.log(a)
 		axios.post('http://localhost:3001/moren',{id:a})
@@ -127,9 +130,9 @@ class Address extends React.Component{
 						<div className='my_soud'>{val.receiverAddress}</div>
 					</div>
 					<div className='shou_cao'>
-						<div onClick={()=>{this.xxx(val)}} className={val.mo==1?'shou_bian':'shou_bian2'} style={{marginRight:9}}><img alt='' className='duihao' src={require('../../icon/duihao.png')}/><span>默认地址</span></div>
-						<div onClick={()=>{this.yyy(val.id)}} className='shou_di' style={{marginRight:9}}>删除</div>
-						<div onClick={()=>{this.props.z.push({pathname:'/bianaddress',query:{val:val}})}} className='shou_di'>编辑</div>
+						<div onClick={(event)=>{event.stopPropagation();this.xxx(val)}} className={val.mo==1?'shou_bian':'shou_bian2'} style={{marginRight:9}}><img alt='' className='duihao' src={require('../../icon/duihao.png')}/><span>默认地址</span></div>
+						<div onClick={(event)=>{event.stopPropagation();this.yyy(val.id)}} className='shou_di' style={{marginRight:9}}>删除</div>
+						<div onClick={(event)=>{event.stopPropagation();this.props.z.push({pathname:'/bianaddress',query:{val:val}})}} className='shou_di'>编辑</div>
 					</div>
 				</div>
 				})
