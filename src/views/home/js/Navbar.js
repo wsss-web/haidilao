@@ -8,7 +8,7 @@ export default class Navbar extends React.Component { // eslint-disable-next-lin
 	}
 	backFn(){
 		// console.log(this.props)
-		// this.props.props.history.push('/home')
+		// this.props.history.push('/home')
 		// window.history.back()
 		this.props.history.goBack()
 	}

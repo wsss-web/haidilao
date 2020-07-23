@@ -189,7 +189,7 @@ router.post('/cartDelete', async (ctx,next) => {
     var a = new Promise(function(resolve,reject){
     console.log('1111111')
           for(var i=0; i<goodsNum.length; i++){
-            idd =goodsNum[i]
+            var idd =goodsNum[i]
             console.log("222222222")
             var sql_str = "delete from shoppingCart where productNumber='"+ idd +"'&& userId='"+ one_per.userId +"'"
             connection.query(sql_str,(err,res,fields)=>{
@@ -332,6 +332,18 @@ router.post('/chaxunmoren', async (ctx,next) => {
   // })
   // ctx.body=await a
 })
+
+// 马彦查询默认地址接口
+router.post('/morenadress', async (ctx,next) => {
+  // console.log(ctx.request.body)
+  var id = ctx.request.body.data.userId
+  // console.log(id)
+  const sql_str = "select * from receivingaddress where userId='"+ id +"' && mo=1"
+  var results_reset = await query(sql_str)
+    ctx.body=results_reset
+    console.log('查询成功')
+})
+
 // 默认地址接口
 router.post('/moren', async (ctx,next) => {
   var id = ctx.request.body.id

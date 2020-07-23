@@ -220,7 +220,6 @@ var createReactClass = require('create-react-class');
 						console.log("默认地址")
 						console.log(addressDefault)
 						that.props.history.push({pathname:'/checkOrder', query:{id: coTrue,jiage:that.state.totalPrice,addressDe:addressDefault}})
-
 					},
 					function(err){
 						console.log(err)
