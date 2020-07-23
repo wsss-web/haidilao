@@ -38,7 +38,7 @@ export default class MyPopup extends React.Component {
     localStorage.setItem('goodsdetail', JSON.stringify(this.props.goodsdetail))
     var goodsdetail = JSON.parse(localStorage.getItem('goodsdetail'))
     // console.log(goodsdetail)
-    this.props.history.push({pathname:'/confirmorder',state:{goodsdetail:goodsdetail}})
+    this.props.history.push({pathname:'/confirmorder',state:{goodsdetail:goodsdetail,goodsNum:this.state.val}})
   }
   render() {
     // console.log(this.state.goodsdetail)

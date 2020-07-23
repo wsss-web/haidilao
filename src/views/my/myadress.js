@@ -6,17 +6,19 @@ import axios from 'axios';
 var createReactClass = require('create-react-class');
 var Myadress = createReactClass({
 	titletiao:function(){
-		var a = window.localStorage.getItem('sb')
-       if(a=='1'){
-		 this.props.history.push('/checkOrder')
-		 window.localStorage.setItem('sb','0')
-	   } else if(a=='2'){
-		 this.props.history.push('/Confirmorder')
-		 window.localStorage.setItem('sb','0')
-	   }else{
-		 this.props.history.push('/my')
-	   }
-	},
+       var a = window.localStorage.getItem('sb')
+	   var goodsDetail = JSON.parse(localStorage.getItem('goodsDetail'))
+	   var goodsNum = JSON.parse(localStorage.getItem('goodsNum'))
+       if(a=='1'){
+         this.props.history.push('/checkOrder')
+         window.localStorage.setItem('sb','0')
+       } else if(a=='2'){
+         this.props.history.push({pathname:'/confirmorder',state:{goodsdetail:goodsDetail,goodsNum:goodsNum}})
+         window.localStorage.setItem('sb','0')
+       }else{
+         this.props.history.push('/my')
+       }
+    },
 	render: function() {
 		var flag=false
 		// console.log(this.props.location.query.id)
@@ -78,18 +80,20 @@ class Address extends React.Component{
 	// }
 	}
 	xuandi(val){
-		console.log(val)
-		var a = window.localStorage.getItem('sb')
-		if(a=='1'){
-			this.props.z.push({pathname:'/checkOrder',query:{val:val}})
-			window.localStorage.setItem('sb','0')
-		} else if(a=='2'){
-			this.props.z.push({pathname:'/Confirmorder',query:{val:val}})
-		} else {
-			console.log('sb')
-			window.localStorage.setItem('sb','0')
-		}
-	}
+		var goodsDetail = JSON.parse(localStorage.getItem('goodsDetail'))
+	    var goodsNum = JSON.parse(localStorage.getItem('goodsNum'))
+        console.log(val)
+        var a = window.localStorage.getItem('sb')
+        if(a=='1'){
+            this.props.z.push({pathname:'/checkOrder',query:{val:val}})
+            window.localStorage.setItem('sb','0')
+        } else if(a=='2'){
+            this.props.z.push({pathname:'/Confirmorder',state:{val:val,goodsdetail:goodsDetail,goodsNum:goodsNum}})
+        } else {
+            console.log('sb')
+            window.localStorage.setItem('sb','0')
+        }
+    }
 	xxx(a){
 		console.log(a)
 		axios.post('http://localhost:3001/moren',{id:a})
@@ -120,7 +124,7 @@ class Address extends React.Component{
 	render(){
 		// this.getData()
 		return this.state.list.map((val,index) => {
-					return <div key={index} className='shou_quan' onClick={()=>{this.xuandi(val)}} >
+					return <div key={index} className='shou_quan' onClick={()=>{this.xuandi(val)}} >
 					<div className='shou_ordert'><span>收货人：</span><span>{val.receiver}</span><span style={{marginLeft:9}}>{val.receiverTelnumber}</span></div>
 					<div className='shou_orderc'>
 						<div className='my_soud'>{val.receiverAddress}</div>
