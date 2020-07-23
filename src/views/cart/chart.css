@@ -2,6 +2,25 @@
     height: 460px;
     overflow:scroll;
 }
+.navBarg{
+    display: flex;
+    background-color: white;
+}
+.navBarg .shouye1{
+    width: 28px;
+    height:28px;
+      /* background-image: url(../../assets/icons/home.png); */
+      background-image: url(/static/media/Rhome.58ef44d4.png);
+	background-position: center;
+    background-size: cover;
+    margin: 10px;
+    margin-left: 20px;
+   /*  background-color: #000080; */
+}
+.carttitle{
+    margin-top: 28px;
+    margin-left: 102px;
+}
 .navC{
     background-color: white!important;
 }
@@ -139,10 +158,13 @@
     height: 8px!important;
 }
 /* 购物车结算 */
+.order{
+    
+}
 .zhifu{
     display: flex;
     position: fixed;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
     background-color: white;
 }
@@ -271,14 +293,17 @@
     background-color: white;
     /* position: fixed;
     top: 0; */
+    /* width: 92%; */
     width: 100%;
     /* padding: 20px 10px; */
     text-align: left;
     padding-bottom: 20px;
+    padding: 15px;
+    box-sizing: border-box;
     /* line-height: 50%; */
 }
 .navBar span{
-    margin-left: 60px;
+    margin-left: 30px;
     padding-bottom: 15px;
 
 }
@@ -297,11 +322,20 @@
 }
 .addAddress{
     display: flex;
-    display: inline-block;
+
+    /* display: inline-block; */
+    /* margin: auto; */
 }
 .addAddress div:first-child{
-    padding: 0px 50px;
+    padding: 0px 10px;
+    font-size: 20px;
+    font-weight: 600;
 }
+.addAddress div:nth-child(2){
+        padding: 5px 20px;
+
+}
+
 .reInfo>div:first-child{
     /* flex: 1; */
     /* background: yellow; */
@@ -321,6 +355,9 @@
     /* flex: 1; */
     background: yellow;
     font-size: 12px;
+}
+.order .reInfo .sanjiao{
+    top:92px!important;
 }
 .goodsInfo{
     /* margin-top: 20px; */
@@ -378,16 +415,31 @@
     font-size: 13px;
     text-align: right;
 }
+
 .sanjiao{
-    height: 28px;
-	width: 28px;
-	background-image: url(../../icon/Rhome.png);
-	background-position: center;
-	background-size: cover;
-    border: none;
-    position: relative;
-    top: 10px;
+    height: 10px;
+    width: 10px;
+    border-top:1px solid black  ;
+    border-right:1px solid black  ;
+    /* transform: rotate(45deg); */
+	/* background-image: url(../../icon/Rhome.png); */
+	/* background-position: center;
+	background-size: cover; */
+    /* border: none; */
+    position: absolute;
+    z-index: 999;
+    top: 19px;
     left: 20px;
+}
+.navBar >.sanjiao{
+    transform: rotate(-135deg);
+}
+.order .sanjiao{
+    transform: rotate(45deg);
+    position: absolute;
+    top: 83px;
+    left: 330px;
+    border-color: white;
 }
 .carttitle{
     font-size: 18px;

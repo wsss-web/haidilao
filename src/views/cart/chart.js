@@ -220,6 +220,11 @@ var createReactClass = require('create-react-class');
 						addressDefault=res1.data
 						console.log("默认地址")
 						console.log(addressDefault)
+						if(addressDefault[0]==null){
+							addressDefault=false
+							
+						}
+						console.log(addressDefault)
 						that.props.history.push({pathname:'/checkOrder', query:{id: coTrue,jiage:that.state.totalPrice,addressDe:addressDefault||1}})
 
 					},
@@ -280,8 +285,8 @@ var createReactClass = require('create-react-class');
 
 	render () {
 		return <div>
-			<div className="navBar" style={{textAlign:"center"}}>
-                <div className="sanjiao" onClick={() => {this.props.history.push('/home')}} style={{textAlign:"center"}} ></div>
+			<div className="navBarg" style={{textAlign:"center"}}>
+                <div className="shouye1" onClick={() => {this.props.history.push('/home')}} style={{textAlign:"center"}} ></div>
                 <span className="carttitle">购物车</span>
             </div>
 			<div>
