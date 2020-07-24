@@ -34,7 +34,7 @@ var Register = createReactClass({
 				.then(
 					function(res){
 						console.log(res)
-						if(res.data != ''){
+						if(res.data == ''){
 							obj.status = 1
 							axios.post('http://localhost:3001/user',{
 								data: obj
@@ -104,6 +104,7 @@ var Register = createReactClass({
 								  clear
 								  placeholder="请设置密码"
 								  ref={el => this.autoFocusInst = el}
+								  type='password'
 								>设置密码:</InputItem>
 							</List.Item>
 							<List.Item
@@ -115,6 +116,7 @@ var Register = createReactClass({
 								  clear
 								  placeholder="请重复输入密码"
 								  ref={el => this.autoFocusInst = el}
+								  type='password'
 								>重复密码:</InputItem>
 							</List.Item>
 							<List.Item

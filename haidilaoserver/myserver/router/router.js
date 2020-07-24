@@ -34,7 +34,7 @@ router.post('/user', async(ctx,body) => {
     // 增加客户信息
     if(one_per.status == 1){
       console.log('6666')
-      var sql_add = "insert into user(userId,password,mailbox,phone) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"','"+ one_per.phonenum +"')"
+      var sql_add = "insert into user(userId,password,mailbox,telnumber) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"','"+ one_per.phonenum +"')"
       var results_add = await query(sql_add)
 	  ctx.body = '插入成功'
     }
@@ -734,8 +734,6 @@ router.post('/myping', async (ctx,next) => {
   ctx.body=await a
 })
 
-<<<<<<< HEAD
-=======
 // 发货接口
 router.post('/fahuo', async (ctx,next) => {
   // console.log('请求收到了')
@@ -1036,11 +1034,6 @@ router.post('/jie', async (ctx,next) => {
   })
   ctx.body=await a
 })
-module.exports = router
-
-module.exports = router
-
->>>>>>> 90702c08bdc1d0894f0524cc4ee9561076cb2f85
 // 查询头像接口
 router.post('/tousel', async (ctx, body) => {
 	console.log(111111)
@@ -1066,7 +1059,6 @@ router.post('/touset', async (ctx, body) => {
 	var sql = "UPDATE user SET avatar = '"+ img_path +"' WHERE userId = '"+ userId +"'"
 	var results = await query(sql)
 	ctx.body = img_path
-	console.log(one_per)
 	// var sql = "update user set avatar = '"+ one_per. +"'"
 })
 
@@ -1079,8 +1071,4 @@ router.get('/newconn', async(ctx, body) => {
     "thumbUrl": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 	}
 })
-<<<<<<< HEAD
 module.exports = router
-=======
-module.exports = router
->>>>>>> 90702c08bdc1d0894f0524cc4ee9561076cb2f85
