@@ -257,12 +257,12 @@ class Order extends React.Component{
 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待付款</span></div>
 			<div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
-				<div style={{marginLeft:10}}>
+				<div style={{width:"200px",marginLeft:10}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 				</div>
-				<div style={{marginLeft:94}}>x1</div>
+				<div style={{position:"relative",left:"50px"}}>x {row.shuliang}</div>
 			</div>
 			<div className='order_orderb'>
 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
@@ -277,12 +277,12 @@ class Order extends React.Component{
 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待发货</span></div>
 			<div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
-				<div style={{marginLeft:10}}>
+				<div style={{width:"200px",marginLeft:10}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 				</div>
-				<div style={{marginLeft:94}}>x1</div>
+				<div style={{position:"relative",left:"50px"}}>x {row.shuliang}</div>
 			</div>
 			<div className='order_orderb'>
 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
@@ -297,12 +297,12 @@ class Order extends React.Component{
 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待收货</span></div>
 			<div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
-				<div style={{marginLeft:10}}>
+				<div style={{width:"200px",marginLeft:10}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 				</div>
-				<div style={{marginLeft:94}}>x1</div>
+				<div style={{position:"relative",left:"50px"}}>x {row.shuliang}</div>
 			</div>
 			<div className='order_orderb'>
 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
@@ -317,12 +317,12 @@ class Order extends React.Component{
 				<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待评价</span></div>
 				<div className='order_orderc'>
 					<img className='goods_img111' src={row.productPicture} alt=""/>
-					<div style={{marginLeft:10}}>
+					<div style={{width:"200px",marginLeft:10}}>
 						<div>{row.productName}</div>
 						<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 						<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 					</div>
-					<div style={{marginLeft:94}}>x1</div>
+					<div style={{position:"relative",left:"50px"}}>x {row.shuliang}</div>
 				</div>
 				<div className='order_orderb'>
 					<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>

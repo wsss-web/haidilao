@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { NavBar, Icon, WingBlank, TabBar } from 'antd-mobile';
+import { NavBar, Icon, WingBlank, TabBar, Toast } from 'antd-mobile';
 export default class Confirm extends React.Component{ // eslint-disable-next-line
     constructor(props){
         super(props)
@@ -58,6 +58,81 @@ export default class Confirm extends React.Component{ // eslint-disable-next-lin
         var goodsNum = JSON.parse(localStorage.getItem('goodsNum'))
         localStorage.setItem('sb','2')
         this.props.history.push({pathname:'/myadress',state:{goodsdetail:goodsDetail,goodsNum:goodsNum}})
+    }
+    timestampToTime(timestamp){
+        // console.log(timestamp)
+        var date = new Date(timestamp - 0);
+          var Y = date.getFullYear() + '-';
+          var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+          var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
+          var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
+          var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
+          var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
+          
+          var strDate = Y+M+D+h+m+s;
+          return strDate;
+      }
+    payFn(){
+        var that = this
+        var orderNumber = new Date().getTime()
+        var generationTime  = this.timestampToTime(orderNumber)
+        var userId = localStorage.getItem('userId')
+        var quantity = {quantity:this.state.goodsNum}
+        var productNumber = Object.assign(this.state.goodsdetail, quantity);
+        var totalPrice = ((this.state.goodsdetail.price)*(this.state.goodsNum)).toFixed(2)
+        axios.post('http://localhost:3001/submitorder',{
+            data: {orderNumber:orderNumber,
+                    userId:userId,
+                    productNumber:[productNumber],
+                    generationTime:generationTime,
+                    totalPrice:totalPrice,
+                    status:1,
+                    shuliang:that.state.goodsNum,
+                    shouaddress:that.state.morenadress.receiverAddress,
+                    shouperson:that.state.morenadress.receiver,
+                    shoutel:that.state.morenadress.receiverTelnumber
+                    }
+            }).then(
+            function(res){
+                // console.log(res.data)
+                Toast.info('购买成功，等待发货' , 1 );
+                // that.props.history.push({pathname:'/Order',query:{name:1}})
+            },
+            function(err){
+                console.log(err)
+            }
+            )
+    }
+    submitorderFn(){
+        var that = this
+        var orderNumber = new Date().getTime()
+        var generationTime  = this.timestampToTime(orderNumber)
+        var userId = localStorage.getItem('userId')
+        var quantity = {quantity:this.state.goodsNum}
+        var productNumber = Object.assign(this.state.goodsdetail, quantity);
+        var totalPrice = ((this.state.goodsdetail.price)*(this.state.goodsNum)).toFixed(2)
+        axios.post('http://localhost:3001/submitorder',{
+            data: {orderNumber:orderNumber,
+                    userId:userId,
+                    productNumber:[productNumber],
+                    generationTime:generationTime,
+                    totalPrice:totalPrice,
+                    status:0,
+                    shuliang:that.state.goodsNum,
+                    shouaddress:that.state.morenadress.receiverAddress,
+                    shouperson:that.state.morenadress.receiver,
+                    shoutel:that.state.morenadress.receiverTelnumber
+                    }
+            }).then(
+            function(res){
+                // console.log(res.data)
+                Toast.info('已提交订单，等待付款' , 1 );
+                // that.props.history.push({pathname:'/Order',query:{name:2}})
+            },
+            function(err){
+                console.log(err)
+            }
+            )
     }
     render(){
         // console.log(this.state.goodsdetail)
@@ -136,18 +211,28 @@ export default class Confirm extends React.Component{ // eslint-disable-next-lin
                 <TabBar>
                     <TabBar.Item 
                         icon={<div style={{
-                                width: '250px',
+                                width: '200px',
                                 height: '50px',
                                 lineHeight: '50px',
                                 backgroundColor: 'white' }}
                         >支付金额为：{((this.state.goodsdetail.price)*(this.state.goodsNum)).toFixed(2)} 元</div>}></TabBar.Item>
                         <TabBar.Item
+                        onPress={()=>{this.payFn()}}
                         icon={<div style={{
-                                width: '125px',
+                                width: '80px',
                                 height: '50px',
                                 color: 'white',
                                 lineHeight: '50px',
                                 backgroundColor: '#F60100' }}
+                        >付款</div>}></TabBar.Item>
+                        <TabBar.Item
+                        onPress={()=>{this.submitorderFn()}}
+                        icon={<div style={{
+                                width: '95px',
+                                height: '50px',
+                                color: 'white',
+                                lineHeight: '50px',
+                                backgroundColor: '#383838' }}
                         >提交订单</div>}></TabBar.Item>
                 </TabBar>
             </div>

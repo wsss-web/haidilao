@@ -72,7 +72,8 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     }
     // 时间戳转换为年月日时分秒
     timestampToTime(timestamp){
-      var date = new Date();
+      // console.log(timestamp)
+      var date = new Date(timestamp - 0);
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
         var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
