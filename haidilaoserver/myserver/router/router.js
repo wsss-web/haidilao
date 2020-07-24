@@ -213,6 +213,38 @@ router.post('/cartDelete', async (ctx,next) => {
     })
     ctx.body=await a
   })
+//提交订单接口
+router.post('/coTijiaoOrder', async(ctx,body) => {
+  var one_per = ctx.request.body.data
+
+productNumber=JSON.stringify(one_per.ogn)
+one_per.osin[1]=one_per.osin[1]||one_per.osin.receiver
+one_per.osin[0]=one_per.osin[0]||one_per.osin.receiverAddress
+      for(var i=0; i<one_per.ogn.length; i++){
+        var shuliang1=0
+        shuliang1=one_per.ogn[i].quantity+shuliang1
+      }
+
+var a = new Promise(function(resolve,reject){
+  console.log('1111111')
+          console.log("222222222")
+          var sql_add = "insert into orderform(orderNumber,userId,productNumber,generationTime,totalPrice,status,shuliang,shouaddress,shouperson,shoutel) values('"+ one_per.ts +"','"+ one_per.ogn[0].userId +"','"+ productNumber +"','"+ one_per.riqi +"','"+ one_per.zj +"','"+ one_per.status +"','"+ shuliang1 +"','"+ one_per.osin[1] +"','"+ one_per.osin[0] +"','16666666')"
+
+          connection.query(sql_add,(err,res,fields)=>{
+            console.log(33333333)
+              if(err){
+                  reject(err)
+                  }else{
+                  resolve(res)
+                  ctx.body="添加订单成功"
+                  }
+          }) 
+          ctx.body="添加订单成功"
+      }
+   
+)
+
+})
 
 //购物车接口
 router.post('/shoppingCartMana', async(ctx,body) => {
@@ -438,40 +470,6 @@ router.post('/addaddress', async (ctx,next) => {
   }
 })
 
-// 前台订单用接口
-router.post('/moaddress', async (ctx,next) => {
-  // console.log('请求收到了')
-  var userId = ctx.request.body.userId
-  // console.log(user)
-  var a = new Promise(function(resolve,reject){
-    // const sql_str = `select * from collecting,productinformation where collecting.productNumber=productinformation.productNumber` 
-    const sql_str = `select * from receivingaddress where userId='${userId}'`
-    connection.query(sql_str,(err,res,fields)=>{
-      if(err){
-              reject(err)
-              console.log('失败333333333333')
-          }else{
-              if(res.length==0){
-                resolve('没有地址哦')
-              }else{
-                var a = '0'
-                for(var i=0;i<res.length;i++){
-                  if(res[i].mo=='1'){
-                    resolve(res[i])
-                    a = '1'
-                  }
-                }
-                if(a=='0'){
-                  resolve(res[0])
-                }
-              }
-          }
-    })
-  })
-  ctx.body=await a
-})
-
-
 // 编辑地址接口
 router.post('/bianaddress', async (ctx,next) => {
   // console.log('请求收到了')
@@ -600,6 +598,23 @@ router.post('/orderlist', async (ctx,next) => {
   var user = ctx.request.body.user
   var a = new Promise(function(resolve,reject){
     const sql_str = `select * from orderform where userId = '${user}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve(res)
+          }
+    })
+  })
+  ctx.body=await a
+})
+// 获取订单接口
+router.post('/orderlisthou', async (ctx,next) => {
+  // var user = ctx.request.body.user
+  console.log(666)
+  var a = new Promise(function(resolve,reject){
+    const sql_str = `select * from orderform`
     connection.query(sql_str,(err,res,fields)=>{
       if(err){
               reject(err)
@@ -1158,7 +1173,6 @@ router.post('/jie', async (ctx,next) => {
   })
   ctx.body=await a
 })
-
 // 查询头像接口
 router.post('/tousel', async (ctx, body) => {
 	console.log(111111)
@@ -1228,6 +1242,26 @@ router.post('/moaddress', async (ctx,next) => {
     })
   })
   ctx.body=await a
+})
+
+// 马彦提交订单接口
+router.post('/submitorder',async (ctx,body) =>{
+  var one = ctx.request.body.data
+  console.log(one)
+  var productNumber = JSON.stringify(one.productNumber)
+  var sql_add = `insert into  orderform (orderNumber,userId,productNumber,generationTime,totalPrice,status,shuliang,shouaddress,shouperson,shoutel) values('${one.orderNumber}','${one.userId}','${productNumber}','${one.generationTime}','${one.totalPrice}','${one.status}','${one.shuliang}','${one.shouaddress}','${one.shouperson}','${one.shoutel}')`
+  const results_reset  = await query(sql_add)
+  ctx.body = results_reset
+})
+
+// 马彦支付成功生成订单接口
+router.post('/neworder',async (ctx,body) =>{
+  var one = ctx.request.body.data
+  console.log(one)
+  var productNumber = JSON.stringify(one.productNumber)
+  var sql_add = `insert into  orderform (orderNumber,userId,productNumber,generationTime,totalPrice,status,shuliang,shouaddress,shouperson,shoutel) values('${one.orderNumber}','${one.userId}','${productNumber}','${one.generationTime}','${one.totalPrice}','${one.status}','${one.shuliang}','${one.shouaddress}','${one.shouperson}','${one.shoutel}')`
+  const results_reset  = await query(sql_add)
+  ctx.body = results_reset
 })
 
 module.exports = router
