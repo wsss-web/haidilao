@@ -219,7 +219,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                         <img src={this.state.evaluate[index].avatar}
                           style={{width:"35px",height:"35px",borderRadius:"50%"}}
                           alt=""></img>
-                        <span style={{position:"relative",left:"10px",bottom:"12px",color:"#FF393A"}}>{this.state.evaluate[index].nickName}</span>
+                        <span style={{position:"relative",left:"10px",bottom:"12px",color:"#FF393A"}}>{this.state.evaluate[index].nickname}</span>
                         <span></span>
                         <div style={{position:"relative",left:"5px",top:"10px"}}>{this.state.evaluate[index].content}</div>
                         <div style={{position:"relative",left:"5px",top:"26px"}}>{this.timestampToTime(this.state.evaluate[index].evaluationTime)}</div>
