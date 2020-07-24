@@ -7,3 +7,28 @@
 	width: 60px;
 	height: 60px;
 }
+.goods_detil{
+	width: 120px;
+	background-color: #000080!important;
+}
+.order_orderc{
+	margin: 0 auto;
+	padding: 15px 0;
+	height: 110px;
+	width: 950%;
+}
+.order_ordert{
+	width: 95%;
+	margin: 0 auto;
+}
+.order_orderb{
+	width: 95%;
+	margin: 0 auto;
+}
+.order_zong span:nth-child(2){
+	color: red;
+	font-size: 15px;
+}
+.order_orderc div:nth-child(2){
+	width: 120px;
+}

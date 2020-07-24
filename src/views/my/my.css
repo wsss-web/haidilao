@@ -31,7 +31,7 @@ body{
 	margin-top: 2px;
 	padding:36px 0px;
 	width: 100%;
-	background:linear-gradient(135deg, rgb(248,65,67),rgb(209,35,36));
+	background:rgb(242,13,3);
 	display: flex;
 	align-items: center;
 }

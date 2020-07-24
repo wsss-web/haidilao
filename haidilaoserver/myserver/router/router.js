@@ -1158,13 +1158,7 @@ router.post('/jie', async (ctx,next) => {
   })
   ctx.body=await a
 })
-<<<<<<< HEAD
-=======
-module.exports = router
 
-module.exports = router
-
->>>>>>> 91cdaa958094afd0d3c08c5e1073fcdb844678fd
 // 查询头像接口
 router.post('/tousel', async (ctx, body) => {
 	console.log(111111)
@@ -1202,8 +1196,6 @@ router.get('/newconn', async(ctx, body) => {
     "thumbUrl": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 	}
 })
-<<<<<<< HEAD
-=======
 
 // 前台订单用接口
 router.post('/moaddress', async (ctx,next) => {
@@ -1238,5 +1230,4 @@ router.post('/moaddress', async (ctx,next) => {
   ctx.body=await a
 })
 
->>>>>>> 91cdaa958094afd0d3c08c5e1073fcdb844678fd
 module.exports = router

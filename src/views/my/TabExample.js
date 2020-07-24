@@ -76,6 +76,7 @@ var TabExample = createReactClass({
 				var sb = response.data.reverse()
 				for(var i=0;i<sb.length;i++){
 					sb[i].productNumber=JSON.parse(sb[i].productNumber)
+					// console.log(sb[i].productNumber)
 				}
 				var arr = sb
 				var list0 = []
@@ -312,7 +313,7 @@ class Order extends React.Component{
 			{row.productNumber.map((row,index)=>{
 				return <div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
-				<div style={{marginLeft:10}}>
+				<div className="goods_detil" style={{marginLeft:'10px'}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
