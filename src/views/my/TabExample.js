@@ -44,21 +44,40 @@ var TabExample = createReactClass({
 		console.log('组件挂载。。。。。')
 		var userid = window.localStorage.getItem('userId')
 		const a = userid
+		// 
+		// var arr=[{orderNumber:'111131',product:[{productName:'啤酒'},{roductName:'牛肉'}],totalPrice:'23',status:'0',shouaddress:'sd11dasd'},
+		// {orderNumber:'111132',product:[{productName:'啤酒'},{productName:'燕麦'}],totalPrice:'23',status:'1',shouaddress:'sd11dasd'},
+		// {orderNumber:'111133',product:[{productName:'燕麦'}],totalPrice:'23',status:'0',shouaddress:'sd11dasd'}]
+		// var list0 = []
+		// var list1 = []
+		// var list2 = []
+		// var list3 = []
+		// for (var i = 0;i < arr.length;i++){
+		// 	if(arr[i].status == '0'){
+		// 		list0.push(arr[i])
+		// 	} else if(arr[i].status == '1'){
+		// 		list1.push(arr[i])
+		// 	} else if(arr[i].status == '2'){
+		// 		list2.push(arr[i])
+		// 	} else if(arr[i].status == '3'){
+		// 		list3.push(arr[i])
+		// 	}
+		// }
+		// this.setState({
+		// 	list0: list0,
+		// 	list1: list1,
+		// 	list2: list2,
+		// 	list3: list3,
+		// })
+		// 
 		axios.post('http://localhost:3001/orderlist',{user:a})
 			.then((response) => {
-				// console.log(response.data)
-				const bb = response.data
-				this.setState({
-					list:bb
-				})
-				var arr = []
-				for (var i = 0;i < bb.length;i++){
-					if(bb[i].userId == a){
-						arr.push(bb[i])
-					}
+				console.log(response.data)
+				var sb = response.data.reverse()
+				for(var i=0;i<sb.length;i++){
+					sb[i].productNumber=JSON.parse(sb[i].productNumber)
 				}
-				console.log(arr)
-				// console.log(arr)
+				var arr = sb
 				var list0 = []
 				var list1 = []
 				var list2 = []
@@ -74,6 +93,7 @@ var TabExample = createReactClass({
 						list3.push(arr[i])
 					}
 				}
+				console.log(list0)
 				this.setState({
 					list0: list0,
 					list1: list1,
@@ -96,8 +116,6 @@ var TabExample = createReactClass({
 				dele_index = i
 			}
 		}
-
-
 		if (dele_index != "aaa") {
 			tmp_list.splice(dele_index , 1)
 			b.status = "3"
@@ -158,14 +176,6 @@ var TabExample = createReactClass({
 			list0:tmp_list0
 		})
 	},
-	pingjia:function(){
-       console.log("大傻逼")
-	},
-	// yyy:function(a){
-    //    this.setState({
-	// 	 sb: a
-	//    })
-	// },
 	render: function() {
 		return <div>
 		<Tabs tabs={tabs}
@@ -244,26 +254,28 @@ class Order extends React.Component{
 	   axios.post('http://localhost:3001/fukuan',{danhao:a.orderNumber})
 			.then((response) => {
 				console.log(response)
-				// this.props.bbb(4,a.orderNumber)
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
 	}
+	// 
 	render(){
 		if(this.props.aaa == '0'){
 			return this.props.list.map((row,index)=>{
 			return <div key={index} className='order_quan'>
 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待付款</span></div>
-			<div className='order_orderc'>
+			{row.productNumber.map((row,index)=>{
+				return <div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
 				<div style={{marginLeft:10}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 				</div>
-				<div style={{marginLeft:94}}>x1</div>
+			  <div style={{marginLeft:94}}>x {row.quantity}</div>
 			</div>
+			})}
 			<div className='order_orderb'>
 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
 				<div className='order_qu1 order_qu' style={{marginRight:12}} onClick={()=>{this.deldan(row)}}>取消订单</div>
@@ -275,15 +287,17 @@ class Order extends React.Component{
 			return this.props.list.map((row,index)=>{
 			return <div key={index} className='order_quan'>
 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待发货</span></div>
-			<div className='order_orderc'>
+			{row.productNumber.map((row,index)=>{
+				return <div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
 				<div style={{marginLeft:10}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 				</div>
-				<div style={{marginLeft:94}}>x1</div>
+				<div style={{marginLeft:94}}>x {row.quantity}</div>
 			</div>
+			})}
 			<div className='order_orderb'>
 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
 				<div className='order_qu1 order_qu order_ti' style={{marginRight:12}}></div>
@@ -295,15 +309,17 @@ class Order extends React.Component{
 			return this.props.list.map((row,index)=>{
 			return <div key={index} className='order_quan'>
 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待收货</span></div>
-			<div className='order_orderc'>
+			{row.productNumber.map((row,index)=>{
+				return <div className='order_orderc'>
 				<img className='goods_img111' src={row.productPicture} alt=""/>
 				<div style={{marginLeft:10}}>
 					<div>{row.productName}</div>
 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 				</div>
-				<div style={{marginLeft:94}}>x1</div>
+				<div style={{marginLeft:94}}>x {row.quantity}</div>
 			</div>
+			})}
 			<div className='order_orderb'>
 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
 				<div className='order_qu1 order_qu order_ti' style={{marginRight:12}}></div>
@@ -315,15 +331,17 @@ class Order extends React.Component{
 			return this.props.list.map((row,index)=>{
 				return <div className='order_quan' key={index}>
 				<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待评价</span></div>
-				<div className='order_orderc'>
+				{row.productNumber.map((row,index)=>{
+					return <div className='order_orderc'>
 					<img className='goods_img111' src={row.productPicture} alt=""/>
 					<div style={{marginLeft:10}}>
 						<div>{row.productName}</div>
 						<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
 						<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
 					</div>
-					<div style={{marginLeft:94}}>x1</div>
+					<div style={{marginLeft:94}}>x {row.quantity}</div>
 				</div>
+				})}
 				<div className='order_orderb'>
 					<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
 					<div className='order_qu1 order_qu order_ti' style={{marginRight:12}}></div>
@@ -333,5 +351,90 @@ class Order extends React.Component{
 			})
 		}
 	}
+
+	// 
+	// render(){
+	// 	if(this.props.aaa == '0'){
+	// 		return this.props.list.map((row,index)=>{
+	// 		return <div key={index} className='order_quan'>
+	// 		<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待付款</span></div>
+	// 		<div className='order_orderc'>
+	// 			<img className='goods_img111' src={row.productPicture} alt=""/>
+	// 			<div style={{marginLeft:10}}>
+	// 				<div>{row.productName}</div>
+	// 				<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
+	// 				<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
+	// 			</div>
+	// 			<div style={{marginLeft:94}}>x1</div>
+	// 		</div>
+	// 		<div className='order_orderb'>
+	// 			<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
+	// 			<div className='order_qu1 order_qu' style={{marginRight:12}} onClick={()=>{this.deldan(row)}}>取消订单</div>
+	// 			<div className='order_qu' onClick={()=>{this.fukuan(row)}}>立即付款</div>
+	// 		</div>
+	// 	</div>
+	// 	})
+	// 	} else if(this.props.aaa == '1'){
+	// 		return this.props.list.map((row,index)=>{
+	// 		return <div key={index} className='order_quan'>
+	// 		<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待发货</span></div>
+	// 		<div className='order_orderc'>
+	// 			<img className='goods_img111' src={row.productPicture} alt=""/>
+	// 			<div style={{marginLeft:10}}>
+	// 				<div>{row.productName}</div>
+	// 				<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
+	// 				<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
+	// 			</div>
+	// 			<div style={{marginLeft:94}}>x1</div>
+	// 		</div>
+	// 		<div className='order_orderb'>
+	// 			<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
+	// 			<div className='order_qu1 order_qu order_ti' style={{marginRight:12}}></div>
+	// 			<div className='order_qu' onClick={()=>{alert('提醒发货成功')}}>提醒发货</div>
+	// 		</div>
+	// 	</div>
+	// 	})
+	// 	} else if(this.props.aaa == '2') {
+	// 		return this.props.list.map((row,index)=>{
+	// 		return <div key={index} className='order_quan'>
+	// 		<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待收货</span></div>
+	// 		<div className='order_orderc'>
+	// 			<img className='goods_img111' src={row.productPicture} alt=""/>
+	// 			<div style={{marginLeft:10}}>
+	// 				<div>{row.productName}</div>
+	// 				<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
+	// 				<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
+	// 			</div>
+	// 			<div style={{marginLeft:94}}>x1</div>
+	// 		</div>
+	// 		<div className='order_orderb'>
+	// 			<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
+	// 			<div className='order_qu1 order_qu order_ti' style={{marginRight:12}}></div>
+	// 			<div className='order_qu' onClick={()=>{this.queshou(row)}}>确认收货</div>
+	// 		</div>
+	// 	</div>
+	// 	})
+	// 	} else if(this.props.aaa == '3') {
+	// 		return this.props.list.map((row,index)=>{
+	// 			return <div className='order_quan' key={index}>
+	// 			<div className='order_ordert'><span>快递订单：</span><span>{row.orderNumber}</span><span className='order_dai'>待评价</span></div>
+	// 			<div className='order_orderc'>
+	// 				<img className='goods_img111' src={row.productPicture} alt=""/>
+	// 				<div style={{marginLeft:10}}>
+	// 					<div>{row.productName}</div>
+	// 					<div style={{color:'red',marginTop:8}}>￥{row.price}</div>
+	// 					<div style={{marginTop:5,fontSize:9}}>支付方式:现金购买</div>
+	// 				</div>
+	// 				<div style={{marginLeft:94}}>x1</div>
+	// 			</div>
+	// 			<div className='order_orderb'>
+	// 				<div className='order_zong' style={{marginLeft:2}}><span>合计：</span><span>{row.totalPrice}</span><span>元</span></div>
+	// 				<div className='order_qu1 order_qu order_ti' style={{marginRight:12}}></div>
+	// 				<div className='order_qu' onClick={()=>{this.props.ping.push({pathname:'/pingjia',query:{a:row,pingjia:this.props.pingjia}})}}>评价</div>
+	// 			</div>
+	// 		</div>
+	// 		})
+	// 	}
+	// }
 }
 export default TabExample
