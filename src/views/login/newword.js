@@ -66,6 +66,7 @@ var Newword = createReactClass({
 								  clear
 								  placeholder="请输入新密码"
 								  ref={el => this.autoFocusInst = el}
+								  type='password'
 								>新密码:</InputItem>
 							</List.Item>
 							<List.Item
@@ -77,6 +78,7 @@ var Newword = createReactClass({
 								  clear
 								  placeholder="请重复输入新密码"
 								  ref={el => this.autoFocusInst = el}
+								  type='password'
 								>重复密码:</InputItem>
 							</List.Item>
 						<div className="btn">

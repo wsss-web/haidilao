@@ -34,7 +34,7 @@ router.post('/user', async(ctx,body) => {
     // 增加客户信息
     if(one_per.status == 1){
       console.log('6666')
-      var sql_add = "insert into user(userId,password,mailbox,phone) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"','"+ one_per.phonenum +"')"
+      var sql_add = "insert into user(userId,password,mailbox,telnumber) values('"+ one_per.userId +"','"+ one_per.password +"','"+ one_per.mailbox +"','"+ one_per.phonenum +"')"
       var results_add = await query(sql_add)
 	  ctx.body = '插入成功'
     }
@@ -538,26 +538,115 @@ router.post('/quCang', async (ctx,next) => {
 })
 
 // 获取订单接口
-router.post('/orderlist', async (ctx,next) => {
-  // console.log('请求收到了')
+router.post('/orderlist1', async (ctx,next) => {
   var user = ctx.request.body.user
-  // console.log(user)
   var a = new Promise(function(resolve,reject){
-    // where userId='${user}' 
-    // const sql_str = `select * from collecting,productinformation where collecting.productNumber=productinformation.productNumber` 
     const sql_str = `select * from orderform left join productinformation on orderform.productNumber=productinformation.productNumber`
     connection.query(sql_str,(err,res,fields)=>{
       if(err){
               reject(err)
               console.log('失败333333333333')
           }else{
-              resolve(res)
-              // console.log(res)
+              // 
+              var arr = []
+              for (var i = 0;i < res.length;i++){
+                if(res[i].userId == user){
+                  arr.push(res[i])
+                }
+              }
+              resolve(arr)
           }
     })
   })
   ctx.body=await a
 })
+
+// 获取订单接口
+router.post('/orderlist', async (ctx,next) => {
+  var user = ctx.request.body.user
+  var a = new Promise(function(resolve,reject){
+    const sql_str = `select * from orderform where userId = '${user}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              resolve(res)
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+// // 获取订单接口
+// router.post('/orderlist1', async (ctx,next) => {
+//   var user = ctx.request.body.user
+//   var a = new Promise(function(resolve,reject){
+//     const sql_str = `select * from orderform left join productinformation on orderform.productNumber=productinformation.productNumber`
+//     connection.query(sql_str,(err,res,fields)=>{
+//       if(err){
+//               reject(err)
+//               console.log('失败333333333333')
+//           }else{
+//               // 
+//               var arr = []
+//               for (var i = 0;i < res.length;i++){
+//                 if(res[i].userId == user){
+//                   arr.push(res[i])
+//                 }
+//               }
+//               for (var j = 0;j < arr.length;j++){
+//                 if(arr[j].productNumber== null){
+//                   const sql_str1 = `select * from orderform where orderNumber=${arr[j].orderNumber}`
+//                   connection.query(sql_str1,(err,res1,fields)=>{
+//                     if(err){
+//                             reject(err)
+//                             console.log('失败333333333333')
+//                         }else{
+//                             // console.log(arr[j])
+//                             // console.log(res1[0].productNumber)
+//                             let a = res1[0].productNumber.split(',')
+//                             // console.log(a)
+//                             for(let k=0;k<a.length;k++){
+//                               // console.log(a[k])
+//                               const sql_str2 = `select * from productinformation where productNumber=${a[k]}`
+//                               connection.query(sql_str2,(err,res2,fields)=>{
+//                                 if(err){
+//                                         reject(err)
+//                                         console.log('失败333333333333')
+//                                     }else{
+//                                         res1[0].productNumber={}
+//                                         // console.log(res1[0])
+//                                         res1[0].productNumber = a[k]
+//                                         res1[0].productName = res2[0].productName
+//                                         res1[0].price = res2[0].price 
+//                                         res1[0].category = res2[0].category
+//                                         res1[0].stocks = res2[0].stocks
+//                                         res1[0].productPicture = res2[0].productPicture
+//                                         res1[0].description = res2[0].description
+//                                         res1[0].zhuangtai = res2[0].zhuangtai
+//                                         // console.log(res1[0])
+//                                         // console.log(arr[j])
+//                                         A(res1[0])
+//                                     }
+//                               })
+//                             }
+//                         }
+//                    })
+//                    console.log(arr[j].productNumber)
+//                     function A(bb){
+//                         console.log(bb)
+//                         // console.log(arr[j].productNumber)
+//                     }
+//                 }
+//               }
+              
+//               resolve(arr)
+//           }
+//     })
+//   })
+//   ctx.body=await a
+// })
 // 取消订单接口
 router.post('/delorder', async (ctx,next) => {
   console.log('请求收到了')
@@ -1064,7 +1153,6 @@ router.post('/touset', async (ctx, body) => {
 	var sql = "UPDATE user SET avatar = '"+ img_path +"' WHERE userId = '"+ userId +"'"
 	var results = await query(sql)
 	ctx.body = img_path
-	console.log(one_per)
 	// var sql = "update user set avatar = '"+ one_per. +"'"
 })
 
@@ -1130,6 +1218,5 @@ router.post('/neworder',async (ctx,body) =>{
   const results_reset  = await query(sql_add)
   ctx.body = results_reset
 })
-
 
 module.exports = router

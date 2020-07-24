@@ -96,7 +96,7 @@ export default class Confirm extends React.Component{ // eslint-disable-next-lin
             function(res){
                 // console.log(res.data)
                 Toast.info('购买成功，等待发货' , 1 );
-                // that.props.history.push({pathname:'/Order',query:{name:1}})
+                that.props.history.push({pathname:'/Order',query:{name:2}})
             },
             function(err){
                 console.log(err)
@@ -127,7 +127,7 @@ export default class Confirm extends React.Component{ // eslint-disable-next-lin
             function(res){
                 // console.log(res.data)
                 Toast.info('已提交订单，等待付款' , 1 );
-                // that.props.history.push({pathname:'/Order',query:{name:2}})
+                that.props.history.push({pathname:'/Order',query:{name:1}})
             },
             function(err){
                 console.log(err)

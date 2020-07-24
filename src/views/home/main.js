@@ -38,7 +38,7 @@ export default class Home extends React.Component {
 			<div>
 				<HomeNavBar></HomeNavBar>
 				<div className="home_content">
-					<div style={{ width:"100%", height:"200px", backgroundColor:"#E83538", borderBottomRightRadius:"40px", borderBottomLeftRadius:"40px", overflow:"hidden"}}>
+					<div className="beijing" style={{ width:"100%", height:"200px", borderBottomRightRadius:"40px", borderBottomLeftRadius:"40px", overflow:"hidden"}}>
 						<div onClick={this.SearchFn.bind(this)}>
 							<SearchBar disabled></SearchBar>
 						</div>
