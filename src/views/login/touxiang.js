@@ -37,6 +37,7 @@ export default class Avatar extends React.Component {
 	 })
 		.then(
 			function(res){
+				console.log(res.data)
 				that.setState({
 					imageUrl: res.data.avatar
 				})
@@ -68,6 +69,7 @@ export default class Avatar extends React.Component {
 			  imgurl: this.state.imageUrl
 		  }
 		  console.log(data)
+		  console.log('请求修改.....')
 		  axios.post('http://localhost:3001/touset', {
 		  		  data: data
 		  })

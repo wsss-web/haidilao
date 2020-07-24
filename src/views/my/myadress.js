@@ -37,7 +37,6 @@ var Myadress = createReactClass({
 			}
 		}
 	  return <div>
-		  
 		        <div className='my_view1'>
 		        <div className={flag?'dis':'my_title1'}>
 					<div className='Rorder1' onClick={()=>{this.titletiao()}}></div><span style={{marginLeft:4}}>收货地址列表</span>
@@ -62,6 +61,7 @@ class Address extends React.Component{
 		}
 		this.xxx=this.xxx.bind(this)
 		this.yyy=this.yyy.bind(this)
+		this.xuandi=this.xuandi.bind(this)
 	}
 	componentDidMount(){		
 		var userid = window.localStorage.getItem('userId')

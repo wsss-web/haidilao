@@ -72,7 +72,8 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     }
     // 时间戳转换为年月日时分秒
     timestampToTime(timestamp){
-      var date = new Date();
+      // console.log(timestamp)
+      var date = new Date(timestamp - 0);
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
         var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
@@ -219,7 +220,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                         <img src={this.state.evaluate[index].avatar}
                           style={{width:"35px",height:"35px",borderRadius:"50%"}}
                           alt=""></img>
-                        <span style={{position:"relative",left:"10px",bottom:"12px",color:"#FF393A"}}>{this.state.evaluate[index].nickName}</span>
+                        <span style={{position:"relative",left:"10px",bottom:"12px",color:"#FF393A"}}>{this.state.evaluate[index].nickname}</span>
                         <span></span>
                         <div style={{position:"relative",left:"5px",top:"10px"}}>{this.state.evaluate[index].content}</div>
                         <div style={{position:"relative",left:"5px",top:"26px"}}>{this.timestampToTime(this.state.evaluate[index].evaluationTime)}</div>

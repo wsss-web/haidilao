@@ -22,6 +22,12 @@ var My = createReactClass({
 			data: {status: 4, userid: userId}
 		}).then(
 			function(res){
+				console.log(res.data)
+				if(res.data.nickname == null){
+					that.setState({
+						nickname: '请点击修改昵称',
+					})
+				}
 				that.setState({
 					userinfo:res.data
 				})
@@ -118,7 +124,7 @@ class ListExample extends React.Component { // eslint-disable-next-line
 		  <Item arrow="horizontal" onClick={() => {this.props.aa.push({pathname:'/odrerping',query:{a:'我的评价',b:'您还没有评价哦'}})}}>我的评价</Item>
 		</List>
 		<List className="my-list" style={{marginTop:9}}>
-		<Item arrow="horizontal" onClick={() => {}}>重新登录</Item>
+		<Item arrow="horizontal" onClick={() => {this.props.aa.push('/')}}>重新登录</Item>
 		</List>
 	  </div>);
 	}
