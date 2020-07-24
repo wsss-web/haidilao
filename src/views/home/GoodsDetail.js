@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import { NavBar, Icon } from 'antd-mobile';
 // import { Carousel, WingBlank, TabBar } from 'antd-mobile';
 import { TabBar,Toast } from 'antd-mobile';
-import Navbar from '../home/js/Navbar.js'
-import MyPopup from "../home/js/Popup.js"
+// import Navbar from '../home/js/Navbar.js';
+import MyPopup from "../home/js/Popup.js";
 
 export default class GoodsDetail extends React.Component{ // eslint-disable-next-line
     constructor(props){
@@ -24,6 +25,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
       // console.log(this.props.location.state.item)
       this.setState({
         goodsdetail: this.props.location.state.item,
+        abc:this.props.location.state.abc,
         userId: userId
       })
       axios.post('http://localhost:3001/collectInfo',{
@@ -167,7 +169,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     render(){
         return(
             <div style={{position:"relative",backgroundColor:"white"}}>
-                <Navbar name="商品详情" history={this.props.history}></Navbar>
+                <Navbar name="商品详情" history={this.props.history} abc={this.state.abc}></Navbar>
                 <div style={{width:"100%",
                         height:"560px",
                         overflow:"scroll"}}>
@@ -271,7 +273,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                             height: '50px',
                             color: 'white',
                             lineHeight: '50px',
-                            backgroundColor: '#E83538' }}
+                            backgroundColor: '#F60100' }}
                     >加入购物车</div>}></TabBar.Item>
                     <TabBar.Item
                       icon={<div style={{
@@ -280,7 +282,7 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
                             color: 'white',
                             lineHeight: '50px',
                             backgroundColor: '#383838' }}
-                    ><MyPopup goodsdetail={this.state.goodsdetail}></MyPopup>
+                    ><MyPopup goodsdetail={this.state.goodsdetail} history={this.props.history}></MyPopup>
                     </div>}></TabBar.Item>
                 </TabBar>
             </div>
@@ -288,6 +290,37 @@ export default class GoodsDetail extends React.Component{ // eslint-disable-next
     }
 }
 
+class Navbar extends React.Component { // eslint-disable-next-line
+	constructor(props) {
+		super(props)
+
+	}
+	backFn(){
+    // console.log(this.props.history)
+    // console.log(this.props.abc)
+    if(this.props.abc === 1){
+      this.props.history.push({pathname:'/home',state:{item:this.props.goodsdetail}})
+    }else{
+      // this.props.history.go(-1)
+      this.props.history.goBack()
+    }
+	}
+	render() {
+		return (
+				<div>
+				  <NavBar
+					mode="dark"
+					icon={<Icon type="left" />}
+					style={{ backgroundColor:"white", color:"black" }}
+					onLeftClick={this.backFn.bind(this)}
+					rightContent={[
+					  <Icon key="1" type="ellipsis" />,
+					]}
+				  >{this.props.name}</NavBar>
+				</div>
+		)
+	}
+}
 
 // 商品轮播图
 // class MyCarousel extends React.Component {

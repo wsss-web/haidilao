@@ -33,6 +33,13 @@ export default class MyPopup extends React.Component {
         val: val
     })
   }
+  confirmFn(){
+    //   console.log(this.props.history)
+    localStorage.setItem('goodsdetail', JSON.stringify(this.props.goodsdetail))
+    var goodsdetail = JSON.parse(localStorage.getItem('goodsdetail'))
+    // console.log(goodsdetail)
+    this.props.history.push({pathname:'/confirmorder',state:{goodsdetail:goodsdetail,goodsNum:this.state.val}})
+  }
   render() {
     // console.log(this.state.goodsdetail)
     // console.log(this.state.val)
@@ -66,7 +73,8 @@ export default class MyPopup extends React.Component {
             }}>已选择{this.state.val}件，总价为{(this.state.val * this.state.goodsdetail.price).toFixed(2)}元</span>
                 <StepDemo parent={this}></StepDemo>
                 <WingBlank>
-                    <Button type="primary" style={{marginTop:"10px"}} onClick={this.onClose('modal2')}>确认</Button>
+                    <Button type="primary" style={{marginTop:"10px"}} 
+                        onClick={()=>{this.confirmFn()}}>确认</Button>
                 </WingBlank>
             </div>
         </Modal>

@@ -13,6 +13,7 @@ import My from '../views/my/my.js'
 import Cang from '../views/my/mycang.js'
 import Order from '../views/my/odrer.js'
 import Odrershou from '../views/my/odrershou.js'
+import Odrerping from '../views/my/odrerping.js'
 import Login from '../views/login/login.js'
 import Search from '../views/home/Search.js'
 import Vouchers from '../views/home/Vouchers.js'
@@ -47,6 +48,7 @@ export default function Bar() {
             <Route exact path="/confirmorder" component={Confirmorder}/>
             <Route exact path="/order" component={Order}/>
             <Route exact path="/odrershou" component={Odrershou}/>
+            <Route exact path="/odrerping" component={Odrerping}/>
             <Route exact path="/myadress" component={Myadress}/>
             <Route exact path="/mycang" component={Cang}/>
             <Route exact path="/forget" component={Forget} />

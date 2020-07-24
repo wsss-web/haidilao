@@ -194,7 +194,7 @@ router.post('/cartDelete', async (ctx,next) => {
     var a = new Promise(function(resolve,reject){
     console.log('1111111')
           for(var i=0; i<goodsNum.length; i++){
-            idd =goodsNum[i]
+            var idd =goodsNum[i]
             console.log("222222222")
             var sql_str = "delete from shoppingCart where productNumber='"+ idd +"'&& userId='"+ one_per.userId +"'"
             connection.query(sql_str,(err,res,fields)=>{
@@ -337,6 +337,7 @@ router.post('/chaxunmoren', async (ctx,next) => {
   // })
   // ctx.body=await a
 })
+
 // 默认地址接口
 router.post('/moren', async (ctx,next) => {
   var id = ctx.request.body.id.id
@@ -414,7 +415,7 @@ router.post('/addaddress', async (ctx,next) => {
     ctx.body=await a
   } else {
     var a = new Promise(function(resolve,reject){
-      const sql_str = `update receivingaddress set mo=0 where mo=1 and userId=${userId}`
+      const sql_str = `update receivingaddress set mo='0' where mo='1' and userId='${userId}'`
       connection.query(sql_str,(err,res,fields)=>{
         if(err){
                 reject('失败le')
@@ -436,6 +437,40 @@ router.post('/addaddress', async (ctx,next) => {
     ctx.body=await a
   }
 })
+
+// 前台订单用接口
+router.post('/moaddress', async (ctx,next) => {
+  // console.log('请求收到了')
+  var userId = ctx.request.body.userId
+  // console.log(user)
+  var a = new Promise(function(resolve,reject){
+    // const sql_str = `select * from collecting,productinformation where collecting.productNumber=productinformation.productNumber` 
+    const sql_str = `select * from receivingaddress where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              if(res.length==0){
+                resolve('没有地址哦')
+              }else{
+                var a = '0'
+                for(var i=0;i<res.length;i++){
+                  if(res[i].mo=='1'){
+                    resolve(res[i])
+                    a = '1'
+                  }
+                }
+                if(a=='0'){
+                  resolve(res[0])
+                }
+              }
+          }
+    })
+  })
+  ctx.body=await a
+})
+
 
 // 编辑地址接口
 router.post('/bianaddress', async (ctx,next) => {
@@ -919,7 +954,7 @@ router.post('/manydelgoods', async (ctx,next) => {
   console.log(id)
   var a = new Promise(function(resolve,reject){
       for(var i=0; i<id.length; i++){
-          idd = id[i]
+          var idd = id[i]
           var sql_str = `delete from productinformation where productNumber = "${idd}"`
           connection.query(sql_str,(err,res,fields)=>{
               if(err){
@@ -1034,6 +1069,13 @@ router.post('/jie', async (ctx,next) => {
   })
   ctx.body=await a
 })
+<<<<<<< HEAD
+=======
+module.exports = router
+
+module.exports = router
+
+>>>>>>> 91cdaa958094afd0d3c08c5e1073fcdb844678fd
 // 查询头像接口
 router.post('/tousel', async (ctx, body) => {
 	console.log(111111)
@@ -1071,4 +1113,41 @@ router.get('/newconn', async(ctx, body) => {
     "thumbUrl": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
 	}
 })
+<<<<<<< HEAD
+=======
+
+// 前台订单用接口
+router.post('/moaddress', async (ctx,next) => {
+  // console.log('请求收到了')
+  var userId = ctx.request.body.data.userId
+  // console.log(user)
+  var a = new Promise(function(resolve,reject){
+    // const sql_str = `select * from collecting,productinformation where collecting.productNumber=productinformation.productNumber` 
+    const sql_str = `select * from receivingaddress where userId='${userId}'`
+    connection.query(sql_str,(err,res,fields)=>{
+      if(err){
+              reject(err)
+              console.log('失败333333333333')
+          }else{
+              if(res.length==0){
+                resolve([])
+              }else{
+                var a = '0'
+                for(var i=0;i<res.length;i++){
+                  if(res[i].mo=='1'){
+                    resolve(res[i])
+                    a = '1'
+                  }
+                }
+                if(a=='0'){
+                  resolve(res[0])
+                }
+              }
+          }
+    })
+  })
+  ctx.body=await a
+})
+
+>>>>>>> 91cdaa958094afd0d3c08c5e1073fcdb844678fd
 module.exports = router

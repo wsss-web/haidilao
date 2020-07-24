@@ -98,12 +98,12 @@ export default class Avatar extends React.Component {
         name="avatar"
         listType="picture-card"
         className="avatar-uploader"
-		action="http://localhost:3001/newconn"
+		    action="http://localhost:3001/newconn"
         showUploadList={false}
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' , borderRadius: '50%'}} /> : uploadButton}
+        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '55px',height:"55px", borderRadius: '50%'}} /> : uploadButton}
       </Upload>
     );
   }

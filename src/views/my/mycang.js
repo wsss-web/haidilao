@@ -11,7 +11,7 @@ var Cang = createReactClass({
 		        <div className='my_title2'>
 					<div className='Rorder' onClick={()=>{this.props.history.push('/my')}}></div><span style={{marginLeft:4}}>收藏</span>
 				</div>
-				<Scang />
+				<Scang history={this.props.history} />
 				</div>
 				{/* <Tablebar history={this.props.history}/> */}
 			 </div>
@@ -56,17 +56,22 @@ class Scang extends React.Component{
 				console.log(error);
 			});
 	}
+	GoodsDetailFn(row){
+		var that = this
+		that.props.history.push({pathname:'/goodsdetail',state:{item:row}})
+		// console.log(item)
+	}
 	render(){
 		return this.state.list.map((row,index)=>{
 			return  <div className='my_cang' key={index}>
-						<div className='my_cang1'>
+						<div className='my_cang1' onClick={()=>this.GoodsDetailFn(row)}>
 							<img className='cang_tu' alt='' src={row.productPicture}/>
 							{/* require('../../icon/jiu.png') */}
 							<div style={{marginLeft:10}}>
 								<div>{row.productName}</div>
 								<div style={{color:'red',marginTop:12}}>￥{row.price}</div>
 							</div>
-							<div className='del_cang'><span className='del_shou' onClick={()=>{this.xxx(row.productNumber)}}>取消收藏</span></div>
+							<div className='del_cang'><span className='del_shou' onClick={(event)=>{event.stopPropagation();this.xxx(row.productNumber)}}>取消收藏</span></div>
 						</div>
 		            </div>
 		}) 
